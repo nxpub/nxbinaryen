@@ -4,6 +4,8 @@ setup(
     name='nxbinaryen',
     version='1.111.0',
     url='https://github.com/nxpub/nxbinaryen',
+    author='NX Maintainer',
+    author_email='support@nx.pub',
     description='Python Bindings for Binaryen',
     license='MIT License',
     license_files=('LICENSE',),
@@ -11,7 +13,7 @@ setup(
     include_package_data=True,
     setup_requires=['cffi>=1.13.2'],
     install_requires=['cffi>=1.13.2'],
-    cffi_modules=['./scripts/build_ffi.py:ffi'],
+    cffi_modules=['scripts/build_ffi.py:ffi'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
