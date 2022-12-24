@@ -1,8 +1,9 @@
+# Manually curated port of binaryen/test/example/c-api-kitchen-sink.c (49fb2e23bb3c932389f23fdda33a32d034ca9a0c)
+# https://github.com/WebAssembly/binaryen/blob/49fb2e23bb3c932389f23fdda33a32d034ca9a0c/test/example/c-api-kitchen-sink.c
+
 import sys
 
 from nxbinaryen.capi import *
-
-v128_bytes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
 
 def printf(fmt: str, *values):
@@ -15,6 +16,11 @@ puts = print
 
 def abort():
     sys.exit(1)
+
+
+# -------- c-api-kitchen-sink.c --------
+
+v128_bytes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
 
 def makeUnary(module: BinaryenModuleRef, op: BinaryenOp, inputType: BinaryenType) -> BinaryenExpressionRef:
