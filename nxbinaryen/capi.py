@@ -1,104 +1,185 @@
+# *** DO NOT EDIT ***
 # Auto-generated from binaryen-c.h
 from nxbinaryen._binaryen_capi import ffi, lib
 from typing import List, Any
 
 
-BinaryenType = Any
-BinaryenHeapType = BinaryenPackedType = BinaryenBasicHeapType = Any
-BinaryenIndex = BinaryenOp = Any
-BinaryenModuleAllocateAndWriteResult = Any
-BinaryenTypeSystem = BinaryenBufferSizes = Any
-BinaryenExpressionId = BinaryenExternalKind = BinaryenFeatures = BinaryenSideEffects = Any
-BinaryenLiteral = Any
-BinaryenModuleRef = BinaryenExpressionRef = TypeBuilderRef = BinaryenGlobalRef = BinaryenTagRef = Any
-BinaryenTableRef = BinaryenFunctionRef = BinaryenExportRef = BinaryenElementSegmentRef = Any
-RelooperRef = RelooperBlockRef = Any
-TypeBuilderErrorReason = Any
-ExpressionRunnerFlags = ExpressionRunnerRef = Any
+BinaryenIndex = int
+BinaryenType = int
+BinaryenPackedType = int
+BinaryenHeapType = int
+BinaryenTypeSystem = int
+BinaryenExpressionId = int
+BinaryenExternalKind = int
+BinaryenFeatures = int
+BinaryenModuleRef = int
+BinaryenLiteral = Any  # struct
+BinaryenOp = int
+BinaryenExpressionRef = int
+BinaryenFunctionRef = int
+BinaryenMemoryRef = int
+BinaryenExportRef = int
+BinaryenGlobalRef = int
+BinaryenTagRef = int
+BinaryenTableRef = int
+BinaryenElementSegmentRef = int
+BinaryenBufferSizes = Any  # struct
+BinaryenModuleAllocateAndWriteResult = Any  # struct
+BinaryenSideEffects = int
+RelooperRef = int
+RelooperBlockRef = int
+ExpressionRunnerRef = int
+ExpressionRunnerFlags = int
+TypeBuilderRef = int
+TypeBuilderErrorReason = int
+BinaryenBasicHeapType = int
 
 
 def TypeNone() -> BinaryenType:
     return lib.BinaryenTypeNone()
 
 
+BinaryenTypeNone = TypeNone
+
+
 def TypeInt32() -> BinaryenType:
     return lib.BinaryenTypeInt32()
+
+
+BinaryenTypeInt32 = TypeInt32
 
 
 def TypeInt64() -> BinaryenType:
     return lib.BinaryenTypeInt64()
 
 
+BinaryenTypeInt64 = TypeInt64
+
+
 def TypeFloat32() -> BinaryenType:
     return lib.BinaryenTypeFloat32()
+
+
+BinaryenTypeFloat32 = TypeFloat32
 
 
 def TypeFloat64() -> BinaryenType:
     return lib.BinaryenTypeFloat64()
 
 
+BinaryenTypeFloat64 = TypeFloat64
+
+
 def TypeVec128() -> BinaryenType:
     return lib.BinaryenTypeVec128()
+
+
+BinaryenTypeVec128 = TypeVec128
 
 
 def TypeFuncref() -> BinaryenType:
     return lib.BinaryenTypeFuncref()
 
 
+BinaryenTypeFuncref = TypeFuncref
+
+
 def TypeExternref() -> BinaryenType:
     return lib.BinaryenTypeExternref()
+
+
+BinaryenTypeExternref = TypeExternref
 
 
 def TypeAnyref() -> BinaryenType:
     return lib.BinaryenTypeAnyref()
 
 
+BinaryenTypeAnyref = TypeAnyref
+
+
 def TypeEqref() -> BinaryenType:
     return lib.BinaryenTypeEqref()
+
+
+BinaryenTypeEqref = TypeEqref
 
 
 def TypeI31ref() -> BinaryenType:
     return lib.BinaryenTypeI31ref()
 
 
+BinaryenTypeI31ref = TypeI31ref
+
+
 def TypeDataref() -> BinaryenType:
     return lib.BinaryenTypeDataref()
+
+
+BinaryenTypeDataref = TypeDataref
 
 
 def TypeArrayref() -> BinaryenType:
     return lib.BinaryenTypeArrayref()
 
 
+BinaryenTypeArrayref = TypeArrayref
+
+
 def TypeStringref() -> BinaryenType:
     return lib.BinaryenTypeStringref()
+
+
+BinaryenTypeStringref = TypeStringref
 
 
 def TypeStringviewWTF8() -> BinaryenType:
     return lib.BinaryenTypeStringviewWTF8()
 
 
+BinaryenTypeStringviewWTF8 = TypeStringviewWTF8
+
+
 def TypeStringviewWTF16() -> BinaryenType:
     return lib.BinaryenTypeStringviewWTF16()
+
+
+BinaryenTypeStringviewWTF16 = TypeStringviewWTF16
 
 
 def TypeStringviewIter() -> BinaryenType:
     return lib.BinaryenTypeStringviewIter()
 
 
+BinaryenTypeStringviewIter = TypeStringviewIter
+
+
 def TypeNullref() -> BinaryenType:
     return lib.BinaryenTypeNullref()
+
+
+BinaryenTypeNullref = TypeNullref
 
 
 def TypeNullExternref() -> BinaryenType:
     return lib.BinaryenTypeNullExternref()
 
 
+BinaryenTypeNullExternref = TypeNullExternref
+
+
 def TypeNullFuncref() -> BinaryenType:
     return lib.BinaryenTypeNullFuncref()
 
 
+BinaryenTypeNullFuncref = TypeNullFuncref
+
+
 def TypeUnreachable() -> BinaryenType:
     return lib.BinaryenTypeUnreachable()
+
+
+BinaryenTypeUnreachable = TypeUnreachable
 
 
 def TypeAuto() -> BinaryenType:
@@ -109,16 +190,26 @@ def TypeAuto() -> BinaryenType:
     return lib.BinaryenTypeAuto()
 
 
+BinaryenTypeAuto = TypeAuto
+
+
 def TypeCreate(
     value_types: List[BinaryenType],
+    num_types: BinaryenIndex,
 ) -> BinaryenType:
-    return lib.BinaryenTypeCreate(value_types, len(value_types))
+    return lib.BinaryenTypeCreate(value_types, num_types)
+
+
+BinaryenTypeCreate = TypeCreate
 
 
 def TypeArity(
     t: BinaryenType,
 ) -> int:
     return lib.BinaryenTypeArity(t)
+
+
+BinaryenTypeArity = TypeArity
 
 
 def TypeExpand(
@@ -128,72 +219,126 @@ def TypeExpand(
     lib.BinaryenTypeExpand(t, buf)
 
 
+BinaryenTypeExpand = TypeExpand
+
+
 def PackedTypeNotPacked() -> BinaryenPackedType:
     return lib.BinaryenPackedTypeNotPacked()
+
+
+BinaryenPackedTypeNotPacked = PackedTypeNotPacked
 
 
 def PackedTypeInt8() -> BinaryenPackedType:
     return lib.BinaryenPackedTypeInt8()
 
 
+BinaryenPackedTypeInt8 = PackedTypeInt8
+
+
 def PackedTypeInt16() -> BinaryenPackedType:
     return lib.BinaryenPackedTypeInt16()
+
+
+BinaryenPackedTypeInt16 = PackedTypeInt16
 
 
 def HeapTypeExt() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeExt()
 
 
+BinaryenHeapTypeExt = HeapTypeExt
+
+
 def HeapTypeFunc() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeFunc()
+
+
+BinaryenHeapTypeFunc = HeapTypeFunc
 
 
 def HeapTypeAny() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeAny()
 
 
+BinaryenHeapTypeAny = HeapTypeAny
+
+
 def HeapTypeEq() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeEq()
+
+
+BinaryenHeapTypeEq = HeapTypeEq
 
 
 def HeapTypeI31() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeI31()
 
 
+BinaryenHeapTypeI31 = HeapTypeI31
+
+
 def HeapTypeData() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeData()
+
+
+BinaryenHeapTypeData = HeapTypeData
 
 
 def HeapTypeArray() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeArray()
 
 
+BinaryenHeapTypeArray = HeapTypeArray
+
+
 def HeapTypeString() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeString()
+
+
+BinaryenHeapTypeString = HeapTypeString
 
 
 def HeapTypeStringviewWTF8() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeStringviewWTF8()
 
 
+BinaryenHeapTypeStringviewWTF8 = HeapTypeStringviewWTF8
+
+
 def HeapTypeStringviewWTF16() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeStringviewWTF16()
+
+
+BinaryenHeapTypeStringviewWTF16 = HeapTypeStringviewWTF16
 
 
 def HeapTypeStringviewIter() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeStringviewIter()
 
 
+BinaryenHeapTypeStringviewIter = HeapTypeStringviewIter
+
+
 def HeapTypeNone() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeNone()
+
+
+BinaryenHeapTypeNone = HeapTypeNone
 
 
 def HeapTypeNoext() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeNoext()
 
 
+BinaryenHeapTypeNoext = HeapTypeNoext
+
+
 def HeapTypeNofunc() -> BinaryenHeapType:
     return lib.BinaryenHeapTypeNofunc()
+
+
+BinaryenHeapTypeNofunc = HeapTypeNofunc
 
 
 def HeapTypeIsBasic(
@@ -202,10 +347,16 @@ def HeapTypeIsBasic(
     return lib.BinaryenHeapTypeIsBasic(heap_type)
 
 
+BinaryenHeapTypeIsBasic = HeapTypeIsBasic
+
+
 def HeapTypeIsSignature(
     heap_type: BinaryenHeapType,
 ) -> bool:
     return lib.BinaryenHeapTypeIsSignature(heap_type)
+
+
+BinaryenHeapTypeIsSignature = HeapTypeIsSignature
 
 
 def HeapTypeIsStruct(
@@ -214,10 +365,16 @@ def HeapTypeIsStruct(
     return lib.BinaryenHeapTypeIsStruct(heap_type)
 
 
+BinaryenHeapTypeIsStruct = HeapTypeIsStruct
+
+
 def HeapTypeIsArray(
     heap_type: BinaryenHeapType,
 ) -> bool:
     return lib.BinaryenHeapTypeIsArray(heap_type)
+
+
+BinaryenHeapTypeIsArray = HeapTypeIsArray
 
 
 def HeapTypeIsBottom(
@@ -226,10 +383,16 @@ def HeapTypeIsBottom(
     return lib.BinaryenHeapTypeIsBottom(heap_type)
 
 
+BinaryenHeapTypeIsBottom = HeapTypeIsBottom
+
+
 def HeapTypeGetBottom(
     heap_type: BinaryenHeapType,
 ) -> BinaryenHeapType:
     return lib.BinaryenHeapTypeGetBottom(heap_type)
+
+
+BinaryenHeapTypeGetBottom = HeapTypeGetBottom
 
 
 def HeapTypeIsSubType(
@@ -239,10 +402,16 @@ def HeapTypeIsSubType(
     return lib.BinaryenHeapTypeIsSubType(left, right)
 
 
+BinaryenHeapTypeIsSubType = HeapTypeIsSubType
+
+
 def StructTypeGetNumFields(
     heap_type: BinaryenHeapType,
 ) -> BinaryenIndex:
     return lib.BinaryenStructTypeGetNumFields(heap_type)
+
+
+BinaryenStructTypeGetNumFields = StructTypeGetNumFields
 
 
 def StructTypeGetFieldType(
@@ -252,11 +421,17 @@ def StructTypeGetFieldType(
     return lib.BinaryenStructTypeGetFieldType(heap_type, index)
 
 
+BinaryenStructTypeGetFieldType = StructTypeGetFieldType
+
+
 def StructTypeGetFieldPackedType(
     heap_type: BinaryenHeapType,
     index: BinaryenIndex,
 ) -> BinaryenPackedType:
     return lib.BinaryenStructTypeGetFieldPackedType(heap_type, index)
+
+
+BinaryenStructTypeGetFieldPackedType = StructTypeGetFieldPackedType
 
 
 def StructTypeIsFieldMutable(
@@ -266,10 +441,16 @@ def StructTypeIsFieldMutable(
     return lib.BinaryenStructTypeIsFieldMutable(heap_type, index)
 
 
+BinaryenStructTypeIsFieldMutable = StructTypeIsFieldMutable
+
+
 def ArrayTypeGetElementType(
     heap_type: BinaryenHeapType,
 ) -> BinaryenType:
     return lib.BinaryenArrayTypeGetElementType(heap_type)
+
+
+BinaryenArrayTypeGetElementType = ArrayTypeGetElementType
 
 
 def ArrayTypeGetElementPackedType(
@@ -278,10 +459,16 @@ def ArrayTypeGetElementPackedType(
     return lib.BinaryenArrayTypeGetElementPackedType(heap_type)
 
 
+BinaryenArrayTypeGetElementPackedType = ArrayTypeGetElementPackedType
+
+
 def ArrayTypeIsElementMutable(
     heap_type: BinaryenHeapType,
 ) -> bool:
     return lib.BinaryenArrayTypeIsElementMutable(heap_type)
+
+
+BinaryenArrayTypeIsElementMutable = ArrayTypeIsElementMutable
 
 
 def SignatureTypeGetParams(
@@ -290,10 +477,16 @@ def SignatureTypeGetParams(
     return lib.BinaryenSignatureTypeGetParams(heap_type)
 
 
+BinaryenSignatureTypeGetParams = SignatureTypeGetParams
+
+
 def SignatureTypeGetResults(
     heap_type: BinaryenHeapType,
 ) -> BinaryenType:
     return lib.BinaryenSignatureTypeGetResults(heap_type)
+
+
+BinaryenSignatureTypeGetResults = SignatureTypeGetResults
 
 
 def TypeGetHeapType(
@@ -302,10 +495,16 @@ def TypeGetHeapType(
     return lib.BinaryenTypeGetHeapType(_type)
 
 
+BinaryenTypeGetHeapType = TypeGetHeapType
+
+
 def TypeIsNullable(
     _type: BinaryenType,
 ) -> bool:
     return lib.BinaryenTypeIsNullable(_type)
+
+
+BinaryenTypeIsNullable = TypeIsNullable
 
 
 def TypeFromHeapType(
@@ -315,20 +514,35 @@ def TypeFromHeapType(
     return lib.BinaryenTypeFromHeapType(heap_type, nullable)
 
 
+BinaryenTypeFromHeapType = TypeFromHeapType
+
+
 def TypeSystemEquirecursive() -> BinaryenTypeSystem:
     return lib.BinaryenTypeSystemEquirecursive()
+
+
+BinaryenTypeSystemEquirecursive = TypeSystemEquirecursive
 
 
 def TypeSystemNominal() -> BinaryenTypeSystem:
     return lib.BinaryenTypeSystemNominal()
 
 
+BinaryenTypeSystemNominal = TypeSystemNominal
+
+
 def TypeSystemIsorecursive() -> BinaryenTypeSystem:
     return lib.BinaryenTypeSystemIsorecursive()
 
 
+BinaryenTypeSystemIsorecursive = TypeSystemIsorecursive
+
+
 def GetTypeSystem() -> BinaryenTypeSystem:
     return lib.BinaryenGetTypeSystem()
+
+
+BinaryenGetTypeSystem = GetTypeSystem
 
 
 def SetTypeSystem(
@@ -337,436 +551,763 @@ def SetTypeSystem(
     lib.BinaryenSetTypeSystem(type_system)
 
 
+BinaryenSetTypeSystem = SetTypeSystem
+
+
 def InvalidId() -> BinaryenExpressionId:
     return lib.BinaryenInvalidId()
+
+
+BinaryenInvalidId = InvalidId
 
 
 def NopId() -> BinaryenExpressionId:
     return lib.BinaryenNopId()
 
 
+BinaryenNopId = NopId
+
+
 def BlockId() -> BinaryenExpressionId:
     return lib.BinaryenBlockId()
+
+
+BinaryenBlockId = BlockId
 
 
 def IfId() -> BinaryenExpressionId:
     return lib.BinaryenIfId()
 
 
+BinaryenIfId = IfId
+
+
 def LoopId() -> BinaryenExpressionId:
     return lib.BinaryenLoopId()
+
+
+BinaryenLoopId = LoopId
 
 
 def BreakId() -> BinaryenExpressionId:
     return lib.BinaryenBreakId()
 
 
+BinaryenBreakId = BreakId
+
+
 def SwitchId() -> BinaryenExpressionId:
     return lib.BinaryenSwitchId()
+
+
+BinaryenSwitchId = SwitchId
 
 
 def CallId() -> BinaryenExpressionId:
     return lib.BinaryenCallId()
 
 
+BinaryenCallId = CallId
+
+
 def CallIndirectId() -> BinaryenExpressionId:
     return lib.BinaryenCallIndirectId()
+
+
+BinaryenCallIndirectId = CallIndirectId
 
 
 def LocalGetId() -> BinaryenExpressionId:
     return lib.BinaryenLocalGetId()
 
 
+BinaryenLocalGetId = LocalGetId
+
+
 def LocalSetId() -> BinaryenExpressionId:
     return lib.BinaryenLocalSetId()
+
+
+BinaryenLocalSetId = LocalSetId
 
 
 def GlobalGetId() -> BinaryenExpressionId:
     return lib.BinaryenGlobalGetId()
 
 
+BinaryenGlobalGetId = GlobalGetId
+
+
 def GlobalSetId() -> BinaryenExpressionId:
     return lib.BinaryenGlobalSetId()
+
+
+BinaryenGlobalSetId = GlobalSetId
 
 
 def LoadId() -> BinaryenExpressionId:
     return lib.BinaryenLoadId()
 
 
+BinaryenLoadId = LoadId
+
+
 def StoreId() -> BinaryenExpressionId:
     return lib.BinaryenStoreId()
+
+
+BinaryenStoreId = StoreId
 
 
 def AtomicRMWId() -> BinaryenExpressionId:
     return lib.BinaryenAtomicRMWId()
 
 
+BinaryenAtomicRMWId = AtomicRMWId
+
+
 def AtomicCmpxchgId() -> BinaryenExpressionId:
     return lib.BinaryenAtomicCmpxchgId()
+
+
+BinaryenAtomicCmpxchgId = AtomicCmpxchgId
 
 
 def AtomicWaitId() -> BinaryenExpressionId:
     return lib.BinaryenAtomicWaitId()
 
 
+BinaryenAtomicWaitId = AtomicWaitId
+
+
 def AtomicNotifyId() -> BinaryenExpressionId:
     return lib.BinaryenAtomicNotifyId()
+
+
+BinaryenAtomicNotifyId = AtomicNotifyId
 
 
 def AtomicFenceId() -> BinaryenExpressionId:
     return lib.BinaryenAtomicFenceId()
 
 
+BinaryenAtomicFenceId = AtomicFenceId
+
+
 def SIMDExtractId() -> BinaryenExpressionId:
     return lib.BinaryenSIMDExtractId()
+
+
+BinaryenSIMDExtractId = SIMDExtractId
 
 
 def SIMDReplaceId() -> BinaryenExpressionId:
     return lib.BinaryenSIMDReplaceId()
 
 
+BinaryenSIMDReplaceId = SIMDReplaceId
+
+
 def SIMDShuffleId() -> BinaryenExpressionId:
     return lib.BinaryenSIMDShuffleId()
+
+
+BinaryenSIMDShuffleId = SIMDShuffleId
 
 
 def SIMDTernaryId() -> BinaryenExpressionId:
     return lib.BinaryenSIMDTernaryId()
 
 
+BinaryenSIMDTernaryId = SIMDTernaryId
+
+
 def SIMDShiftId() -> BinaryenExpressionId:
     return lib.BinaryenSIMDShiftId()
+
+
+BinaryenSIMDShiftId = SIMDShiftId
 
 
 def SIMDLoadId() -> BinaryenExpressionId:
     return lib.BinaryenSIMDLoadId()
 
 
+BinaryenSIMDLoadId = SIMDLoadId
+
+
 def SIMDLoadStoreLaneId() -> BinaryenExpressionId:
     return lib.BinaryenSIMDLoadStoreLaneId()
+
+
+BinaryenSIMDLoadStoreLaneId = SIMDLoadStoreLaneId
 
 
 def MemoryInitId() -> BinaryenExpressionId:
     return lib.BinaryenMemoryInitId()
 
 
+BinaryenMemoryInitId = MemoryInitId
+
+
 def DataDropId() -> BinaryenExpressionId:
     return lib.BinaryenDataDropId()
+
+
+BinaryenDataDropId = DataDropId
 
 
 def MemoryCopyId() -> BinaryenExpressionId:
     return lib.BinaryenMemoryCopyId()
 
 
+BinaryenMemoryCopyId = MemoryCopyId
+
+
 def MemoryFillId() -> BinaryenExpressionId:
     return lib.BinaryenMemoryFillId()
+
+
+BinaryenMemoryFillId = MemoryFillId
 
 
 def ConstId() -> BinaryenExpressionId:
     return lib.BinaryenConstId()
 
 
+BinaryenConstId = ConstId
+
+
 def UnaryId() -> BinaryenExpressionId:
     return lib.BinaryenUnaryId()
+
+
+BinaryenUnaryId = UnaryId
 
 
 def BinaryId() -> BinaryenExpressionId:
     return lib.BinaryenBinaryId()
 
 
+BinaryenBinaryId = BinaryId
+
+
 def SelectId() -> BinaryenExpressionId:
     return lib.BinaryenSelectId()
+
+
+BinaryenSelectId = SelectId
 
 
 def DropId() -> BinaryenExpressionId:
     return lib.BinaryenDropId()
 
 
+BinaryenDropId = DropId
+
+
 def ReturnId() -> BinaryenExpressionId:
     return lib.BinaryenReturnId()
+
+
+BinaryenReturnId = ReturnId
 
 
 def MemorySizeId() -> BinaryenExpressionId:
     return lib.BinaryenMemorySizeId()
 
 
+BinaryenMemorySizeId = MemorySizeId
+
+
 def MemoryGrowId() -> BinaryenExpressionId:
     return lib.BinaryenMemoryGrowId()
+
+
+BinaryenMemoryGrowId = MemoryGrowId
 
 
 def UnreachableId() -> BinaryenExpressionId:
     return lib.BinaryenUnreachableId()
 
 
+BinaryenUnreachableId = UnreachableId
+
+
 def PopId() -> BinaryenExpressionId:
     return lib.BinaryenPopId()
+
+
+BinaryenPopId = PopId
 
 
 def RefNullId() -> BinaryenExpressionId:
     return lib.BinaryenRefNullId()
 
 
+BinaryenRefNullId = RefNullId
+
+
 def RefIsId() -> BinaryenExpressionId:
     return lib.BinaryenRefIsId()
+
+
+BinaryenRefIsId = RefIsId
 
 
 def RefFuncId() -> BinaryenExpressionId:
     return lib.BinaryenRefFuncId()
 
 
+BinaryenRefFuncId = RefFuncId
+
+
 def RefEqId() -> BinaryenExpressionId:
     return lib.BinaryenRefEqId()
+
+
+BinaryenRefEqId = RefEqId
 
 
 def TableGetId() -> BinaryenExpressionId:
     return lib.BinaryenTableGetId()
 
 
+BinaryenTableGetId = TableGetId
+
+
 def TableSetId() -> BinaryenExpressionId:
     return lib.BinaryenTableSetId()
+
+
+BinaryenTableSetId = TableSetId
 
 
 def TableSizeId() -> BinaryenExpressionId:
     return lib.BinaryenTableSizeId()
 
 
+BinaryenTableSizeId = TableSizeId
+
+
 def TableGrowId() -> BinaryenExpressionId:
     return lib.BinaryenTableGrowId()
+
+
+BinaryenTableGrowId = TableGrowId
 
 
 def TryId() -> BinaryenExpressionId:
     return lib.BinaryenTryId()
 
 
+BinaryenTryId = TryId
+
+
 def ThrowId() -> BinaryenExpressionId:
     return lib.BinaryenThrowId()
+
+
+BinaryenThrowId = ThrowId
 
 
 def RethrowId() -> BinaryenExpressionId:
     return lib.BinaryenRethrowId()
 
 
+BinaryenRethrowId = RethrowId
+
+
 def TupleMakeId() -> BinaryenExpressionId:
     return lib.BinaryenTupleMakeId()
+
+
+BinaryenTupleMakeId = TupleMakeId
 
 
 def TupleExtractId() -> BinaryenExpressionId:
     return lib.BinaryenTupleExtractId()
 
 
+BinaryenTupleExtractId = TupleExtractId
+
+
 def I31NewId() -> BinaryenExpressionId:
     return lib.BinaryenI31NewId()
+
+
+BinaryenI31NewId = I31NewId
 
 
 def I31GetId() -> BinaryenExpressionId:
     return lib.BinaryenI31GetId()
 
 
+BinaryenI31GetId = I31GetId
+
+
 def CallRefId() -> BinaryenExpressionId:
     return lib.BinaryenCallRefId()
+
+
+BinaryenCallRefId = CallRefId
 
 
 def RefTestId() -> BinaryenExpressionId:
     return lib.BinaryenRefTestId()
 
 
+BinaryenRefTestId = RefTestId
+
+
 def RefCastId() -> BinaryenExpressionId:
     return lib.BinaryenRefCastId()
+
+
+BinaryenRefCastId = RefCastId
 
 
 def BrOnId() -> BinaryenExpressionId:
     return lib.BinaryenBrOnId()
 
 
+BinaryenBrOnId = BrOnId
+
+
 def StructNewId() -> BinaryenExpressionId:
     return lib.BinaryenStructNewId()
+
+
+BinaryenStructNewId = StructNewId
 
 
 def StructGetId() -> BinaryenExpressionId:
     return lib.BinaryenStructGetId()
 
 
+BinaryenStructGetId = StructGetId
+
+
 def StructSetId() -> BinaryenExpressionId:
     return lib.BinaryenStructSetId()
+
+
+BinaryenStructSetId = StructSetId
 
 
 def ArrayNewId() -> BinaryenExpressionId:
     return lib.BinaryenArrayNewId()
 
 
+BinaryenArrayNewId = ArrayNewId
+
+
 def ArrayNewSegId() -> BinaryenExpressionId:
     return lib.BinaryenArrayNewSegId()
+
+
+BinaryenArrayNewSegId = ArrayNewSegId
 
 
 def ArrayInitId() -> BinaryenExpressionId:
     return lib.BinaryenArrayInitId()
 
 
+BinaryenArrayInitId = ArrayInitId
+
+
 def ArrayGetId() -> BinaryenExpressionId:
     return lib.BinaryenArrayGetId()
+
+
+BinaryenArrayGetId = ArrayGetId
 
 
 def ArraySetId() -> BinaryenExpressionId:
     return lib.BinaryenArraySetId()
 
 
+BinaryenArraySetId = ArraySetId
+
+
 def ArrayLenId() -> BinaryenExpressionId:
     return lib.BinaryenArrayLenId()
+
+
+BinaryenArrayLenId = ArrayLenId
 
 
 def ArrayCopyId() -> BinaryenExpressionId:
     return lib.BinaryenArrayCopyId()
 
 
+BinaryenArrayCopyId = ArrayCopyId
+
+
 def RefAsId() -> BinaryenExpressionId:
     return lib.BinaryenRefAsId()
+
+
+BinaryenRefAsId = RefAsId
 
 
 def StringNewId() -> BinaryenExpressionId:
     return lib.BinaryenStringNewId()
 
 
+BinaryenStringNewId = StringNewId
+
+
 def StringConstId() -> BinaryenExpressionId:
     return lib.BinaryenStringConstId()
+
+
+BinaryenStringConstId = StringConstId
 
 
 def StringMeasureId() -> BinaryenExpressionId:
     return lib.BinaryenStringMeasureId()
 
 
+BinaryenStringMeasureId = StringMeasureId
+
+
 def StringEncodeId() -> BinaryenExpressionId:
     return lib.BinaryenStringEncodeId()
+
+
+BinaryenStringEncodeId = StringEncodeId
 
 
 def StringConcatId() -> BinaryenExpressionId:
     return lib.BinaryenStringConcatId()
 
 
+BinaryenStringConcatId = StringConcatId
+
+
 def StringEqId() -> BinaryenExpressionId:
     return lib.BinaryenStringEqId()
+
+
+BinaryenStringEqId = StringEqId
 
 
 def StringAsId() -> BinaryenExpressionId:
     return lib.BinaryenStringAsId()
 
 
+BinaryenStringAsId = StringAsId
+
+
 def StringWTF8AdvanceId() -> BinaryenExpressionId:
     return lib.BinaryenStringWTF8AdvanceId()
+
+
+BinaryenStringWTF8AdvanceId = StringWTF8AdvanceId
 
 
 def StringWTF16GetId() -> BinaryenExpressionId:
     return lib.BinaryenStringWTF16GetId()
 
 
+BinaryenStringWTF16GetId = StringWTF16GetId
+
+
 def StringIterNextId() -> BinaryenExpressionId:
     return lib.BinaryenStringIterNextId()
+
+
+BinaryenStringIterNextId = StringIterNextId
 
 
 def StringIterMoveId() -> BinaryenExpressionId:
     return lib.BinaryenStringIterMoveId()
 
 
+BinaryenStringIterMoveId = StringIterMoveId
+
+
 def StringSliceWTFId() -> BinaryenExpressionId:
     return lib.BinaryenStringSliceWTFId()
+
+
+BinaryenStringSliceWTFId = StringSliceWTFId
 
 
 def StringSliceIterId() -> BinaryenExpressionId:
     return lib.BinaryenStringSliceIterId()
 
 
+BinaryenStringSliceIterId = StringSliceIterId
+
+
 def ExternalFunction() -> BinaryenExternalKind:
     return lib.BinaryenExternalFunction()
+
+
+BinaryenExternalFunction = ExternalFunction
 
 
 def ExternalTable() -> BinaryenExternalKind:
     return lib.BinaryenExternalTable()
 
 
+BinaryenExternalTable = ExternalTable
+
+
 def ExternalMemory() -> BinaryenExternalKind:
     return lib.BinaryenExternalMemory()
+
+
+BinaryenExternalMemory = ExternalMemory
 
 
 def ExternalGlobal() -> BinaryenExternalKind:
     return lib.BinaryenExternalGlobal()
 
 
+BinaryenExternalGlobal = ExternalGlobal
+
+
 def ExternalTag() -> BinaryenExternalKind:
     return lib.BinaryenExternalTag()
+
+
+BinaryenExternalTag = ExternalTag
 
 
 def FeatureMVP() -> BinaryenFeatures:
     return lib.BinaryenFeatureMVP()
 
 
+BinaryenFeatureMVP = FeatureMVP
+
+
 def FeatureAtomics() -> BinaryenFeatures:
     return lib.BinaryenFeatureAtomics()
+
+
+BinaryenFeatureAtomics = FeatureAtomics
 
 
 def FeatureBulkMemory() -> BinaryenFeatures:
     return lib.BinaryenFeatureBulkMemory()
 
 
+BinaryenFeatureBulkMemory = FeatureBulkMemory
+
+
 def FeatureMutableGlobals() -> BinaryenFeatures:
     return lib.BinaryenFeatureMutableGlobals()
+
+
+BinaryenFeatureMutableGlobals = FeatureMutableGlobals
 
 
 def FeatureNontrappingFPToInt() -> BinaryenFeatures:
     return lib.BinaryenFeatureNontrappingFPToInt()
 
 
+BinaryenFeatureNontrappingFPToInt = FeatureNontrappingFPToInt
+
+
 def FeatureSignExt() -> BinaryenFeatures:
     return lib.BinaryenFeatureSignExt()
+
+
+BinaryenFeatureSignExt = FeatureSignExt
 
 
 def FeatureSIMD128() -> BinaryenFeatures:
     return lib.BinaryenFeatureSIMD128()
 
 
+BinaryenFeatureSIMD128 = FeatureSIMD128
+
+
 def FeatureExceptionHandling() -> BinaryenFeatures:
     return lib.BinaryenFeatureExceptionHandling()
+
+
+BinaryenFeatureExceptionHandling = FeatureExceptionHandling
 
 
 def FeatureTailCall() -> BinaryenFeatures:
     return lib.BinaryenFeatureTailCall()
 
 
+BinaryenFeatureTailCall = FeatureTailCall
+
+
 def FeatureReferenceTypes() -> BinaryenFeatures:
     return lib.BinaryenFeatureReferenceTypes()
+
+
+BinaryenFeatureReferenceTypes = FeatureReferenceTypes
 
 
 def FeatureMultivalue() -> BinaryenFeatures:
     return lib.BinaryenFeatureMultivalue()
 
 
+BinaryenFeatureMultivalue = FeatureMultivalue
+
+
 def FeatureGC() -> BinaryenFeatures:
     return lib.BinaryenFeatureGC()
+
+
+BinaryenFeatureGC = FeatureGC
 
 
 def FeatureMemory64() -> BinaryenFeatures:
     return lib.BinaryenFeatureMemory64()
 
 
+BinaryenFeatureMemory64 = FeatureMemory64
+
+
 def FeatureRelaxedSIMD() -> BinaryenFeatures:
     return lib.BinaryenFeatureRelaxedSIMD()
+
+
+BinaryenFeatureRelaxedSIMD = FeatureRelaxedSIMD
 
 
 def FeatureExtendedConst() -> BinaryenFeatures:
     return lib.BinaryenFeatureExtendedConst()
 
 
+BinaryenFeatureExtendedConst = FeatureExtendedConst
+
+
 def FeatureStrings() -> BinaryenFeatures:
     return lib.BinaryenFeatureStrings()
+
+
+BinaryenFeatureStrings = FeatureStrings
 
 
 def FeatureMultiMemories() -> BinaryenFeatures:
     return lib.BinaryenFeatureMultiMemories()
 
 
+BinaryenFeatureMultiMemories = FeatureMultiMemories
+
+
 def FeatureAll() -> BinaryenFeatures:
     return lib.BinaryenFeatureAll()
 
 
+BinaryenFeatureAll = FeatureAll
+
+
 def ModuleCreate() -> BinaryenModuleRef:
     return lib.BinaryenModuleCreate()
+
+
+BinaryenModuleCreate = ModuleCreate
 
 
 def ModuleDispose(
@@ -775,10 +1316,16 @@ def ModuleDispose(
     lib.BinaryenModuleDispose(module)
 
 
+BinaryenModuleDispose = ModuleDispose
+
+
 def LiteralInt32(
     x: int,
 ) -> BinaryenLiteral:
     return lib.BinaryenLiteralInt32(x)
+
+
+BinaryenLiteralInt32 = LiteralInt32
 
 
 def LiteralInt64(
@@ -787,10 +1334,16 @@ def LiteralInt64(
     return lib.BinaryenLiteralInt64(x)
 
 
+BinaryenLiteralInt64 = LiteralInt64
+
+
 def LiteralFloat32(
     x: float,
 ) -> BinaryenLiteral:
     return lib.BinaryenLiteralFloat32(x)
+
+
+BinaryenLiteralFloat32 = LiteralFloat32
 
 
 def LiteralFloat64(
@@ -799,10 +1352,16 @@ def LiteralFloat64(
     return lib.BinaryenLiteralFloat64(x)
 
 
+BinaryenLiteralFloat64 = LiteralFloat64
+
+
 def LiteralVec128(
     x: List[int],
 ) -> BinaryenLiteral:
     return lib.BinaryenLiteralVec128(x)
+
+
+BinaryenLiteralVec128 = LiteralVec128
 
 
 def LiteralFloat32Bits(
@@ -811,1696 +1370,2963 @@ def LiteralFloat32Bits(
     return lib.BinaryenLiteralFloat32Bits(x)
 
 
+BinaryenLiteralFloat32Bits = LiteralFloat32Bits
+
+
 def LiteralFloat64Bits(
     x: int,
 ) -> BinaryenLiteral:
     return lib.BinaryenLiteralFloat64Bits(x)
 
 
+BinaryenLiteralFloat64Bits = LiteralFloat64Bits
+
+
 def ClzInt32() -> BinaryenOp:
     return lib.BinaryenClzInt32()
+
+
+BinaryenClzInt32 = ClzInt32
 
 
 def CtzInt32() -> BinaryenOp:
     return lib.BinaryenCtzInt32()
 
 
+BinaryenCtzInt32 = CtzInt32
+
+
 def PopcntInt32() -> BinaryenOp:
     return lib.BinaryenPopcntInt32()
+
+
+BinaryenPopcntInt32 = PopcntInt32
 
 
 def NegFloat32() -> BinaryenOp:
     return lib.BinaryenNegFloat32()
 
 
+BinaryenNegFloat32 = NegFloat32
+
+
 def AbsFloat32() -> BinaryenOp:
     return lib.BinaryenAbsFloat32()
+
+
+BinaryenAbsFloat32 = AbsFloat32
 
 
 def CeilFloat32() -> BinaryenOp:
     return lib.BinaryenCeilFloat32()
 
 
+BinaryenCeilFloat32 = CeilFloat32
+
+
 def FloorFloat32() -> BinaryenOp:
     return lib.BinaryenFloorFloat32()
+
+
+BinaryenFloorFloat32 = FloorFloat32
 
 
 def TruncFloat32() -> BinaryenOp:
     return lib.BinaryenTruncFloat32()
 
 
+BinaryenTruncFloat32 = TruncFloat32
+
+
 def NearestFloat32() -> BinaryenOp:
     return lib.BinaryenNearestFloat32()
+
+
+BinaryenNearestFloat32 = NearestFloat32
 
 
 def SqrtFloat32() -> BinaryenOp:
     return lib.BinaryenSqrtFloat32()
 
 
+BinaryenSqrtFloat32 = SqrtFloat32
+
+
 def EqZInt32() -> BinaryenOp:
     return lib.BinaryenEqZInt32()
+
+
+BinaryenEqZInt32 = EqZInt32
 
 
 def ClzInt64() -> BinaryenOp:
     return lib.BinaryenClzInt64()
 
 
+BinaryenClzInt64 = ClzInt64
+
+
 def CtzInt64() -> BinaryenOp:
     return lib.BinaryenCtzInt64()
+
+
+BinaryenCtzInt64 = CtzInt64
 
 
 def PopcntInt64() -> BinaryenOp:
     return lib.BinaryenPopcntInt64()
 
 
+BinaryenPopcntInt64 = PopcntInt64
+
+
 def NegFloat64() -> BinaryenOp:
     return lib.BinaryenNegFloat64()
+
+
+BinaryenNegFloat64 = NegFloat64
 
 
 def AbsFloat64() -> BinaryenOp:
     return lib.BinaryenAbsFloat64()
 
 
+BinaryenAbsFloat64 = AbsFloat64
+
+
 def CeilFloat64() -> BinaryenOp:
     return lib.BinaryenCeilFloat64()
+
+
+BinaryenCeilFloat64 = CeilFloat64
 
 
 def FloorFloat64() -> BinaryenOp:
     return lib.BinaryenFloorFloat64()
 
 
+BinaryenFloorFloat64 = FloorFloat64
+
+
 def TruncFloat64() -> BinaryenOp:
     return lib.BinaryenTruncFloat64()
+
+
+BinaryenTruncFloat64 = TruncFloat64
 
 
 def NearestFloat64() -> BinaryenOp:
     return lib.BinaryenNearestFloat64()
 
 
+BinaryenNearestFloat64 = NearestFloat64
+
+
 def SqrtFloat64() -> BinaryenOp:
     return lib.BinaryenSqrtFloat64()
+
+
+BinaryenSqrtFloat64 = SqrtFloat64
 
 
 def EqZInt64() -> BinaryenOp:
     return lib.BinaryenEqZInt64()
 
 
+BinaryenEqZInt64 = EqZInt64
+
+
 def ExtendSInt32() -> BinaryenOp:
     return lib.BinaryenExtendSInt32()
+
+
+BinaryenExtendSInt32 = ExtendSInt32
 
 
 def ExtendUInt32() -> BinaryenOp:
     return lib.BinaryenExtendUInt32()
 
 
+BinaryenExtendUInt32 = ExtendUInt32
+
+
 def WrapInt64() -> BinaryenOp:
     return lib.BinaryenWrapInt64()
+
+
+BinaryenWrapInt64 = WrapInt64
 
 
 def TruncSFloat32ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncSFloat32ToInt32()
 
 
+BinaryenTruncSFloat32ToInt32 = TruncSFloat32ToInt32
+
+
 def TruncSFloat32ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncSFloat32ToInt64()
+
+
+BinaryenTruncSFloat32ToInt64 = TruncSFloat32ToInt64
 
 
 def TruncUFloat32ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncUFloat32ToInt32()
 
 
+BinaryenTruncUFloat32ToInt32 = TruncUFloat32ToInt32
+
+
 def TruncUFloat32ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncUFloat32ToInt64()
+
+
+BinaryenTruncUFloat32ToInt64 = TruncUFloat32ToInt64
 
 
 def TruncSFloat64ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncSFloat64ToInt32()
 
 
+BinaryenTruncSFloat64ToInt32 = TruncSFloat64ToInt32
+
+
 def TruncSFloat64ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncSFloat64ToInt64()
+
+
+BinaryenTruncSFloat64ToInt64 = TruncSFloat64ToInt64
 
 
 def TruncUFloat64ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncUFloat64ToInt32()
 
 
+BinaryenTruncUFloat64ToInt32 = TruncUFloat64ToInt32
+
+
 def TruncUFloat64ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncUFloat64ToInt64()
+
+
+BinaryenTruncUFloat64ToInt64 = TruncUFloat64ToInt64
 
 
 def ReinterpretFloat32() -> BinaryenOp:
     return lib.BinaryenReinterpretFloat32()
 
 
+BinaryenReinterpretFloat32 = ReinterpretFloat32
+
+
 def ReinterpretFloat64() -> BinaryenOp:
     return lib.BinaryenReinterpretFloat64()
+
+
+BinaryenReinterpretFloat64 = ReinterpretFloat64
 
 
 def ConvertSInt32ToFloat32() -> BinaryenOp:
     return lib.BinaryenConvertSInt32ToFloat32()
 
 
+BinaryenConvertSInt32ToFloat32 = ConvertSInt32ToFloat32
+
+
 def ConvertSInt32ToFloat64() -> BinaryenOp:
     return lib.BinaryenConvertSInt32ToFloat64()
+
+
+BinaryenConvertSInt32ToFloat64 = ConvertSInt32ToFloat64
 
 
 def ConvertUInt32ToFloat32() -> BinaryenOp:
     return lib.BinaryenConvertUInt32ToFloat32()
 
 
+BinaryenConvertUInt32ToFloat32 = ConvertUInt32ToFloat32
+
+
 def ConvertUInt32ToFloat64() -> BinaryenOp:
     return lib.BinaryenConvertUInt32ToFloat64()
+
+
+BinaryenConvertUInt32ToFloat64 = ConvertUInt32ToFloat64
 
 
 def ConvertSInt64ToFloat32() -> BinaryenOp:
     return lib.BinaryenConvertSInt64ToFloat32()
 
 
+BinaryenConvertSInt64ToFloat32 = ConvertSInt64ToFloat32
+
+
 def ConvertSInt64ToFloat64() -> BinaryenOp:
     return lib.BinaryenConvertSInt64ToFloat64()
+
+
+BinaryenConvertSInt64ToFloat64 = ConvertSInt64ToFloat64
 
 
 def ConvertUInt64ToFloat32() -> BinaryenOp:
     return lib.BinaryenConvertUInt64ToFloat32()
 
 
+BinaryenConvertUInt64ToFloat32 = ConvertUInt64ToFloat32
+
+
 def ConvertUInt64ToFloat64() -> BinaryenOp:
     return lib.BinaryenConvertUInt64ToFloat64()
+
+
+BinaryenConvertUInt64ToFloat64 = ConvertUInt64ToFloat64
 
 
 def PromoteFloat32() -> BinaryenOp:
     return lib.BinaryenPromoteFloat32()
 
 
+BinaryenPromoteFloat32 = PromoteFloat32
+
+
 def DemoteFloat64() -> BinaryenOp:
     return lib.BinaryenDemoteFloat64()
+
+
+BinaryenDemoteFloat64 = DemoteFloat64
 
 
 def ReinterpretInt32() -> BinaryenOp:
     return lib.BinaryenReinterpretInt32()
 
 
+BinaryenReinterpretInt32 = ReinterpretInt32
+
+
 def ReinterpretInt64() -> BinaryenOp:
     return lib.BinaryenReinterpretInt64()
+
+
+BinaryenReinterpretInt64 = ReinterpretInt64
 
 
 def ExtendS8Int32() -> BinaryenOp:
     return lib.BinaryenExtendS8Int32()
 
 
+BinaryenExtendS8Int32 = ExtendS8Int32
+
+
 def ExtendS16Int32() -> BinaryenOp:
     return lib.BinaryenExtendS16Int32()
+
+
+BinaryenExtendS16Int32 = ExtendS16Int32
 
 
 def ExtendS8Int64() -> BinaryenOp:
     return lib.BinaryenExtendS8Int64()
 
 
+BinaryenExtendS8Int64 = ExtendS8Int64
+
+
 def ExtendS16Int64() -> BinaryenOp:
     return lib.BinaryenExtendS16Int64()
+
+
+BinaryenExtendS16Int64 = ExtendS16Int64
 
 
 def ExtendS32Int64() -> BinaryenOp:
     return lib.BinaryenExtendS32Int64()
 
 
+BinaryenExtendS32Int64 = ExtendS32Int64
+
+
 def AddInt32() -> BinaryenOp:
     return lib.BinaryenAddInt32()
+
+
+BinaryenAddInt32 = AddInt32
 
 
 def SubInt32() -> BinaryenOp:
     return lib.BinaryenSubInt32()
 
 
+BinaryenSubInt32 = SubInt32
+
+
 def MulInt32() -> BinaryenOp:
     return lib.BinaryenMulInt32()
+
+
+BinaryenMulInt32 = MulInt32
 
 
 def DivSInt32() -> BinaryenOp:
     return lib.BinaryenDivSInt32()
 
 
+BinaryenDivSInt32 = DivSInt32
+
+
 def DivUInt32() -> BinaryenOp:
     return lib.BinaryenDivUInt32()
+
+
+BinaryenDivUInt32 = DivUInt32
 
 
 def RemSInt32() -> BinaryenOp:
     return lib.BinaryenRemSInt32()
 
 
+BinaryenRemSInt32 = RemSInt32
+
+
 def RemUInt32() -> BinaryenOp:
     return lib.BinaryenRemUInt32()
+
+
+BinaryenRemUInt32 = RemUInt32
 
 
 def AndInt32() -> BinaryenOp:
     return lib.BinaryenAndInt32()
 
 
+BinaryenAndInt32 = AndInt32
+
+
 def OrInt32() -> BinaryenOp:
     return lib.BinaryenOrInt32()
+
+
+BinaryenOrInt32 = OrInt32
 
 
 def XorInt32() -> BinaryenOp:
     return lib.BinaryenXorInt32()
 
 
+BinaryenXorInt32 = XorInt32
+
+
 def ShlInt32() -> BinaryenOp:
     return lib.BinaryenShlInt32()
+
+
+BinaryenShlInt32 = ShlInt32
 
 
 def ShrUInt32() -> BinaryenOp:
     return lib.BinaryenShrUInt32()
 
 
+BinaryenShrUInt32 = ShrUInt32
+
+
 def ShrSInt32() -> BinaryenOp:
     return lib.BinaryenShrSInt32()
+
+
+BinaryenShrSInt32 = ShrSInt32
 
 
 def RotLInt32() -> BinaryenOp:
     return lib.BinaryenRotLInt32()
 
 
+BinaryenRotLInt32 = RotLInt32
+
+
 def RotRInt32() -> BinaryenOp:
     return lib.BinaryenRotRInt32()
+
+
+BinaryenRotRInt32 = RotRInt32
 
 
 def EqInt32() -> BinaryenOp:
     return lib.BinaryenEqInt32()
 
 
+BinaryenEqInt32 = EqInt32
+
+
 def NeInt32() -> BinaryenOp:
     return lib.BinaryenNeInt32()
+
+
+BinaryenNeInt32 = NeInt32
 
 
 def LtSInt32() -> BinaryenOp:
     return lib.BinaryenLtSInt32()
 
 
+BinaryenLtSInt32 = LtSInt32
+
+
 def LtUInt32() -> BinaryenOp:
     return lib.BinaryenLtUInt32()
+
+
+BinaryenLtUInt32 = LtUInt32
 
 
 def LeSInt32() -> BinaryenOp:
     return lib.BinaryenLeSInt32()
 
 
+BinaryenLeSInt32 = LeSInt32
+
+
 def LeUInt32() -> BinaryenOp:
     return lib.BinaryenLeUInt32()
+
+
+BinaryenLeUInt32 = LeUInt32
 
 
 def GtSInt32() -> BinaryenOp:
     return lib.BinaryenGtSInt32()
 
 
+BinaryenGtSInt32 = GtSInt32
+
+
 def GtUInt32() -> BinaryenOp:
     return lib.BinaryenGtUInt32()
+
+
+BinaryenGtUInt32 = GtUInt32
 
 
 def GeSInt32() -> BinaryenOp:
     return lib.BinaryenGeSInt32()
 
 
+BinaryenGeSInt32 = GeSInt32
+
+
 def GeUInt32() -> BinaryenOp:
     return lib.BinaryenGeUInt32()
+
+
+BinaryenGeUInt32 = GeUInt32
 
 
 def AddInt64() -> BinaryenOp:
     return lib.BinaryenAddInt64()
 
 
+BinaryenAddInt64 = AddInt64
+
+
 def SubInt64() -> BinaryenOp:
     return lib.BinaryenSubInt64()
+
+
+BinaryenSubInt64 = SubInt64
 
 
 def MulInt64() -> BinaryenOp:
     return lib.BinaryenMulInt64()
 
 
+BinaryenMulInt64 = MulInt64
+
+
 def DivSInt64() -> BinaryenOp:
     return lib.BinaryenDivSInt64()
+
+
+BinaryenDivSInt64 = DivSInt64
 
 
 def DivUInt64() -> BinaryenOp:
     return lib.BinaryenDivUInt64()
 
 
+BinaryenDivUInt64 = DivUInt64
+
+
 def RemSInt64() -> BinaryenOp:
     return lib.BinaryenRemSInt64()
+
+
+BinaryenRemSInt64 = RemSInt64
 
 
 def RemUInt64() -> BinaryenOp:
     return lib.BinaryenRemUInt64()
 
 
+BinaryenRemUInt64 = RemUInt64
+
+
 def AndInt64() -> BinaryenOp:
     return lib.BinaryenAndInt64()
+
+
+BinaryenAndInt64 = AndInt64
 
 
 def OrInt64() -> BinaryenOp:
     return lib.BinaryenOrInt64()
 
 
+BinaryenOrInt64 = OrInt64
+
+
 def XorInt64() -> BinaryenOp:
     return lib.BinaryenXorInt64()
+
+
+BinaryenXorInt64 = XorInt64
 
 
 def ShlInt64() -> BinaryenOp:
     return lib.BinaryenShlInt64()
 
 
+BinaryenShlInt64 = ShlInt64
+
+
 def ShrUInt64() -> BinaryenOp:
     return lib.BinaryenShrUInt64()
+
+
+BinaryenShrUInt64 = ShrUInt64
 
 
 def ShrSInt64() -> BinaryenOp:
     return lib.BinaryenShrSInt64()
 
 
+BinaryenShrSInt64 = ShrSInt64
+
+
 def RotLInt64() -> BinaryenOp:
     return lib.BinaryenRotLInt64()
+
+
+BinaryenRotLInt64 = RotLInt64
 
 
 def RotRInt64() -> BinaryenOp:
     return lib.BinaryenRotRInt64()
 
 
+BinaryenRotRInt64 = RotRInt64
+
+
 def EqInt64() -> BinaryenOp:
     return lib.BinaryenEqInt64()
+
+
+BinaryenEqInt64 = EqInt64
 
 
 def NeInt64() -> BinaryenOp:
     return lib.BinaryenNeInt64()
 
 
+BinaryenNeInt64 = NeInt64
+
+
 def LtSInt64() -> BinaryenOp:
     return lib.BinaryenLtSInt64()
+
+
+BinaryenLtSInt64 = LtSInt64
 
 
 def LtUInt64() -> BinaryenOp:
     return lib.BinaryenLtUInt64()
 
 
+BinaryenLtUInt64 = LtUInt64
+
+
 def LeSInt64() -> BinaryenOp:
     return lib.BinaryenLeSInt64()
+
+
+BinaryenLeSInt64 = LeSInt64
 
 
 def LeUInt64() -> BinaryenOp:
     return lib.BinaryenLeUInt64()
 
 
+BinaryenLeUInt64 = LeUInt64
+
+
 def GtSInt64() -> BinaryenOp:
     return lib.BinaryenGtSInt64()
+
+
+BinaryenGtSInt64 = GtSInt64
 
 
 def GtUInt64() -> BinaryenOp:
     return lib.BinaryenGtUInt64()
 
 
+BinaryenGtUInt64 = GtUInt64
+
+
 def GeSInt64() -> BinaryenOp:
     return lib.BinaryenGeSInt64()
+
+
+BinaryenGeSInt64 = GeSInt64
 
 
 def GeUInt64() -> BinaryenOp:
     return lib.BinaryenGeUInt64()
 
 
+BinaryenGeUInt64 = GeUInt64
+
+
 def AddFloat32() -> BinaryenOp:
     return lib.BinaryenAddFloat32()
+
+
+BinaryenAddFloat32 = AddFloat32
 
 
 def SubFloat32() -> BinaryenOp:
     return lib.BinaryenSubFloat32()
 
 
+BinaryenSubFloat32 = SubFloat32
+
+
 def MulFloat32() -> BinaryenOp:
     return lib.BinaryenMulFloat32()
+
+
+BinaryenMulFloat32 = MulFloat32
 
 
 def DivFloat32() -> BinaryenOp:
     return lib.BinaryenDivFloat32()
 
 
+BinaryenDivFloat32 = DivFloat32
+
+
 def CopySignFloat32() -> BinaryenOp:
     return lib.BinaryenCopySignFloat32()
+
+
+BinaryenCopySignFloat32 = CopySignFloat32
 
 
 def MinFloat32() -> BinaryenOp:
     return lib.BinaryenMinFloat32()
 
 
+BinaryenMinFloat32 = MinFloat32
+
+
 def MaxFloat32() -> BinaryenOp:
     return lib.BinaryenMaxFloat32()
+
+
+BinaryenMaxFloat32 = MaxFloat32
 
 
 def EqFloat32() -> BinaryenOp:
     return lib.BinaryenEqFloat32()
 
 
+BinaryenEqFloat32 = EqFloat32
+
+
 def NeFloat32() -> BinaryenOp:
     return lib.BinaryenNeFloat32()
+
+
+BinaryenNeFloat32 = NeFloat32
 
 
 def LtFloat32() -> BinaryenOp:
     return lib.BinaryenLtFloat32()
 
 
+BinaryenLtFloat32 = LtFloat32
+
+
 def LeFloat32() -> BinaryenOp:
     return lib.BinaryenLeFloat32()
+
+
+BinaryenLeFloat32 = LeFloat32
 
 
 def GtFloat32() -> BinaryenOp:
     return lib.BinaryenGtFloat32()
 
 
+BinaryenGtFloat32 = GtFloat32
+
+
 def GeFloat32() -> BinaryenOp:
     return lib.BinaryenGeFloat32()
+
+
+BinaryenGeFloat32 = GeFloat32
 
 
 def AddFloat64() -> BinaryenOp:
     return lib.BinaryenAddFloat64()
 
 
+BinaryenAddFloat64 = AddFloat64
+
+
 def SubFloat64() -> BinaryenOp:
     return lib.BinaryenSubFloat64()
+
+
+BinaryenSubFloat64 = SubFloat64
 
 
 def MulFloat64() -> BinaryenOp:
     return lib.BinaryenMulFloat64()
 
 
+BinaryenMulFloat64 = MulFloat64
+
+
 def DivFloat64() -> BinaryenOp:
     return lib.BinaryenDivFloat64()
+
+
+BinaryenDivFloat64 = DivFloat64
 
 
 def CopySignFloat64() -> BinaryenOp:
     return lib.BinaryenCopySignFloat64()
 
 
+BinaryenCopySignFloat64 = CopySignFloat64
+
+
 def MinFloat64() -> BinaryenOp:
     return lib.BinaryenMinFloat64()
+
+
+BinaryenMinFloat64 = MinFloat64
 
 
 def MaxFloat64() -> BinaryenOp:
     return lib.BinaryenMaxFloat64()
 
 
+BinaryenMaxFloat64 = MaxFloat64
+
+
 def EqFloat64() -> BinaryenOp:
     return lib.BinaryenEqFloat64()
+
+
+BinaryenEqFloat64 = EqFloat64
 
 
 def NeFloat64() -> BinaryenOp:
     return lib.BinaryenNeFloat64()
 
 
+BinaryenNeFloat64 = NeFloat64
+
+
 def LtFloat64() -> BinaryenOp:
     return lib.BinaryenLtFloat64()
+
+
+BinaryenLtFloat64 = LtFloat64
 
 
 def LeFloat64() -> BinaryenOp:
     return lib.BinaryenLeFloat64()
 
 
+BinaryenLeFloat64 = LeFloat64
+
+
 def GtFloat64() -> BinaryenOp:
     return lib.BinaryenGtFloat64()
+
+
+BinaryenGtFloat64 = GtFloat64
 
 
 def GeFloat64() -> BinaryenOp:
     return lib.BinaryenGeFloat64()
 
 
+BinaryenGeFloat64 = GeFloat64
+
+
 def AtomicRMWAdd() -> BinaryenOp:
     return lib.BinaryenAtomicRMWAdd()
+
+
+BinaryenAtomicRMWAdd = AtomicRMWAdd
 
 
 def AtomicRMWSub() -> BinaryenOp:
     return lib.BinaryenAtomicRMWSub()
 
 
+BinaryenAtomicRMWSub = AtomicRMWSub
+
+
 def AtomicRMWAnd() -> BinaryenOp:
     return lib.BinaryenAtomicRMWAnd()
+
+
+BinaryenAtomicRMWAnd = AtomicRMWAnd
 
 
 def AtomicRMWOr() -> BinaryenOp:
     return lib.BinaryenAtomicRMWOr()
 
 
+BinaryenAtomicRMWOr = AtomicRMWOr
+
+
 def AtomicRMWXor() -> BinaryenOp:
     return lib.BinaryenAtomicRMWXor()
+
+
+BinaryenAtomicRMWXor = AtomicRMWXor
 
 
 def AtomicRMWXchg() -> BinaryenOp:
     return lib.BinaryenAtomicRMWXchg()
 
 
+BinaryenAtomicRMWXchg = AtomicRMWXchg
+
+
 def TruncSatSFloat32ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncSatSFloat32ToInt32()
+
+
+BinaryenTruncSatSFloat32ToInt32 = TruncSatSFloat32ToInt32
 
 
 def TruncSatSFloat32ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncSatSFloat32ToInt64()
 
 
+BinaryenTruncSatSFloat32ToInt64 = TruncSatSFloat32ToInt64
+
+
 def TruncSatUFloat32ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncSatUFloat32ToInt32()
+
+
+BinaryenTruncSatUFloat32ToInt32 = TruncSatUFloat32ToInt32
 
 
 def TruncSatUFloat32ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncSatUFloat32ToInt64()
 
 
+BinaryenTruncSatUFloat32ToInt64 = TruncSatUFloat32ToInt64
+
+
 def TruncSatSFloat64ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncSatSFloat64ToInt32()
+
+
+BinaryenTruncSatSFloat64ToInt32 = TruncSatSFloat64ToInt32
 
 
 def TruncSatSFloat64ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncSatSFloat64ToInt64()
 
 
+BinaryenTruncSatSFloat64ToInt64 = TruncSatSFloat64ToInt64
+
+
 def TruncSatUFloat64ToInt32() -> BinaryenOp:
     return lib.BinaryenTruncSatUFloat64ToInt32()
+
+
+BinaryenTruncSatUFloat64ToInt32 = TruncSatUFloat64ToInt32
 
 
 def TruncSatUFloat64ToInt64() -> BinaryenOp:
     return lib.BinaryenTruncSatUFloat64ToInt64()
 
 
+BinaryenTruncSatUFloat64ToInt64 = TruncSatUFloat64ToInt64
+
+
 def SplatVecI8x16() -> BinaryenOp:
     return lib.BinaryenSplatVecI8x16()
+
+
+BinaryenSplatVecI8x16 = SplatVecI8x16
 
 
 def ExtractLaneSVecI8x16() -> BinaryenOp:
     return lib.BinaryenExtractLaneSVecI8x16()
 
 
+BinaryenExtractLaneSVecI8x16 = ExtractLaneSVecI8x16
+
+
 def ExtractLaneUVecI8x16() -> BinaryenOp:
     return lib.BinaryenExtractLaneUVecI8x16()
+
+
+BinaryenExtractLaneUVecI8x16 = ExtractLaneUVecI8x16
 
 
 def ReplaceLaneVecI8x16() -> BinaryenOp:
     return lib.BinaryenReplaceLaneVecI8x16()
 
 
+BinaryenReplaceLaneVecI8x16 = ReplaceLaneVecI8x16
+
+
 def SplatVecI16x8() -> BinaryenOp:
     return lib.BinaryenSplatVecI16x8()
+
+
+BinaryenSplatVecI16x8 = SplatVecI16x8
 
 
 def ExtractLaneSVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtractLaneSVecI16x8()
 
 
+BinaryenExtractLaneSVecI16x8 = ExtractLaneSVecI16x8
+
+
 def ExtractLaneUVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtractLaneUVecI16x8()
+
+
+BinaryenExtractLaneUVecI16x8 = ExtractLaneUVecI16x8
 
 
 def ReplaceLaneVecI16x8() -> BinaryenOp:
     return lib.BinaryenReplaceLaneVecI16x8()
 
 
+BinaryenReplaceLaneVecI16x8 = ReplaceLaneVecI16x8
+
+
 def SplatVecI32x4() -> BinaryenOp:
     return lib.BinaryenSplatVecI32x4()
+
+
+BinaryenSplatVecI32x4 = SplatVecI32x4
 
 
 def ExtractLaneVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtractLaneVecI32x4()
 
 
+BinaryenExtractLaneVecI32x4 = ExtractLaneVecI32x4
+
+
 def ReplaceLaneVecI32x4() -> BinaryenOp:
     return lib.BinaryenReplaceLaneVecI32x4()
+
+
+BinaryenReplaceLaneVecI32x4 = ReplaceLaneVecI32x4
 
 
 def SplatVecI64x2() -> BinaryenOp:
     return lib.BinaryenSplatVecI64x2()
 
 
+BinaryenSplatVecI64x2 = SplatVecI64x2
+
+
 def ExtractLaneVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtractLaneVecI64x2()
+
+
+BinaryenExtractLaneVecI64x2 = ExtractLaneVecI64x2
 
 
 def ReplaceLaneVecI64x2() -> BinaryenOp:
     return lib.BinaryenReplaceLaneVecI64x2()
 
 
+BinaryenReplaceLaneVecI64x2 = ReplaceLaneVecI64x2
+
+
 def SplatVecF32x4() -> BinaryenOp:
     return lib.BinaryenSplatVecF32x4()
+
+
+BinaryenSplatVecF32x4 = SplatVecF32x4
 
 
 def ExtractLaneVecF32x4() -> BinaryenOp:
     return lib.BinaryenExtractLaneVecF32x4()
 
 
+BinaryenExtractLaneVecF32x4 = ExtractLaneVecF32x4
+
+
 def ReplaceLaneVecF32x4() -> BinaryenOp:
     return lib.BinaryenReplaceLaneVecF32x4()
+
+
+BinaryenReplaceLaneVecF32x4 = ReplaceLaneVecF32x4
 
 
 def SplatVecF64x2() -> BinaryenOp:
     return lib.BinaryenSplatVecF64x2()
 
 
+BinaryenSplatVecF64x2 = SplatVecF64x2
+
+
 def ExtractLaneVecF64x2() -> BinaryenOp:
     return lib.BinaryenExtractLaneVecF64x2()
+
+
+BinaryenExtractLaneVecF64x2 = ExtractLaneVecF64x2
 
 
 def ReplaceLaneVecF64x2() -> BinaryenOp:
     return lib.BinaryenReplaceLaneVecF64x2()
 
 
+BinaryenReplaceLaneVecF64x2 = ReplaceLaneVecF64x2
+
+
 def EqVecI8x16() -> BinaryenOp:
     return lib.BinaryenEqVecI8x16()
+
+
+BinaryenEqVecI8x16 = EqVecI8x16
 
 
 def NeVecI8x16() -> BinaryenOp:
     return lib.BinaryenNeVecI8x16()
 
 
+BinaryenNeVecI8x16 = NeVecI8x16
+
+
 def LtSVecI8x16() -> BinaryenOp:
     return lib.BinaryenLtSVecI8x16()
+
+
+BinaryenLtSVecI8x16 = LtSVecI8x16
 
 
 def LtUVecI8x16() -> BinaryenOp:
     return lib.BinaryenLtUVecI8x16()
 
 
+BinaryenLtUVecI8x16 = LtUVecI8x16
+
+
 def GtSVecI8x16() -> BinaryenOp:
     return lib.BinaryenGtSVecI8x16()
+
+
+BinaryenGtSVecI8x16 = GtSVecI8x16
 
 
 def GtUVecI8x16() -> BinaryenOp:
     return lib.BinaryenGtUVecI8x16()
 
 
+BinaryenGtUVecI8x16 = GtUVecI8x16
+
+
 def LeSVecI8x16() -> BinaryenOp:
     return lib.BinaryenLeSVecI8x16()
+
+
+BinaryenLeSVecI8x16 = LeSVecI8x16
 
 
 def LeUVecI8x16() -> BinaryenOp:
     return lib.BinaryenLeUVecI8x16()
 
 
+BinaryenLeUVecI8x16 = LeUVecI8x16
+
+
 def GeSVecI8x16() -> BinaryenOp:
     return lib.BinaryenGeSVecI8x16()
+
+
+BinaryenGeSVecI8x16 = GeSVecI8x16
 
 
 def GeUVecI8x16() -> BinaryenOp:
     return lib.BinaryenGeUVecI8x16()
 
 
+BinaryenGeUVecI8x16 = GeUVecI8x16
+
+
 def EqVecI16x8() -> BinaryenOp:
     return lib.BinaryenEqVecI16x8()
+
+
+BinaryenEqVecI16x8 = EqVecI16x8
 
 
 def NeVecI16x8() -> BinaryenOp:
     return lib.BinaryenNeVecI16x8()
 
 
+BinaryenNeVecI16x8 = NeVecI16x8
+
+
 def LtSVecI16x8() -> BinaryenOp:
     return lib.BinaryenLtSVecI16x8()
+
+
+BinaryenLtSVecI16x8 = LtSVecI16x8
 
 
 def LtUVecI16x8() -> BinaryenOp:
     return lib.BinaryenLtUVecI16x8()
 
 
+BinaryenLtUVecI16x8 = LtUVecI16x8
+
+
 def GtSVecI16x8() -> BinaryenOp:
     return lib.BinaryenGtSVecI16x8()
+
+
+BinaryenGtSVecI16x8 = GtSVecI16x8
 
 
 def GtUVecI16x8() -> BinaryenOp:
     return lib.BinaryenGtUVecI16x8()
 
 
+BinaryenGtUVecI16x8 = GtUVecI16x8
+
+
 def LeSVecI16x8() -> BinaryenOp:
     return lib.BinaryenLeSVecI16x8()
+
+
+BinaryenLeSVecI16x8 = LeSVecI16x8
 
 
 def LeUVecI16x8() -> BinaryenOp:
     return lib.BinaryenLeUVecI16x8()
 
 
+BinaryenLeUVecI16x8 = LeUVecI16x8
+
+
 def GeSVecI16x8() -> BinaryenOp:
     return lib.BinaryenGeSVecI16x8()
+
+
+BinaryenGeSVecI16x8 = GeSVecI16x8
 
 
 def GeUVecI16x8() -> BinaryenOp:
     return lib.BinaryenGeUVecI16x8()
 
 
+BinaryenGeUVecI16x8 = GeUVecI16x8
+
+
 def EqVecI32x4() -> BinaryenOp:
     return lib.BinaryenEqVecI32x4()
+
+
+BinaryenEqVecI32x4 = EqVecI32x4
 
 
 def NeVecI32x4() -> BinaryenOp:
     return lib.BinaryenNeVecI32x4()
 
 
+BinaryenNeVecI32x4 = NeVecI32x4
+
+
 def LtSVecI32x4() -> BinaryenOp:
     return lib.BinaryenLtSVecI32x4()
+
+
+BinaryenLtSVecI32x4 = LtSVecI32x4
 
 
 def LtUVecI32x4() -> BinaryenOp:
     return lib.BinaryenLtUVecI32x4()
 
 
+BinaryenLtUVecI32x4 = LtUVecI32x4
+
+
 def GtSVecI32x4() -> BinaryenOp:
     return lib.BinaryenGtSVecI32x4()
+
+
+BinaryenGtSVecI32x4 = GtSVecI32x4
 
 
 def GtUVecI32x4() -> BinaryenOp:
     return lib.BinaryenGtUVecI32x4()
 
 
+BinaryenGtUVecI32x4 = GtUVecI32x4
+
+
 def LeSVecI32x4() -> BinaryenOp:
     return lib.BinaryenLeSVecI32x4()
+
+
+BinaryenLeSVecI32x4 = LeSVecI32x4
 
 
 def LeUVecI32x4() -> BinaryenOp:
     return lib.BinaryenLeUVecI32x4()
 
 
+BinaryenLeUVecI32x4 = LeUVecI32x4
+
+
 def GeSVecI32x4() -> BinaryenOp:
     return lib.BinaryenGeSVecI32x4()
+
+
+BinaryenGeSVecI32x4 = GeSVecI32x4
 
 
 def GeUVecI32x4() -> BinaryenOp:
     return lib.BinaryenGeUVecI32x4()
 
 
+BinaryenGeUVecI32x4 = GeUVecI32x4
+
+
 def EqVecI64x2() -> BinaryenOp:
     return lib.BinaryenEqVecI64x2()
+
+
+BinaryenEqVecI64x2 = EqVecI64x2
 
 
 def NeVecI64x2() -> BinaryenOp:
     return lib.BinaryenNeVecI64x2()
 
 
+BinaryenNeVecI64x2 = NeVecI64x2
+
+
 def LtSVecI64x2() -> BinaryenOp:
     return lib.BinaryenLtSVecI64x2()
+
+
+BinaryenLtSVecI64x2 = LtSVecI64x2
 
 
 def GtSVecI64x2() -> BinaryenOp:
     return lib.BinaryenGtSVecI64x2()
 
 
+BinaryenGtSVecI64x2 = GtSVecI64x2
+
+
 def LeSVecI64x2() -> BinaryenOp:
     return lib.BinaryenLeSVecI64x2()
+
+
+BinaryenLeSVecI64x2 = LeSVecI64x2
 
 
 def GeSVecI64x2() -> BinaryenOp:
     return lib.BinaryenGeSVecI64x2()
 
 
+BinaryenGeSVecI64x2 = GeSVecI64x2
+
+
 def EqVecF32x4() -> BinaryenOp:
     return lib.BinaryenEqVecF32x4()
+
+
+BinaryenEqVecF32x4 = EqVecF32x4
 
 
 def NeVecF32x4() -> BinaryenOp:
     return lib.BinaryenNeVecF32x4()
 
 
+BinaryenNeVecF32x4 = NeVecF32x4
+
+
 def LtVecF32x4() -> BinaryenOp:
     return lib.BinaryenLtVecF32x4()
+
+
+BinaryenLtVecF32x4 = LtVecF32x4
 
 
 def GtVecF32x4() -> BinaryenOp:
     return lib.BinaryenGtVecF32x4()
 
 
+BinaryenGtVecF32x4 = GtVecF32x4
+
+
 def LeVecF32x4() -> BinaryenOp:
     return lib.BinaryenLeVecF32x4()
+
+
+BinaryenLeVecF32x4 = LeVecF32x4
 
 
 def GeVecF32x4() -> BinaryenOp:
     return lib.BinaryenGeVecF32x4()
 
 
+BinaryenGeVecF32x4 = GeVecF32x4
+
+
 def EqVecF64x2() -> BinaryenOp:
     return lib.BinaryenEqVecF64x2()
+
+
+BinaryenEqVecF64x2 = EqVecF64x2
 
 
 def NeVecF64x2() -> BinaryenOp:
     return lib.BinaryenNeVecF64x2()
 
 
+BinaryenNeVecF64x2 = NeVecF64x2
+
+
 def LtVecF64x2() -> BinaryenOp:
     return lib.BinaryenLtVecF64x2()
+
+
+BinaryenLtVecF64x2 = LtVecF64x2
 
 
 def GtVecF64x2() -> BinaryenOp:
     return lib.BinaryenGtVecF64x2()
 
 
+BinaryenGtVecF64x2 = GtVecF64x2
+
+
 def LeVecF64x2() -> BinaryenOp:
     return lib.BinaryenLeVecF64x2()
+
+
+BinaryenLeVecF64x2 = LeVecF64x2
 
 
 def GeVecF64x2() -> BinaryenOp:
     return lib.BinaryenGeVecF64x2()
 
 
+BinaryenGeVecF64x2 = GeVecF64x2
+
+
 def NotVec128() -> BinaryenOp:
     return lib.BinaryenNotVec128()
+
+
+BinaryenNotVec128 = NotVec128
 
 
 def AndVec128() -> BinaryenOp:
     return lib.BinaryenAndVec128()
 
 
+BinaryenAndVec128 = AndVec128
+
+
 def OrVec128() -> BinaryenOp:
     return lib.BinaryenOrVec128()
+
+
+BinaryenOrVec128 = OrVec128
 
 
 def XorVec128() -> BinaryenOp:
     return lib.BinaryenXorVec128()
 
 
+BinaryenXorVec128 = XorVec128
+
+
 def AndNotVec128() -> BinaryenOp:
     return lib.BinaryenAndNotVec128()
+
+
+BinaryenAndNotVec128 = AndNotVec128
 
 
 def BitselectVec128() -> BinaryenOp:
     return lib.BinaryenBitselectVec128()
 
 
+BinaryenBitselectVec128 = BitselectVec128
+
+
 def AnyTrueVec128() -> BinaryenOp:
     return lib.BinaryenAnyTrueVec128()
+
+
+BinaryenAnyTrueVec128 = AnyTrueVec128
 
 
 def PopcntVecI8x16() -> BinaryenOp:
     return lib.BinaryenPopcntVecI8x16()
 
 
+BinaryenPopcntVecI8x16 = PopcntVecI8x16
+
+
 def AbsVecI8x16() -> BinaryenOp:
     return lib.BinaryenAbsVecI8x16()
+
+
+BinaryenAbsVecI8x16 = AbsVecI8x16
 
 
 def NegVecI8x16() -> BinaryenOp:
     return lib.BinaryenNegVecI8x16()
 
 
+BinaryenNegVecI8x16 = NegVecI8x16
+
+
 def AllTrueVecI8x16() -> BinaryenOp:
     return lib.BinaryenAllTrueVecI8x16()
+
+
+BinaryenAllTrueVecI8x16 = AllTrueVecI8x16
 
 
 def BitmaskVecI8x16() -> BinaryenOp:
     return lib.BinaryenBitmaskVecI8x16()
 
 
+BinaryenBitmaskVecI8x16 = BitmaskVecI8x16
+
+
 def ShlVecI8x16() -> BinaryenOp:
     return lib.BinaryenShlVecI8x16()
+
+
+BinaryenShlVecI8x16 = ShlVecI8x16
 
 
 def ShrSVecI8x16() -> BinaryenOp:
     return lib.BinaryenShrSVecI8x16()
 
 
+BinaryenShrSVecI8x16 = ShrSVecI8x16
+
+
 def ShrUVecI8x16() -> BinaryenOp:
     return lib.BinaryenShrUVecI8x16()
+
+
+BinaryenShrUVecI8x16 = ShrUVecI8x16
 
 
 def AddVecI8x16() -> BinaryenOp:
     return lib.BinaryenAddVecI8x16()
 
 
+BinaryenAddVecI8x16 = AddVecI8x16
+
+
 def AddSatSVecI8x16() -> BinaryenOp:
     return lib.BinaryenAddSatSVecI8x16()
+
+
+BinaryenAddSatSVecI8x16 = AddSatSVecI8x16
 
 
 def AddSatUVecI8x16() -> BinaryenOp:
     return lib.BinaryenAddSatUVecI8x16()
 
 
+BinaryenAddSatUVecI8x16 = AddSatUVecI8x16
+
+
 def SubVecI8x16() -> BinaryenOp:
     return lib.BinaryenSubVecI8x16()
+
+
+BinaryenSubVecI8x16 = SubVecI8x16
 
 
 def SubSatSVecI8x16() -> BinaryenOp:
     return lib.BinaryenSubSatSVecI8x16()
 
 
+BinaryenSubSatSVecI8x16 = SubSatSVecI8x16
+
+
 def SubSatUVecI8x16() -> BinaryenOp:
     return lib.BinaryenSubSatUVecI8x16()
+
+
+BinaryenSubSatUVecI8x16 = SubSatUVecI8x16
 
 
 def MinSVecI8x16() -> BinaryenOp:
     return lib.BinaryenMinSVecI8x16()
 
 
+BinaryenMinSVecI8x16 = MinSVecI8x16
+
+
 def MinUVecI8x16() -> BinaryenOp:
     return lib.BinaryenMinUVecI8x16()
+
+
+BinaryenMinUVecI8x16 = MinUVecI8x16
 
 
 def MaxSVecI8x16() -> BinaryenOp:
     return lib.BinaryenMaxSVecI8x16()
 
 
+BinaryenMaxSVecI8x16 = MaxSVecI8x16
+
+
 def MaxUVecI8x16() -> BinaryenOp:
     return lib.BinaryenMaxUVecI8x16()
+
+
+BinaryenMaxUVecI8x16 = MaxUVecI8x16
 
 
 def AvgrUVecI8x16() -> BinaryenOp:
     return lib.BinaryenAvgrUVecI8x16()
 
 
+BinaryenAvgrUVecI8x16 = AvgrUVecI8x16
+
+
 def AbsVecI16x8() -> BinaryenOp:
     return lib.BinaryenAbsVecI16x8()
+
+
+BinaryenAbsVecI16x8 = AbsVecI16x8
 
 
 def NegVecI16x8() -> BinaryenOp:
     return lib.BinaryenNegVecI16x8()
 
 
+BinaryenNegVecI16x8 = NegVecI16x8
+
+
 def AllTrueVecI16x8() -> BinaryenOp:
     return lib.BinaryenAllTrueVecI16x8()
+
+
+BinaryenAllTrueVecI16x8 = AllTrueVecI16x8
 
 
 def BitmaskVecI16x8() -> BinaryenOp:
     return lib.BinaryenBitmaskVecI16x8()
 
 
+BinaryenBitmaskVecI16x8 = BitmaskVecI16x8
+
+
 def ShlVecI16x8() -> BinaryenOp:
     return lib.BinaryenShlVecI16x8()
+
+
+BinaryenShlVecI16x8 = ShlVecI16x8
 
 
 def ShrSVecI16x8() -> BinaryenOp:
     return lib.BinaryenShrSVecI16x8()
 
 
+BinaryenShrSVecI16x8 = ShrSVecI16x8
+
+
 def ShrUVecI16x8() -> BinaryenOp:
     return lib.BinaryenShrUVecI16x8()
+
+
+BinaryenShrUVecI16x8 = ShrUVecI16x8
 
 
 def AddVecI16x8() -> BinaryenOp:
     return lib.BinaryenAddVecI16x8()
 
 
+BinaryenAddVecI16x8 = AddVecI16x8
+
+
 def AddSatSVecI16x8() -> BinaryenOp:
     return lib.BinaryenAddSatSVecI16x8()
+
+
+BinaryenAddSatSVecI16x8 = AddSatSVecI16x8
 
 
 def AddSatUVecI16x8() -> BinaryenOp:
     return lib.BinaryenAddSatUVecI16x8()
 
 
+BinaryenAddSatUVecI16x8 = AddSatUVecI16x8
+
+
 def SubVecI16x8() -> BinaryenOp:
     return lib.BinaryenSubVecI16x8()
+
+
+BinaryenSubVecI16x8 = SubVecI16x8
 
 
 def SubSatSVecI16x8() -> BinaryenOp:
     return lib.BinaryenSubSatSVecI16x8()
 
 
+BinaryenSubSatSVecI16x8 = SubSatSVecI16x8
+
+
 def SubSatUVecI16x8() -> BinaryenOp:
     return lib.BinaryenSubSatUVecI16x8()
+
+
+BinaryenSubSatUVecI16x8 = SubSatUVecI16x8
 
 
 def MulVecI16x8() -> BinaryenOp:
     return lib.BinaryenMulVecI16x8()
 
 
+BinaryenMulVecI16x8 = MulVecI16x8
+
+
 def MinSVecI16x8() -> BinaryenOp:
     return lib.BinaryenMinSVecI16x8()
+
+
+BinaryenMinSVecI16x8 = MinSVecI16x8
 
 
 def MinUVecI16x8() -> BinaryenOp:
     return lib.BinaryenMinUVecI16x8()
 
 
+BinaryenMinUVecI16x8 = MinUVecI16x8
+
+
 def MaxSVecI16x8() -> BinaryenOp:
     return lib.BinaryenMaxSVecI16x8()
+
+
+BinaryenMaxSVecI16x8 = MaxSVecI16x8
 
 
 def MaxUVecI16x8() -> BinaryenOp:
     return lib.BinaryenMaxUVecI16x8()
 
 
+BinaryenMaxUVecI16x8 = MaxUVecI16x8
+
+
 def AvgrUVecI16x8() -> BinaryenOp:
     return lib.BinaryenAvgrUVecI16x8()
+
+
+BinaryenAvgrUVecI16x8 = AvgrUVecI16x8
 
 
 def Q15MulrSatSVecI16x8() -> BinaryenOp:
     return lib.BinaryenQ15MulrSatSVecI16x8()
 
 
+BinaryenQ15MulrSatSVecI16x8 = Q15MulrSatSVecI16x8
+
+
 def ExtMulLowSVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtMulLowSVecI16x8()
+
+
+BinaryenExtMulLowSVecI16x8 = ExtMulLowSVecI16x8
 
 
 def ExtMulHighSVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtMulHighSVecI16x8()
 
 
+BinaryenExtMulHighSVecI16x8 = ExtMulHighSVecI16x8
+
+
 def ExtMulLowUVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtMulLowUVecI16x8()
+
+
+BinaryenExtMulLowUVecI16x8 = ExtMulLowUVecI16x8
 
 
 def ExtMulHighUVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtMulHighUVecI16x8()
 
 
+BinaryenExtMulHighUVecI16x8 = ExtMulHighUVecI16x8
+
+
 def AbsVecI32x4() -> BinaryenOp:
     return lib.BinaryenAbsVecI32x4()
+
+
+BinaryenAbsVecI32x4 = AbsVecI32x4
 
 
 def NegVecI32x4() -> BinaryenOp:
     return lib.BinaryenNegVecI32x4()
 
 
+BinaryenNegVecI32x4 = NegVecI32x4
+
+
 def AllTrueVecI32x4() -> BinaryenOp:
     return lib.BinaryenAllTrueVecI32x4()
+
+
+BinaryenAllTrueVecI32x4 = AllTrueVecI32x4
 
 
 def BitmaskVecI32x4() -> BinaryenOp:
     return lib.BinaryenBitmaskVecI32x4()
 
 
+BinaryenBitmaskVecI32x4 = BitmaskVecI32x4
+
+
 def ShlVecI32x4() -> BinaryenOp:
     return lib.BinaryenShlVecI32x4()
+
+
+BinaryenShlVecI32x4 = ShlVecI32x4
 
 
 def ShrSVecI32x4() -> BinaryenOp:
     return lib.BinaryenShrSVecI32x4()
 
 
+BinaryenShrSVecI32x4 = ShrSVecI32x4
+
+
 def ShrUVecI32x4() -> BinaryenOp:
     return lib.BinaryenShrUVecI32x4()
+
+
+BinaryenShrUVecI32x4 = ShrUVecI32x4
 
 
 def AddVecI32x4() -> BinaryenOp:
     return lib.BinaryenAddVecI32x4()
 
 
+BinaryenAddVecI32x4 = AddVecI32x4
+
+
 def SubVecI32x4() -> BinaryenOp:
     return lib.BinaryenSubVecI32x4()
+
+
+BinaryenSubVecI32x4 = SubVecI32x4
 
 
 def MulVecI32x4() -> BinaryenOp:
     return lib.BinaryenMulVecI32x4()
 
 
+BinaryenMulVecI32x4 = MulVecI32x4
+
+
 def MinSVecI32x4() -> BinaryenOp:
     return lib.BinaryenMinSVecI32x4()
+
+
+BinaryenMinSVecI32x4 = MinSVecI32x4
 
 
 def MinUVecI32x4() -> BinaryenOp:
     return lib.BinaryenMinUVecI32x4()
 
 
+BinaryenMinUVecI32x4 = MinUVecI32x4
+
+
 def MaxSVecI32x4() -> BinaryenOp:
     return lib.BinaryenMaxSVecI32x4()
+
+
+BinaryenMaxSVecI32x4 = MaxSVecI32x4
 
 
 def MaxUVecI32x4() -> BinaryenOp:
     return lib.BinaryenMaxUVecI32x4()
 
 
+BinaryenMaxUVecI32x4 = MaxUVecI32x4
+
+
 def DotSVecI16x8ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenDotSVecI16x8ToVecI32x4()
+
+
+BinaryenDotSVecI16x8ToVecI32x4 = DotSVecI16x8ToVecI32x4
 
 
 def ExtMulLowSVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtMulLowSVecI32x4()
 
 
+BinaryenExtMulLowSVecI32x4 = ExtMulLowSVecI32x4
+
+
 def ExtMulHighSVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtMulHighSVecI32x4()
+
+
+BinaryenExtMulHighSVecI32x4 = ExtMulHighSVecI32x4
 
 
 def ExtMulLowUVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtMulLowUVecI32x4()
 
 
+BinaryenExtMulLowUVecI32x4 = ExtMulLowUVecI32x4
+
+
 def ExtMulHighUVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtMulHighUVecI32x4()
+
+
+BinaryenExtMulHighUVecI32x4 = ExtMulHighUVecI32x4
 
 
 def AbsVecI64x2() -> BinaryenOp:
     return lib.BinaryenAbsVecI64x2()
 
 
+BinaryenAbsVecI64x2 = AbsVecI64x2
+
+
 def NegVecI64x2() -> BinaryenOp:
     return lib.BinaryenNegVecI64x2()
+
+
+BinaryenNegVecI64x2 = NegVecI64x2
 
 
 def AllTrueVecI64x2() -> BinaryenOp:
     return lib.BinaryenAllTrueVecI64x2()
 
 
+BinaryenAllTrueVecI64x2 = AllTrueVecI64x2
+
+
 def BitmaskVecI64x2() -> BinaryenOp:
     return lib.BinaryenBitmaskVecI64x2()
+
+
+BinaryenBitmaskVecI64x2 = BitmaskVecI64x2
 
 
 def ShlVecI64x2() -> BinaryenOp:
     return lib.BinaryenShlVecI64x2()
 
 
+BinaryenShlVecI64x2 = ShlVecI64x2
+
+
 def ShrSVecI64x2() -> BinaryenOp:
     return lib.BinaryenShrSVecI64x2()
+
+
+BinaryenShrSVecI64x2 = ShrSVecI64x2
 
 
 def ShrUVecI64x2() -> BinaryenOp:
     return lib.BinaryenShrUVecI64x2()
 
 
+BinaryenShrUVecI64x2 = ShrUVecI64x2
+
+
 def AddVecI64x2() -> BinaryenOp:
     return lib.BinaryenAddVecI64x2()
+
+
+BinaryenAddVecI64x2 = AddVecI64x2
 
 
 def SubVecI64x2() -> BinaryenOp:
     return lib.BinaryenSubVecI64x2()
 
 
+BinaryenSubVecI64x2 = SubVecI64x2
+
+
 def MulVecI64x2() -> BinaryenOp:
     return lib.BinaryenMulVecI64x2()
+
+
+BinaryenMulVecI64x2 = MulVecI64x2
 
 
 def ExtMulLowSVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtMulLowSVecI64x2()
 
 
+BinaryenExtMulLowSVecI64x2 = ExtMulLowSVecI64x2
+
+
 def ExtMulHighSVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtMulHighSVecI64x2()
+
+
+BinaryenExtMulHighSVecI64x2 = ExtMulHighSVecI64x2
 
 
 def ExtMulLowUVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtMulLowUVecI64x2()
 
 
+BinaryenExtMulLowUVecI64x2 = ExtMulLowUVecI64x2
+
+
 def ExtMulHighUVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtMulHighUVecI64x2()
+
+
+BinaryenExtMulHighUVecI64x2 = ExtMulHighUVecI64x2
 
 
 def AbsVecF32x4() -> BinaryenOp:
     return lib.BinaryenAbsVecF32x4()
 
 
+BinaryenAbsVecF32x4 = AbsVecF32x4
+
+
 def NegVecF32x4() -> BinaryenOp:
     return lib.BinaryenNegVecF32x4()
+
+
+BinaryenNegVecF32x4 = NegVecF32x4
 
 
 def SqrtVecF32x4() -> BinaryenOp:
     return lib.BinaryenSqrtVecF32x4()
 
 
+BinaryenSqrtVecF32x4 = SqrtVecF32x4
+
+
 def AddVecF32x4() -> BinaryenOp:
     return lib.BinaryenAddVecF32x4()
+
+
+BinaryenAddVecF32x4 = AddVecF32x4
 
 
 def SubVecF32x4() -> BinaryenOp:
     return lib.BinaryenSubVecF32x4()
 
 
+BinaryenSubVecF32x4 = SubVecF32x4
+
+
 def MulVecF32x4() -> BinaryenOp:
     return lib.BinaryenMulVecF32x4()
+
+
+BinaryenMulVecF32x4 = MulVecF32x4
 
 
 def DivVecF32x4() -> BinaryenOp:
     return lib.BinaryenDivVecF32x4()
 
 
+BinaryenDivVecF32x4 = DivVecF32x4
+
+
 def MinVecF32x4() -> BinaryenOp:
     return lib.BinaryenMinVecF32x4()
+
+
+BinaryenMinVecF32x4 = MinVecF32x4
 
 
 def MaxVecF32x4() -> BinaryenOp:
     return lib.BinaryenMaxVecF32x4()
 
 
+BinaryenMaxVecF32x4 = MaxVecF32x4
+
+
 def PMinVecF32x4() -> BinaryenOp:
     return lib.BinaryenPMinVecF32x4()
+
+
+BinaryenPMinVecF32x4 = PMinVecF32x4
 
 
 def PMaxVecF32x4() -> BinaryenOp:
     return lib.BinaryenPMaxVecF32x4()
 
 
+BinaryenPMaxVecF32x4 = PMaxVecF32x4
+
+
 def CeilVecF32x4() -> BinaryenOp:
     return lib.BinaryenCeilVecF32x4()
+
+
+BinaryenCeilVecF32x4 = CeilVecF32x4
 
 
 def FloorVecF32x4() -> BinaryenOp:
     return lib.BinaryenFloorVecF32x4()
 
 
+BinaryenFloorVecF32x4 = FloorVecF32x4
+
+
 def TruncVecF32x4() -> BinaryenOp:
     return lib.BinaryenTruncVecF32x4()
+
+
+BinaryenTruncVecF32x4 = TruncVecF32x4
 
 
 def NearestVecF32x4() -> BinaryenOp:
     return lib.BinaryenNearestVecF32x4()
 
 
+BinaryenNearestVecF32x4 = NearestVecF32x4
+
+
 def AbsVecF64x2() -> BinaryenOp:
     return lib.BinaryenAbsVecF64x2()
+
+
+BinaryenAbsVecF64x2 = AbsVecF64x2
 
 
 def NegVecF64x2() -> BinaryenOp:
     return lib.BinaryenNegVecF64x2()
 
 
+BinaryenNegVecF64x2 = NegVecF64x2
+
+
 def SqrtVecF64x2() -> BinaryenOp:
     return lib.BinaryenSqrtVecF64x2()
+
+
+BinaryenSqrtVecF64x2 = SqrtVecF64x2
 
 
 def AddVecF64x2() -> BinaryenOp:
     return lib.BinaryenAddVecF64x2()
 
 
+BinaryenAddVecF64x2 = AddVecF64x2
+
+
 def SubVecF64x2() -> BinaryenOp:
     return lib.BinaryenSubVecF64x2()
+
+
+BinaryenSubVecF64x2 = SubVecF64x2
 
 
 def MulVecF64x2() -> BinaryenOp:
     return lib.BinaryenMulVecF64x2()
 
 
+BinaryenMulVecF64x2 = MulVecF64x2
+
+
 def DivVecF64x2() -> BinaryenOp:
     return lib.BinaryenDivVecF64x2()
+
+
+BinaryenDivVecF64x2 = DivVecF64x2
 
 
 def MinVecF64x2() -> BinaryenOp:
     return lib.BinaryenMinVecF64x2()
 
 
+BinaryenMinVecF64x2 = MinVecF64x2
+
+
 def MaxVecF64x2() -> BinaryenOp:
     return lib.BinaryenMaxVecF64x2()
+
+
+BinaryenMaxVecF64x2 = MaxVecF64x2
 
 
 def PMinVecF64x2() -> BinaryenOp:
     return lib.BinaryenPMinVecF64x2()
 
 
+BinaryenPMinVecF64x2 = PMinVecF64x2
+
+
 def PMaxVecF64x2() -> BinaryenOp:
     return lib.BinaryenPMaxVecF64x2()
+
+
+BinaryenPMaxVecF64x2 = PMaxVecF64x2
 
 
 def CeilVecF64x2() -> BinaryenOp:
     return lib.BinaryenCeilVecF64x2()
 
 
+BinaryenCeilVecF64x2 = CeilVecF64x2
+
+
 def FloorVecF64x2() -> BinaryenOp:
     return lib.BinaryenFloorVecF64x2()
+
+
+BinaryenFloorVecF64x2 = FloorVecF64x2
 
 
 def TruncVecF64x2() -> BinaryenOp:
     return lib.BinaryenTruncVecF64x2()
 
 
+BinaryenTruncVecF64x2 = TruncVecF64x2
+
+
 def NearestVecF64x2() -> BinaryenOp:
     return lib.BinaryenNearestVecF64x2()
+
+
+BinaryenNearestVecF64x2 = NearestVecF64x2
 
 
 def ExtAddPairwiseSVecI8x16ToI16x8() -> BinaryenOp:
     return lib.BinaryenExtAddPairwiseSVecI8x16ToI16x8()
 
 
+BinaryenExtAddPairwiseSVecI8x16ToI16x8 = ExtAddPairwiseSVecI8x16ToI16x8
+
+
 def ExtAddPairwiseUVecI8x16ToI16x8() -> BinaryenOp:
     return lib.BinaryenExtAddPairwiseUVecI8x16ToI16x8()
+
+
+BinaryenExtAddPairwiseUVecI8x16ToI16x8 = ExtAddPairwiseUVecI8x16ToI16x8
 
 
 def ExtAddPairwiseSVecI16x8ToI32x4() -> BinaryenOp:
     return lib.BinaryenExtAddPairwiseSVecI16x8ToI32x4()
 
 
+BinaryenExtAddPairwiseSVecI16x8ToI32x4 = ExtAddPairwiseSVecI16x8ToI32x4
+
+
 def ExtAddPairwiseUVecI16x8ToI32x4() -> BinaryenOp:
     return lib.BinaryenExtAddPairwiseUVecI16x8ToI32x4()
+
+
+BinaryenExtAddPairwiseUVecI16x8ToI32x4 = ExtAddPairwiseUVecI16x8ToI32x4
 
 
 def TruncSatSVecF32x4ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenTruncSatSVecF32x4ToVecI32x4()
 
 
+BinaryenTruncSatSVecF32x4ToVecI32x4 = TruncSatSVecF32x4ToVecI32x4
+
+
 def TruncSatUVecF32x4ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenTruncSatUVecF32x4ToVecI32x4()
+
+
+BinaryenTruncSatUVecF32x4ToVecI32x4 = TruncSatUVecF32x4ToVecI32x4
 
 
 def ConvertSVecI32x4ToVecF32x4() -> BinaryenOp:
     return lib.BinaryenConvertSVecI32x4ToVecF32x4()
 
 
+BinaryenConvertSVecI32x4ToVecF32x4 = ConvertSVecI32x4ToVecF32x4
+
+
 def ConvertUVecI32x4ToVecF32x4() -> BinaryenOp:
     return lib.BinaryenConvertUVecI32x4ToVecF32x4()
+
+
+BinaryenConvertUVecI32x4ToVecF32x4 = ConvertUVecI32x4ToVecF32x4
 
 
 def Load8SplatVec128() -> BinaryenOp:
     return lib.BinaryenLoad8SplatVec128()
 
 
+BinaryenLoad8SplatVec128 = Load8SplatVec128
+
+
 def Load16SplatVec128() -> BinaryenOp:
     return lib.BinaryenLoad16SplatVec128()
+
+
+BinaryenLoad16SplatVec128 = Load16SplatVec128
 
 
 def Load32SplatVec128() -> BinaryenOp:
     return lib.BinaryenLoad32SplatVec128()
 
 
+BinaryenLoad32SplatVec128 = Load32SplatVec128
+
+
 def Load64SplatVec128() -> BinaryenOp:
     return lib.BinaryenLoad64SplatVec128()
+
+
+BinaryenLoad64SplatVec128 = Load64SplatVec128
 
 
 def Load8x8SVec128() -> BinaryenOp:
     return lib.BinaryenLoad8x8SVec128()
 
 
+BinaryenLoad8x8SVec128 = Load8x8SVec128
+
+
 def Load8x8UVec128() -> BinaryenOp:
     return lib.BinaryenLoad8x8UVec128()
+
+
+BinaryenLoad8x8UVec128 = Load8x8UVec128
 
 
 def Load16x4SVec128() -> BinaryenOp:
     return lib.BinaryenLoad16x4SVec128()
 
 
+BinaryenLoad16x4SVec128 = Load16x4SVec128
+
+
 def Load16x4UVec128() -> BinaryenOp:
     return lib.BinaryenLoad16x4UVec128()
+
+
+BinaryenLoad16x4UVec128 = Load16x4UVec128
 
 
 def Load32x2SVec128() -> BinaryenOp:
     return lib.BinaryenLoad32x2SVec128()
 
 
+BinaryenLoad32x2SVec128 = Load32x2SVec128
+
+
 def Load32x2UVec128() -> BinaryenOp:
     return lib.BinaryenLoad32x2UVec128()
+
+
+BinaryenLoad32x2UVec128 = Load32x2UVec128
 
 
 def Load32ZeroVec128() -> BinaryenOp:
     return lib.BinaryenLoad32ZeroVec128()
 
 
+BinaryenLoad32ZeroVec128 = Load32ZeroVec128
+
+
 def Load64ZeroVec128() -> BinaryenOp:
     return lib.BinaryenLoad64ZeroVec128()
+
+
+BinaryenLoad64ZeroVec128 = Load64ZeroVec128
 
 
 def Load8LaneVec128() -> BinaryenOp:
     return lib.BinaryenLoad8LaneVec128()
 
 
+BinaryenLoad8LaneVec128 = Load8LaneVec128
+
+
 def Load16LaneVec128() -> BinaryenOp:
     return lib.BinaryenLoad16LaneVec128()
+
+
+BinaryenLoad16LaneVec128 = Load16LaneVec128
 
 
 def Load32LaneVec128() -> BinaryenOp:
     return lib.BinaryenLoad32LaneVec128()
 
 
+BinaryenLoad32LaneVec128 = Load32LaneVec128
+
+
 def Load64LaneVec128() -> BinaryenOp:
     return lib.BinaryenLoad64LaneVec128()
+
+
+BinaryenLoad64LaneVec128 = Load64LaneVec128
 
 
 def Store8LaneVec128() -> BinaryenOp:
     return lib.BinaryenStore8LaneVec128()
 
 
+BinaryenStore8LaneVec128 = Store8LaneVec128
+
+
 def Store16LaneVec128() -> BinaryenOp:
     return lib.BinaryenStore16LaneVec128()
+
+
+BinaryenStore16LaneVec128 = Store16LaneVec128
 
 
 def Store32LaneVec128() -> BinaryenOp:
     return lib.BinaryenStore32LaneVec128()
 
 
+BinaryenStore32LaneVec128 = Store32LaneVec128
+
+
 def Store64LaneVec128() -> BinaryenOp:
     return lib.BinaryenStore64LaneVec128()
+
+
+BinaryenStore64LaneVec128 = Store64LaneVec128
 
 
 def NarrowSVecI16x8ToVecI8x16() -> BinaryenOp:
     return lib.BinaryenNarrowSVecI16x8ToVecI8x16()
 
 
+BinaryenNarrowSVecI16x8ToVecI8x16 = NarrowSVecI16x8ToVecI8x16
+
+
 def NarrowUVecI16x8ToVecI8x16() -> BinaryenOp:
     return lib.BinaryenNarrowUVecI16x8ToVecI8x16()
+
+
+BinaryenNarrowUVecI16x8ToVecI8x16 = NarrowUVecI16x8ToVecI8x16
 
 
 def NarrowSVecI32x4ToVecI16x8() -> BinaryenOp:
     return lib.BinaryenNarrowSVecI32x4ToVecI16x8()
 
 
+BinaryenNarrowSVecI32x4ToVecI16x8 = NarrowSVecI32x4ToVecI16x8
+
+
 def NarrowUVecI32x4ToVecI16x8() -> BinaryenOp:
     return lib.BinaryenNarrowUVecI32x4ToVecI16x8()
+
+
+BinaryenNarrowUVecI32x4ToVecI16x8 = NarrowUVecI32x4ToVecI16x8
 
 
 def ExtendLowSVecI8x16ToVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtendLowSVecI8x16ToVecI16x8()
 
 
+BinaryenExtendLowSVecI8x16ToVecI16x8 = ExtendLowSVecI8x16ToVecI16x8
+
+
 def ExtendHighSVecI8x16ToVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtendHighSVecI8x16ToVecI16x8()
+
+
+BinaryenExtendHighSVecI8x16ToVecI16x8 = ExtendHighSVecI8x16ToVecI16x8
 
 
 def ExtendLowUVecI8x16ToVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtendLowUVecI8x16ToVecI16x8()
 
 
+BinaryenExtendLowUVecI8x16ToVecI16x8 = ExtendLowUVecI8x16ToVecI16x8
+
+
 def ExtendHighUVecI8x16ToVecI16x8() -> BinaryenOp:
     return lib.BinaryenExtendHighUVecI8x16ToVecI16x8()
+
+
+BinaryenExtendHighUVecI8x16ToVecI16x8 = ExtendHighUVecI8x16ToVecI16x8
 
 
 def ExtendLowSVecI16x8ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtendLowSVecI16x8ToVecI32x4()
 
 
+BinaryenExtendLowSVecI16x8ToVecI32x4 = ExtendLowSVecI16x8ToVecI32x4
+
+
 def ExtendHighSVecI16x8ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtendHighSVecI16x8ToVecI32x4()
+
+
+BinaryenExtendHighSVecI16x8ToVecI32x4 = ExtendHighSVecI16x8ToVecI32x4
 
 
 def ExtendLowUVecI16x8ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtendLowUVecI16x8ToVecI32x4()
 
 
+BinaryenExtendLowUVecI16x8ToVecI32x4 = ExtendLowUVecI16x8ToVecI32x4
+
+
 def ExtendHighUVecI16x8ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenExtendHighUVecI16x8ToVecI32x4()
+
+
+BinaryenExtendHighUVecI16x8ToVecI32x4 = ExtendHighUVecI16x8ToVecI32x4
 
 
 def ExtendLowSVecI32x4ToVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtendLowSVecI32x4ToVecI64x2()
 
 
+BinaryenExtendLowSVecI32x4ToVecI64x2 = ExtendLowSVecI32x4ToVecI64x2
+
+
 def ExtendHighSVecI32x4ToVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtendHighSVecI32x4ToVecI64x2()
+
+
+BinaryenExtendHighSVecI32x4ToVecI64x2 = ExtendHighSVecI32x4ToVecI64x2
 
 
 def ExtendLowUVecI32x4ToVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtendLowUVecI32x4ToVecI64x2()
 
 
+BinaryenExtendLowUVecI32x4ToVecI64x2 = ExtendLowUVecI32x4ToVecI64x2
+
+
 def ExtendHighUVecI32x4ToVecI64x2() -> BinaryenOp:
     return lib.BinaryenExtendHighUVecI32x4ToVecI64x2()
+
+
+BinaryenExtendHighUVecI32x4ToVecI64x2 = ExtendHighUVecI32x4ToVecI64x2
 
 
 def ConvertLowSVecI32x4ToVecF64x2() -> BinaryenOp:
     return lib.BinaryenConvertLowSVecI32x4ToVecF64x2()
 
 
+BinaryenConvertLowSVecI32x4ToVecF64x2 = ConvertLowSVecI32x4ToVecF64x2
+
+
 def ConvertLowUVecI32x4ToVecF64x2() -> BinaryenOp:
     return lib.BinaryenConvertLowUVecI32x4ToVecF64x2()
+
+
+BinaryenConvertLowUVecI32x4ToVecF64x2 = ConvertLowUVecI32x4ToVecF64x2
 
 
 def TruncSatZeroSVecF64x2ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenTruncSatZeroSVecF64x2ToVecI32x4()
 
 
+BinaryenTruncSatZeroSVecF64x2ToVecI32x4 = TruncSatZeroSVecF64x2ToVecI32x4
+
+
 def TruncSatZeroUVecF64x2ToVecI32x4() -> BinaryenOp:
     return lib.BinaryenTruncSatZeroUVecF64x2ToVecI32x4()
+
+
+BinaryenTruncSatZeroUVecF64x2ToVecI32x4 = TruncSatZeroUVecF64x2ToVecI32x4
 
 
 def DemoteZeroVecF64x2ToVecF32x4() -> BinaryenOp:
     return lib.BinaryenDemoteZeroVecF64x2ToVecF32x4()
 
 
+BinaryenDemoteZeroVecF64x2ToVecF32x4 = DemoteZeroVecF64x2ToVecF32x4
+
+
 def PromoteLowVecF32x4ToVecF64x2() -> BinaryenOp:
     return lib.BinaryenPromoteLowVecF32x4ToVecF64x2()
+
+
+BinaryenPromoteLowVecF32x4ToVecF64x2 = PromoteLowVecF32x4ToVecF64x2
 
 
 def SwizzleVecI8x16() -> BinaryenOp:
     return lib.BinaryenSwizzleVecI8x16()
 
 
+BinaryenSwizzleVecI8x16 = SwizzleVecI8x16
+
+
 def RefIsNull() -> BinaryenOp:
     return lib.BinaryenRefIsNull()
+
+
+BinaryenRefIsNull = RefIsNull
 
 
 def RefIsFunc() -> BinaryenOp:
     return lib.BinaryenRefIsFunc()
 
 
+BinaryenRefIsFunc = RefIsFunc
+
+
 def RefIsData() -> BinaryenOp:
     return lib.BinaryenRefIsData()
+
+
+BinaryenRefIsData = RefIsData
 
 
 def RefIsI31() -> BinaryenOp:
     return lib.BinaryenRefIsI31()
 
 
+BinaryenRefIsI31 = RefIsI31
+
+
 def RefAsNonNull() -> BinaryenOp:
     return lib.BinaryenRefAsNonNull()
+
+
+BinaryenRefAsNonNull = RefAsNonNull
 
 
 def RefAsFunc() -> BinaryenOp:
     return lib.BinaryenRefAsFunc()
 
 
+BinaryenRefAsFunc = RefAsFunc
+
+
 def RefAsData() -> BinaryenOp:
     return lib.BinaryenRefAsData()
+
+
+BinaryenRefAsData = RefAsData
 
 
 def RefAsI31() -> BinaryenOp:
     return lib.BinaryenRefAsI31()
 
 
+BinaryenRefAsI31 = RefAsI31
+
+
 def RefAsExternInternalize() -> BinaryenOp:
     return lib.BinaryenRefAsExternInternalize()
+
+
+BinaryenRefAsExternInternalize = RefAsExternInternalize
 
 
 def RefAsExternExternalize() -> BinaryenOp:
     return lib.BinaryenRefAsExternExternalize()
 
 
+BinaryenRefAsExternExternalize = RefAsExternExternalize
+
+
 def BrOnNull() -> BinaryenOp:
     return lib.BinaryenBrOnNull()
+
+
+BinaryenBrOnNull = BrOnNull
 
 
 def BrOnNonNull() -> BinaryenOp:
     return lib.BinaryenBrOnNonNull()
 
 
+BinaryenBrOnNonNull = BrOnNonNull
+
+
 def BrOnCast() -> BinaryenOp:
     return lib.BinaryenBrOnCast()
+
+
+BinaryenBrOnCast = BrOnCast
 
 
 def BrOnCastFail() -> BinaryenOp:
     return lib.BinaryenBrOnCastFail()
 
 
+BinaryenBrOnCastFail = BrOnCastFail
+
+
 def BrOnFunc() -> BinaryenOp:
     return lib.BinaryenBrOnFunc()
+
+
+BinaryenBrOnFunc = BrOnFunc
 
 
 def BrOnNonFunc() -> BinaryenOp:
     return lib.BinaryenBrOnNonFunc()
 
 
+BinaryenBrOnNonFunc = BrOnNonFunc
+
+
 def BrOnData() -> BinaryenOp:
     return lib.BinaryenBrOnData()
+
+
+BinaryenBrOnData = BrOnData
 
 
 def BrOnNonData() -> BinaryenOp:
     return lib.BinaryenBrOnNonData()
 
 
+BinaryenBrOnNonData = BrOnNonData
+
+
 def BrOnI31() -> BinaryenOp:
     return lib.BinaryenBrOnI31()
+
+
+BinaryenBrOnI31 = BrOnI31
 
 
 def BrOnNonI31() -> BinaryenOp:
     return lib.BinaryenBrOnNonI31()
 
 
+BinaryenBrOnNonI31 = BrOnNonI31
+
+
 def StringNewUTF8() -> BinaryenOp:
     return lib.BinaryenStringNewUTF8()
+
+
+BinaryenStringNewUTF8 = StringNewUTF8
 
 
 def StringNewWTF8() -> BinaryenOp:
     return lib.BinaryenStringNewWTF8()
 
 
+BinaryenStringNewWTF8 = StringNewWTF8
+
+
 def StringNewReplace() -> BinaryenOp:
     return lib.BinaryenStringNewReplace()
+
+
+BinaryenStringNewReplace = StringNewReplace
 
 
 def StringNewWTF16() -> BinaryenOp:
     return lib.BinaryenStringNewWTF16()
 
 
+BinaryenStringNewWTF16 = StringNewWTF16
+
+
 def StringNewUTF8Array() -> BinaryenOp:
     return lib.BinaryenStringNewUTF8Array()
+
+
+BinaryenStringNewUTF8Array = StringNewUTF8Array
 
 
 def StringNewWTF8Array() -> BinaryenOp:
     return lib.BinaryenStringNewWTF8Array()
 
 
+BinaryenStringNewWTF8Array = StringNewWTF8Array
+
+
 def StringNewReplaceArray() -> BinaryenOp:
     return lib.BinaryenStringNewReplaceArray()
+
+
+BinaryenStringNewReplaceArray = StringNewReplaceArray
 
 
 def StringNewWTF16Array() -> BinaryenOp:
     return lib.BinaryenStringNewWTF16Array()
 
 
+BinaryenStringNewWTF16Array = StringNewWTF16Array
+
+
 def StringMeasureUTF8() -> BinaryenOp:
     return lib.BinaryenStringMeasureUTF8()
+
+
+BinaryenStringMeasureUTF8 = StringMeasureUTF8
 
 
 def StringMeasureWTF8() -> BinaryenOp:
     return lib.BinaryenStringMeasureWTF8()
 
 
+BinaryenStringMeasureWTF8 = StringMeasureWTF8
+
+
 def StringMeasureWTF16() -> BinaryenOp:
     return lib.BinaryenStringMeasureWTF16()
+
+
+BinaryenStringMeasureWTF16 = StringMeasureWTF16
 
 
 def StringMeasureIsUSV() -> BinaryenOp:
     return lib.BinaryenStringMeasureIsUSV()
 
 
+BinaryenStringMeasureIsUSV = StringMeasureIsUSV
+
+
 def StringMeasureWTF16View() -> BinaryenOp:
     return lib.BinaryenStringMeasureWTF16View()
+
+
+BinaryenStringMeasureWTF16View = StringMeasureWTF16View
 
 
 def StringEncodeUTF8() -> BinaryenOp:
     return lib.BinaryenStringEncodeUTF8()
 
 
+BinaryenStringEncodeUTF8 = StringEncodeUTF8
+
+
 def StringEncodeWTF8() -> BinaryenOp:
     return lib.BinaryenStringEncodeWTF8()
+
+
+BinaryenStringEncodeWTF8 = StringEncodeWTF8
 
 
 def StringEncodeWTF16() -> BinaryenOp:
     return lib.BinaryenStringEncodeWTF16()
 
 
+BinaryenStringEncodeWTF16 = StringEncodeWTF16
+
+
 def StringEncodeUTF8Array() -> BinaryenOp:
     return lib.BinaryenStringEncodeUTF8Array()
+
+
+BinaryenStringEncodeUTF8Array = StringEncodeUTF8Array
 
 
 def StringEncodeWTF8Array() -> BinaryenOp:
     return lib.BinaryenStringEncodeWTF8Array()
 
 
+BinaryenStringEncodeWTF8Array = StringEncodeWTF8Array
+
+
 def StringEncodeWTF16Array() -> BinaryenOp:
     return lib.BinaryenStringEncodeWTF16Array()
+
+
+BinaryenStringEncodeWTF16Array = StringEncodeWTF16Array
 
 
 def StringAsWTF8() -> BinaryenOp:
     return lib.BinaryenStringAsWTF8()
 
 
+BinaryenStringAsWTF8 = StringAsWTF8
+
+
 def StringAsWTF16() -> BinaryenOp:
     return lib.BinaryenStringAsWTF16()
+
+
+BinaryenStringAsWTF16 = StringAsWTF16
 
 
 def StringAsIter() -> BinaryenOp:
     return lib.BinaryenStringAsIter()
 
 
+BinaryenStringAsIter = StringAsIter
+
+
 def StringIterMoveAdvance() -> BinaryenOp:
     return lib.BinaryenStringIterMoveAdvance()
+
+
+BinaryenStringIterMoveAdvance = StringIterMoveAdvance
 
 
 def StringIterMoveRewind() -> BinaryenOp:
     return lib.BinaryenStringIterMoveRewind()
 
 
+BinaryenStringIterMoveRewind = StringIterMoveRewind
+
+
 def StringSliceWTF8() -> BinaryenOp:
     return lib.BinaryenStringSliceWTF8()
+
+
+BinaryenStringSliceWTF8 = StringSliceWTF8
 
 
 def StringSliceWTF16() -> BinaryenOp:
     return lib.BinaryenStringSliceWTF16()
 
 
+BinaryenStringSliceWTF16 = StringSliceWTF16
+
+
 def Block(
     module: BinaryenModuleRef,
     name: str,
     children: List[BinaryenExpressionRef],
+    num_children: BinaryenIndex,
     _type: BinaryenType,
 ) -> BinaryenExpressionRef:
     """
@@ -2509,7 +4335,10 @@ def Block(
     automatically instead of explicitly providing it. This conforms
     to the behavior before the 'type' parameter has been introduced.
     """
-    return lib.BinaryenBlock(module, name.encode(), children, len(children), _type)
+    return lib.BinaryenBlock(module, name.encode(), children, num_children, _type)
+
+
+BinaryenBlock = Block
 
 
 def If(
@@ -2522,12 +4351,18 @@ def If(
     return lib.BinaryenIf(module, condition, if_true, if_false)
 
 
+BinaryenIf = If
+
+
 def Loop(
     module: BinaryenModuleRef,
     _in: str,
     body: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenLoop(module, _in.encode(), body)
+
+
+BinaryenLoop = Loop
 
 
 def Break(
@@ -2540,21 +4375,29 @@ def Break(
     return lib.BinaryenBreak(module, name.encode(), condition, value)
 
 
+BinaryenBreak = Break
+
+
 def Switch(
     module: BinaryenModuleRef,
     names: List[str],
+    num_names: BinaryenIndex,
     default_name: str,
     condition: BinaryenExpressionRef,
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Switch: value can be NULL """
-    return lib.BinaryenSwitch(module, [item.encode() for item in names], len(names), default_name.encode(), condition, value)
+    return lib.BinaryenSwitch(module, [item.encode() for item in names], num_names, default_name.encode(), condition, value)
+
+
+BinaryenSwitch = Switch
 
 
 def Call(
     module: BinaryenModuleRef,
     target: str,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
     return_type: BinaryenType,
 ) -> BinaryenExpressionRef:
     """
@@ -2563,7 +4406,10 @@ def Call(
     function might not have been created yet, so we don't
     know what it is.
     """
-    return lib.BinaryenCall(module, target.encode(), operands, len(operands), return_type)
+    return lib.BinaryenCall(module, target.encode(), operands, num_operands, return_type)
+
+
+BinaryenCall = Call
 
 
 def CallIndirect(
@@ -2571,19 +4417,27 @@ def CallIndirect(
     table: str,
     target: BinaryenExpressionRef,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
     params: BinaryenType,
     results: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenCallIndirect(module, table.encode(), target, operands, len(operands), params, results)
+    return lib.BinaryenCallIndirect(module, table.encode(), target, operands, num_operands, params, results)
+
+
+BinaryenCallIndirect = CallIndirect
 
 
 def ReturnCall(
     module: BinaryenModuleRef,
     target: str,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
     return_type: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenReturnCall(module, target.encode(), operands, len(operands), return_type)
+    return lib.BinaryenReturnCall(module, target.encode(), operands, num_operands, return_type)
+
+
+BinaryenReturnCall = ReturnCall
 
 
 def ReturnCallIndirect(
@@ -2591,10 +4445,14 @@ def ReturnCallIndirect(
     table: str,
     target: BinaryenExpressionRef,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
     params: BinaryenType,
     results: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenReturnCallIndirect(module, table.encode(), target, operands, len(operands), params, results)
+    return lib.BinaryenReturnCallIndirect(module, table.encode(), target, operands, num_operands, params, results)
+
+
+BinaryenReturnCallIndirect = ReturnCallIndirect
 
 
 def LocalGet(
@@ -2621,12 +4479,18 @@ def LocalGet(
     return lib.BinaryenLocalGet(module, index, _type)
 
 
+BinaryenLocalGet = LocalGet
+
+
 def LocalSet(
     module: BinaryenModuleRef,
     index: BinaryenIndex,
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenLocalSet(module, index, value)
+
+
+BinaryenLocalSet = LocalSet
 
 
 def LocalTee(
@@ -2638,6 +4502,9 @@ def LocalTee(
     return lib.BinaryenLocalTee(module, index, value, _type)
 
 
+BinaryenLocalTee = LocalTee
+
+
 def GlobalGet(
     module: BinaryenModuleRef,
     name: str,
@@ -2646,12 +4513,18 @@ def GlobalGet(
     return lib.BinaryenGlobalGet(module, name.encode(), _type)
 
 
+BinaryenGlobalGet = GlobalGet
+
+
 def GlobalSet(
     module: BinaryenModuleRef,
     name: str,
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenGlobalSet(module, name.encode(), value)
+
+
+BinaryenGlobalSet = GlobalSet
 
 
 def Load(
@@ -2671,6 +4544,9 @@ def Load(
     return lib.BinaryenLoad(module, _bytes, signed_, offset, align, _type, ptr, memory_name.encode())
 
 
+BinaryenLoad = Load
+
+
 def Store(
     module: BinaryenModuleRef,
     _bytes: int,
@@ -2688,11 +4564,17 @@ def Store(
     return lib.BinaryenStore(module, _bytes, offset, align, ptr, value, _type, memory_name.encode())
 
 
+BinaryenStore = Store
+
+
 def Const(
     module: BinaryenModuleRef,
     value: BinaryenLiteral,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenConst(module, value)
+
+
+BinaryenConst = Const
 
 
 def Unary(
@@ -2703,6 +4585,9 @@ def Unary(
     return lib.BinaryenUnary(module, op, value)
 
 
+BinaryenUnary = Unary
+
+
 def Binary(
     module: BinaryenModuleRef,
     op: BinaryenOp,
@@ -2710,6 +4595,9 @@ def Binary(
     right: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenBinary(module, op, left, right)
+
+
+BinaryenBinary = Binary
 
 
 def Select(
@@ -2722,11 +4610,17 @@ def Select(
     return lib.BinaryenSelect(module, condition, if_true, if_false, _type)
 
 
+BinaryenSelect = Select
+
+
 def Drop(
     module: BinaryenModuleRef,
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenDrop(module, value)
+
+
+BinaryenDrop = Drop
 
 
 def Return(
@@ -2737,12 +4631,18 @@ def Return(
     return lib.BinaryenReturn(module, value)
 
 
+BinaryenReturn = Return
+
+
 def MemorySize(
     module: BinaryenModuleRef,
     memory_name: str,
     memory_is64: bool,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenMemorySize(module, memory_name.encode(), memory_is64)
+
+
+BinaryenMemorySize = MemorySize
 
 
 def MemoryGrow(
@@ -2754,16 +4654,25 @@ def MemoryGrow(
     return lib.BinaryenMemoryGrow(module, delta, memory_name.encode(), memory_is64)
 
 
+BinaryenMemoryGrow = MemoryGrow
+
+
 def Nop(
     module: BinaryenModuleRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenNop(module)
 
 
+BinaryenNop = Nop
+
+
 def Unreachable(
     module: BinaryenModuleRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenUnreachable(module)
+
+
+BinaryenUnreachable = Unreachable
 
 
 def AtomicLoad(
@@ -2777,6 +4686,9 @@ def AtomicLoad(
     return lib.BinaryenAtomicLoad(module, _bytes, offset, _type, ptr, memory_name.encode())
 
 
+BinaryenAtomicLoad = AtomicLoad
+
+
 def AtomicStore(
     module: BinaryenModuleRef,
     _bytes: int,
@@ -2787,6 +4699,9 @@ def AtomicStore(
     memory_name: str,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenAtomicStore(module, _bytes, offset, ptr, value, _type, memory_name.encode())
+
+
+BinaryenAtomicStore = AtomicStore
 
 
 def AtomicRMW(
@@ -2802,6 +4717,9 @@ def AtomicRMW(
     return lib.BinaryenAtomicRMW(module, op, _bytes, offset, ptr, value, _type, memory_name.encode())
 
 
+BinaryenAtomicRMW = AtomicRMW
+
+
 def AtomicCmpxchg(
     module: BinaryenModuleRef,
     _bytes: BinaryenIndex,
@@ -2815,6 +4733,9 @@ def AtomicCmpxchg(
     return lib.BinaryenAtomicCmpxchg(module, _bytes, offset, ptr, expected, replacement, _type, memory_name.encode())
 
 
+BinaryenAtomicCmpxchg = AtomicCmpxchg
+
+
 def AtomicWait(
     module: BinaryenModuleRef,
     ptr: BinaryenExpressionRef,
@@ -2826,6 +4747,9 @@ def AtomicWait(
     return lib.BinaryenAtomicWait(module, ptr, expected, timeout, _type, memory_name.encode())
 
 
+BinaryenAtomicWait = AtomicWait
+
+
 def AtomicNotify(
     module: BinaryenModuleRef,
     ptr: BinaryenExpressionRef,
@@ -2835,10 +4759,16 @@ def AtomicNotify(
     return lib.BinaryenAtomicNotify(module, ptr, notify_count, memory_name.encode())
 
 
+BinaryenAtomicNotify = AtomicNotify
+
+
 def AtomicFence(
     module: BinaryenModuleRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenAtomicFence(module)
+
+
+BinaryenAtomicFence = AtomicFence
 
 
 def SIMDExtract(
@@ -2848,6 +4778,9 @@ def SIMDExtract(
     index: int,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenSIMDExtract(module, op, vec, index)
+
+
+BinaryenSIMDExtract = SIMDExtract
 
 
 def SIMDReplace(
@@ -2860,6 +4793,9 @@ def SIMDReplace(
     return lib.BinaryenSIMDReplace(module, op, vec, index, value)
 
 
+BinaryenSIMDReplace = SIMDReplace
+
+
 def SIMDShuffle(
     module: BinaryenModuleRef,
     left: BinaryenExpressionRef,
@@ -2867,6 +4803,9 @@ def SIMDShuffle(
     mask: List[int],
 ) -> BinaryenExpressionRef:
     return lib.BinaryenSIMDShuffle(module, left, right, mask)
+
+
+BinaryenSIMDShuffle = SIMDShuffle
 
 
 def SIMDTernary(
@@ -2879,6 +4818,9 @@ def SIMDTernary(
     return lib.BinaryenSIMDTernary(module, op, a, b, c)
 
 
+BinaryenSIMDTernary = SIMDTernary
+
+
 def SIMDShift(
     module: BinaryenModuleRef,
     op: BinaryenOp,
@@ -2886,6 +4828,9 @@ def SIMDShift(
     shift: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenSIMDShift(module, op, vec, shift)
+
+
+BinaryenSIMDShift = SIMDShift
 
 
 def SIMDLoad(
@@ -2897,6 +4842,9 @@ def SIMDLoad(
     name: str,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenSIMDLoad(module, op, offset, align, ptr, name.encode())
+
+
+BinaryenSIMDLoad = SIMDLoad
 
 
 def SIMDLoadStoreLane(
@@ -2912,6 +4860,9 @@ def SIMDLoadStoreLane(
     return lib.BinaryenSIMDLoadStoreLane(module, op, offset, align, index, ptr, vec, memory_name.encode())
 
 
+BinaryenSIMDLoadStoreLane = SIMDLoadStoreLane
+
+
 def MemoryInit(
     module: BinaryenModuleRef,
     segment: int,
@@ -2923,11 +4874,17 @@ def MemoryInit(
     return lib.BinaryenMemoryInit(module, segment, dest, offset, size, memory_name.encode())
 
 
+BinaryenMemoryInit = MemoryInit
+
+
 def DataDrop(
     module: BinaryenModuleRef,
     segment: int,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenDataDrop(module, segment)
+
+
+BinaryenDataDrop = DataDrop
 
 
 def MemoryCopy(
@@ -2941,6 +4898,9 @@ def MemoryCopy(
     return lib.BinaryenMemoryCopy(module, dest, source, size, dest_memory.encode(), source_memory.encode())
 
 
+BinaryenMemoryCopy = MemoryCopy
+
+
 def MemoryFill(
     module: BinaryenModuleRef,
     dest: BinaryenExpressionRef,
@@ -2951,11 +4911,17 @@ def MemoryFill(
     return lib.BinaryenMemoryFill(module, dest, value, size, memory_name.encode())
 
 
+BinaryenMemoryFill = MemoryFill
+
+
 def RefNull(
     module: BinaryenModuleRef,
     _type: BinaryenType,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenRefNull(module, _type)
+
+
+BinaryenRefNull = RefNull
 
 
 def RefIs(
@@ -2966,12 +4932,18 @@ def RefIs(
     return lib.BinaryenRefIs(module, op, value)
 
 
+BinaryenRefIs = RefIs
+
+
 def RefAs(
     module: BinaryenModuleRef,
     op: BinaryenOp,
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenRefAs(module, op, value)
+
+
+BinaryenRefAs = RefAs
 
 
 def RefFunc(
@@ -2982,12 +4954,18 @@ def RefFunc(
     return lib.BinaryenRefFunc(module, func.encode(), _type)
 
 
+BinaryenRefFunc = RefFunc
+
+
 def RefEq(
     module: BinaryenModuleRef,
     left: BinaryenExpressionRef,
     right: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenRefEq(module, left, right)
+
+
+BinaryenRefEq = RefEq
 
 
 def TableGet(
@@ -2999,6 +4977,9 @@ def TableGet(
     return lib.BinaryenTableGet(module, name.encode(), index, _type)
 
 
+BinaryenTableGet = TableGet
+
+
 def TableSet(
     module: BinaryenModuleRef,
     name: str,
@@ -3008,11 +4989,17 @@ def TableSet(
     return lib.BinaryenTableSet(module, name.encode(), index, value)
 
 
+BinaryenTableSet = TableSet
+
+
 def TableSize(
     module: BinaryenModuleRef,
     name: str,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenTableSize(module, name.encode())
+
+
+BinaryenTableSize = TableSize
 
 
 def TableGrow(
@@ -3024,24 +5011,36 @@ def TableGrow(
     return lib.BinaryenTableGrow(module, name.encode(), value, delta)
 
 
+BinaryenTableGrow = TableGrow
+
+
 def Try(
     module: BinaryenModuleRef,
     name: str,
     body: BinaryenExpressionRef,
     catch_tags: List[str],
+    num_catch_tags: BinaryenIndex,
     catch_bodies: List[BinaryenExpressionRef],
+    num_catch_bodies: BinaryenIndex,
     delegate_target: str,
 ) -> BinaryenExpressionRef:
     """ Try: name can be NULL. delegateTarget should be NULL in try-catch. """
-    return lib.BinaryenTry(module, name.encode(), body, [item.encode() for item in catch_tags], len(catch_tags), catch_bodies, len(catch_bodies), delegate_target.encode())
+    return lib.BinaryenTry(module, name.encode(), body, [item.encode() for item in catch_tags], num_catch_tags, catch_bodies, num_catch_bodies, delegate_target.encode())
+
+
+BinaryenTry = Try
 
 
 def Throw(
     module: BinaryenModuleRef,
     tag: str,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenThrow(module, tag.encode(), operands, len(operands))
+    return lib.BinaryenThrow(module, tag.encode(), operands, num_operands)
+
+
+BinaryenThrow = Throw
 
 
 def Rethrow(
@@ -3051,11 +5050,18 @@ def Rethrow(
     return lib.BinaryenRethrow(module, target.encode())
 
 
+BinaryenRethrow = Rethrow
+
+
 def TupleMake(
     module: BinaryenModuleRef,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenTupleMake(module, operands, len(operands))
+    return lib.BinaryenTupleMake(module, operands, num_operands)
+
+
+BinaryenTupleMake = TupleMake
 
 
 def TupleExtract(
@@ -3066,6 +5072,9 @@ def TupleExtract(
     return lib.BinaryenTupleExtract(module, _tuple, index)
 
 
+BinaryenTupleExtract = TupleExtract
+
+
 def Pop(
     module: BinaryenModuleRef,
     _type: BinaryenType,
@@ -3073,11 +5082,17 @@ def Pop(
     return lib.BinaryenPop(module, _type)
 
 
+BinaryenPop = Pop
+
+
 def I31New(
     module: BinaryenModuleRef,
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenI31New(module, value)
+
+
+BinaryenI31New = I31New
 
 
 def I31Get(
@@ -3088,14 +5103,21 @@ def I31Get(
     return lib.BinaryenI31Get(module, i31, signed_)
 
 
+BinaryenI31Get = I31Get
+
+
 def CallRef(
     module: BinaryenModuleRef,
     target: BinaryenExpressionRef,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
     _type: BinaryenType,
     is_return: bool,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenCallRef(module, target, operands, len(operands), _type, is_return)
+    return lib.BinaryenCallRef(module, target, operands, num_operands, _type, is_return)
+
+
+BinaryenCallRef = CallRef
 
 
 def RefTest(
@@ -3106,12 +5128,18 @@ def RefTest(
     return lib.BinaryenRefTest(module, ref, intended_type)
 
 
+BinaryenRefTest = RefTest
+
+
 def RefCast(
     module: BinaryenModuleRef,
     ref: BinaryenExpressionRef,
     intended_type: BinaryenHeapType,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenRefCast(module, ref, intended_type)
+
+
+BinaryenRefCast = RefCast
 
 
 def BrOn(
@@ -3124,12 +5152,19 @@ def BrOn(
     return lib.BinaryenBrOn(module, op, name.encode(), ref, intended_type)
 
 
+BinaryenBrOn = BrOn
+
+
 def StructNew(
     module: BinaryenModuleRef,
     operands: List[BinaryenExpressionRef],
+    num_operands: BinaryenIndex,
     _type: BinaryenHeapType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenStructNew(module, operands, len(operands), _type)
+    return lib.BinaryenStructNew(module, operands, num_operands, _type)
+
+
+BinaryenStructNew = StructNew
 
 
 def StructGet(
@@ -3142,6 +5177,9 @@ def StructGet(
     return lib.BinaryenStructGet(module, index, ref, _type, signed_)
 
 
+BinaryenStructGet = StructGet
+
+
 def StructSet(
     module: BinaryenModuleRef,
     index: BinaryenIndex,
@@ -3149,6 +5187,9 @@ def StructSet(
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStructSet(module, index, ref, value)
+
+
+BinaryenStructSet = StructSet
 
 
 def ArrayNew(
@@ -3160,13 +5201,19 @@ def ArrayNew(
     return lib.BinaryenArrayNew(module, _type, size, init)
 
 
+BinaryenArrayNew = ArrayNew
+
+
 def ArrayInit(
     module: BinaryenModuleRef,
     _type: BinaryenHeapType,
     values: List[BinaryenExpressionRef],
+    num_values: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    """ TODO: BinaryenArrayNewSeg """
-    return lib.BinaryenArrayInit(module, _type, values, len(values))
+    return lib.BinaryenArrayInit(module, _type, values, num_values)
+
+
+BinaryenArrayInit = ArrayInit
 
 
 def ArrayGet(
@@ -3179,6 +5226,9 @@ def ArrayGet(
     return lib.BinaryenArrayGet(module, ref, index, _type, signed_)
 
 
+BinaryenArrayGet = ArrayGet
+
+
 def ArraySet(
     module: BinaryenModuleRef,
     ref: BinaryenExpressionRef,
@@ -3188,11 +5238,17 @@ def ArraySet(
     return lib.BinaryenArraySet(module, ref, index, value)
 
 
+BinaryenArraySet = ArraySet
+
+
 def ArrayLen(
     module: BinaryenModuleRef,
     ref: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayLen(module, ref)
+
+
+BinaryenArrayLen = ArrayLen
 
 
 def ArrayCopy(
@@ -3206,6 +5262,9 @@ def ArrayCopy(
     return lib.BinaryenArrayCopy(module, dest_ref, dest_index, src_ref, src_index, length)
 
 
+BinaryenArrayCopy = ArrayCopy
+
+
 def StringNew(
     module: BinaryenModuleRef,
     op: BinaryenOp,
@@ -3217,11 +5276,17 @@ def StringNew(
     return lib.BinaryenStringNew(module, op, ptr, length, start, end)
 
 
+BinaryenStringNew = StringNew
+
+
 def StringConst(
     module: BinaryenModuleRef,
     name: str,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringConst(module, name.encode())
+
+
+BinaryenStringConst = StringConst
 
 
 def StringMeasure(
@@ -3230,6 +5295,9 @@ def StringMeasure(
     ref: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringMeasure(module, op, ref)
+
+
+BinaryenStringMeasure = StringMeasure
 
 
 def StringEncode(
@@ -3242,12 +5310,18 @@ def StringEncode(
     return lib.BinaryenStringEncode(module, op, ref, ptr, start)
 
 
+BinaryenStringEncode = StringEncode
+
+
 def StringConcat(
     module: BinaryenModuleRef,
     left: BinaryenExpressionRef,
     right: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringConcat(module, left, right)
+
+
+BinaryenStringConcat = StringConcat
 
 
 def StringEq(
@@ -3258,12 +5332,18 @@ def StringEq(
     return lib.BinaryenStringEq(module, left, right)
 
 
+BinaryenStringEq = StringEq
+
+
 def StringAs(
     module: BinaryenModuleRef,
     op: BinaryenOp,
     ref: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringAs(module, op, ref)
+
+
+BinaryenStringAs = StringAs
 
 
 def StringWTF8Advance(
@@ -3275,12 +5355,18 @@ def StringWTF8Advance(
     return lib.BinaryenStringWTF8Advance(module, ref, pos, _bytes)
 
 
+BinaryenStringWTF8Advance = StringWTF8Advance
+
+
 def StringWTF16Get(
     module: BinaryenModuleRef,
     ref: BinaryenExpressionRef,
     pos: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringWTF16Get(module, ref, pos)
+
+
+BinaryenStringWTF16Get = StringWTF16Get
 
 
 def StringIterNext(
@@ -3290,6 +5376,9 @@ def StringIterNext(
     return lib.BinaryenStringIterNext(module, ref)
 
 
+BinaryenStringIterNext = StringIterNext
+
+
 def StringIterMove(
     module: BinaryenModuleRef,
     op: BinaryenOp,
@@ -3297,6 +5386,9 @@ def StringIterMove(
     num: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringIterMove(module, op, ref, num)
+
+
+BinaryenStringIterMove = StringIterMove
 
 
 def StringSliceWTF(
@@ -3309,6 +5401,9 @@ def StringSliceWTF(
     return lib.BinaryenStringSliceWTF(module, op, ref, start, end)
 
 
+BinaryenStringSliceWTF = StringSliceWTF
+
+
 def StringSliceIter(
     module: BinaryenModuleRef,
     ref: BinaryenExpressionRef,
@@ -3317,14 +5412,17 @@ def StringSliceIter(
     return lib.BinaryenStringSliceIter(module, ref, num)
 
 
+BinaryenStringSliceIter = StringSliceIter
+
+
 def ExpressionGetId(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionId:
-    """
-    Expression
-    Gets the id (kind) of the given expression.
-    """
+    """ Gets the id (kind) of the given expression. """
     return lib.BinaryenExpressionGetId(expr)
+
+
+BinaryenExpressionGetId = ExpressionGetId
 
 
 def ExpressionGetType(
@@ -3332,6 +5430,9 @@ def ExpressionGetType(
 ) -> BinaryenType:
     """ Gets the type of the given expression. """
     return lib.BinaryenExpressionGetType(expr)
+
+
+BinaryenExpressionGetType = ExpressionGetType
 
 
 def ExpressionSetType(
@@ -3342,6 +5443,9 @@ def ExpressionSetType(
     lib.BinaryenExpressionSetType(expr, _type)
 
 
+BinaryenExpressionSetType = ExpressionSetType
+
+
 def ExpressionPrint(
     expr: BinaryenExpressionRef,
 ) -> None:
@@ -3349,11 +5453,17 @@ def ExpressionPrint(
     lib.BinaryenExpressionPrint(expr)
 
 
+BinaryenExpressionPrint = ExpressionPrint
+
+
 def ExpressionFinalize(
     expr: BinaryenExpressionRef,
 ) -> None:
     """ Re-finalizes an expression after it has been modified. """
     lib.BinaryenExpressionFinalize(expr)
+
+
+BinaryenExpressionFinalize = ExpressionFinalize
 
 
 def ExpressionCopy(
@@ -3364,14 +5474,17 @@ def ExpressionCopy(
     return lib.BinaryenExpressionCopy(expr, module)
 
 
+BinaryenExpressionCopy = ExpressionCopy
+
+
 def BlockGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    Block
-    Gets the name (label) of a `block` expression.
-    """
+    """ Gets the name (label) of a `block` expression. """
     return lib.BinaryenBlockGetName(expr)
+
+
+BinaryenBlockGetName = BlockGetName
 
 
 def BlockSetName(
@@ -3382,11 +5495,17 @@ def BlockSetName(
     lib.BinaryenBlockSetName(expr, name.encode())
 
 
+BinaryenBlockSetName = BlockSetName
+
+
 def BlockGetNumChildren(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     """ Gets the number of child expressions of a `block` expression. """
     return lib.BinaryenBlockGetNumChildren(expr)
+
+
+BinaryenBlockGetNumChildren = BlockGetNumChildren
 
 
 def BlockGetChildAt(
@@ -3395,6 +5514,9 @@ def BlockGetChildAt(
 ) -> BinaryenExpressionRef:
     """ Gets the child expression at the specified index of a `block` expression. """
     return lib.BinaryenBlockGetChildAt(expr, index)
+
+
+BinaryenBlockGetChildAt = BlockGetChildAt
 
 
 def BlockSetChildAt(
@@ -3409,6 +5531,9 @@ def BlockSetChildAt(
     lib.BinaryenBlockSetChildAt(expr, index, child_expr)
 
 
+BinaryenBlockSetChildAt = BlockSetChildAt
+
+
 def BlockAppendChild(
     expr: BinaryenExpressionRef,
     child_expr: BinaryenExpressionRef,
@@ -3418,6 +5543,9 @@ def BlockAppendChild(
     index.
     """
     return lib.BinaryenBlockAppendChild(expr, child_expr)
+
+
+BinaryenBlockAppendChild = BlockAppendChild
 
 
 def BlockInsertChildAt(
@@ -3433,6 +5561,9 @@ def BlockInsertChildAt(
     lib.BinaryenBlockInsertChildAt(expr, index, child_expr)
 
 
+BinaryenBlockInsertChildAt = BlockInsertChildAt
+
+
 def BlockRemoveChildAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -3444,14 +5575,17 @@ def BlockRemoveChildAt(
     return lib.BinaryenBlockRemoveChildAt(expr, index)
 
 
+BinaryenBlockRemoveChildAt = BlockRemoveChildAt
+
+
 def IfGetCondition(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    If
-    Gets the condition expression of an `if` expression.
-    """
+    """ Gets the condition expression of an `if` expression. """
     return lib.BinaryenIfGetCondition(expr)
+
+
+BinaryenIfGetCondition = IfGetCondition
 
 
 def IfSetCondition(
@@ -3462,11 +5596,17 @@ def IfSetCondition(
     lib.BinaryenIfSetCondition(expr, cond_expr)
 
 
+BinaryenIfSetCondition = IfSetCondition
+
+
 def IfGetIfTrue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the ifTrue (then) expression of an `if` expression. """
     return lib.BinaryenIfGetIfTrue(expr)
+
+
+BinaryenIfGetIfTrue = IfGetIfTrue
 
 
 def IfSetIfTrue(
@@ -3477,11 +5617,17 @@ def IfSetIfTrue(
     lib.BinaryenIfSetIfTrue(expr, if_true_expr)
 
 
+BinaryenIfSetIfTrue = IfSetIfTrue
+
+
 def IfGetIfFalse(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the ifFalse (else) expression, if any, of an `if` expression. """
     return lib.BinaryenIfGetIfFalse(expr)
+
+
+BinaryenIfGetIfFalse = IfGetIfFalse
 
 
 def IfSetIfFalse(
@@ -3492,14 +5638,17 @@ def IfSetIfFalse(
     lib.BinaryenIfSetIfFalse(expr, if_false_expr)
 
 
+BinaryenIfSetIfFalse = IfSetIfFalse
+
+
 def LoopGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    Loop
-    Gets the name (label) of a `loop` expression.
-    """
+    """ Gets the name (label) of a `loop` expression. """
     return lib.BinaryenLoopGetName(expr)
+
+
+BinaryenLoopGetName = LoopGetName
 
 
 def LoopSetName(
@@ -3510,11 +5659,17 @@ def LoopSetName(
     lib.BinaryenLoopSetName(expr, name.encode())
 
 
+BinaryenLoopSetName = LoopSetName
+
+
 def LoopGetBody(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the body expression of a `loop` expression. """
     return lib.BinaryenLoopGetBody(expr)
+
+
+BinaryenLoopGetBody = LoopGetBody
 
 
 def LoopSetBody(
@@ -3525,14 +5680,17 @@ def LoopSetBody(
     lib.BinaryenLoopSetBody(expr, body_expr)
 
 
+BinaryenLoopSetBody = LoopSetBody
+
+
 def BreakGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    Break
-    Gets the name (target label) of a `br` or `br_if` expression.
-    """
+    """ Gets the name (target label) of a `br` or `br_if` expression. """
     return lib.BinaryenBreakGetName(expr)
+
+
+BinaryenBreakGetName = BreakGetName
 
 
 def BreakSetName(
@@ -3543,6 +5701,9 @@ def BreakSetName(
     lib.BinaryenBreakSetName(expr, name.encode())
 
 
+BinaryenBreakSetName = BreakSetName
+
+
 def BreakGetCondition(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
@@ -3551,6 +5712,9 @@ def BreakGetCondition(
     indicates a `br` expression.
     """
     return lib.BinaryenBreakGetCondition(expr)
+
+
+BinaryenBreakGetCondition = BreakGetCondition
 
 
 def BreakSetCondition(
@@ -3564,11 +5728,17 @@ def BreakSetCondition(
     lib.BinaryenBreakSetCondition(expr, cond_expr)
 
 
+BinaryenBreakSetCondition = BreakSetCondition
+
+
 def BreakGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression, if any, of a `br` or `br_if` expression. """
     return lib.BinaryenBreakGetValue(expr)
+
+
+BinaryenBreakGetValue = BreakGetValue
 
 
 def BreakSetValue(
@@ -3579,14 +5749,17 @@ def BreakSetValue(
     lib.BinaryenBreakSetValue(expr, value_expr)
 
 
+BinaryenBreakSetValue = BreakSetValue
+
+
 def SwitchGetNumNames(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """
-    Switch
-    Gets the number of names (target labels) of a `br_table` expression.
-    """
+    """ Gets the number of names (target labels) of a `br_table` expression. """
     return lib.BinaryenSwitchGetNumNames(expr)
+
+
+BinaryenSwitchGetNumNames = SwitchGetNumNames
 
 
 def SwitchGetNameAt(
@@ -3598,6 +5771,9 @@ def SwitchGetNameAt(
     expression.
     """
     return lib.BinaryenSwitchGetNameAt(expr, index)
+
+
+BinaryenSwitchGetNameAt = SwitchGetNameAt
 
 
 def SwitchSetNameAt(
@@ -3612,12 +5788,18 @@ def SwitchSetNameAt(
     lib.BinaryenSwitchSetNameAt(expr, index, name.encode())
 
 
+BinaryenSwitchSetNameAt = SwitchSetNameAt
+
+
 def SwitchAppendName(
     expr: BinaryenExpressionRef,
     name: str,
 ) -> BinaryenIndex:
     """ Appends a name to a `br_table` expression, returning its insertion index. """
     return lib.BinaryenSwitchAppendName(expr, name.encode())
+
+
+BinaryenSwitchAppendName = SwitchAppendName
 
 
 def SwitchInsertNameAt(
@@ -3632,6 +5814,9 @@ def SwitchInsertNameAt(
     lib.BinaryenSwitchInsertNameAt(expr, index, name.encode())
 
 
+BinaryenSwitchInsertNameAt = SwitchInsertNameAt
+
+
 def SwitchRemoveNameAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -3643,11 +5828,17 @@ def SwitchRemoveNameAt(
     return lib.BinaryenSwitchRemoveNameAt(expr, index)
 
 
+BinaryenSwitchRemoveNameAt = SwitchRemoveNameAt
+
+
 def SwitchGetDefaultName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the default name (target label), if any, of a `br_table` expression. """
     return lib.BinaryenSwitchGetDefaultName(expr)
+
+
+BinaryenSwitchGetDefaultName = SwitchGetDefaultName
 
 
 def SwitchSetDefaultName(
@@ -3658,11 +5849,17 @@ def SwitchSetDefaultName(
     lib.BinaryenSwitchSetDefaultName(expr, name.encode())
 
 
+BinaryenSwitchSetDefaultName = SwitchSetDefaultName
+
+
 def SwitchGetCondition(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the condition expression of a `br_table` expression. """
     return lib.BinaryenSwitchGetCondition(expr)
+
+
+BinaryenSwitchGetCondition = SwitchGetCondition
 
 
 def SwitchSetCondition(
@@ -3673,11 +5870,17 @@ def SwitchSetCondition(
     lib.BinaryenSwitchSetCondition(expr, cond_expr)
 
 
+BinaryenSwitchSetCondition = SwitchSetCondition
+
+
 def SwitchGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression, if any, of a `br_table` expression. """
     return lib.BinaryenSwitchGetValue(expr)
+
+
+BinaryenSwitchGetValue = SwitchGetValue
 
 
 def SwitchSetValue(
@@ -3688,14 +5891,17 @@ def SwitchSetValue(
     lib.BinaryenSwitchSetValue(expr, value_expr)
 
 
+BinaryenSwitchSetValue = SwitchSetValue
+
+
 def CallGetTarget(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    Call
-    Gets the target function name of a `call` expression.
-    """
+    """ Gets the target function name of a `call` expression. """
     return lib.BinaryenCallGetTarget(expr)
+
+
+BinaryenCallGetTarget = CallGetTarget
 
 
 def CallSetTarget(
@@ -3706,11 +5912,17 @@ def CallSetTarget(
     lib.BinaryenCallSetTarget(expr, target.encode())
 
 
+BinaryenCallSetTarget = CallSetTarget
+
+
 def CallGetNumOperands(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     """ Gets the number of operands of a `call` expression. """
     return lib.BinaryenCallGetNumOperands(expr)
+
+
+BinaryenCallGetNumOperands = CallGetNumOperands
 
 
 def CallGetOperandAt(
@@ -3719,6 +5931,9 @@ def CallGetOperandAt(
 ) -> BinaryenExpressionRef:
     """ Gets the operand expression at the specified index of a `call` expression. """
     return lib.BinaryenCallGetOperandAt(expr, index)
+
+
+BinaryenCallGetOperandAt = CallGetOperandAt
 
 
 def CallSetOperandAt(
@@ -3730,6 +5945,9 @@ def CallSetOperandAt(
     lib.BinaryenCallSetOperandAt(expr, index, operand_expr)
 
 
+BinaryenCallSetOperandAt = CallSetOperandAt
+
+
 def CallAppendOperand(
     expr: BinaryenExpressionRef,
     operand_expr: BinaryenExpressionRef,
@@ -3739,6 +5957,9 @@ def CallAppendOperand(
     index.
     """
     return lib.BinaryenCallAppendOperand(expr, operand_expr)
+
+
+BinaryenCallAppendOperand = CallAppendOperand
 
 
 def CallInsertOperandAt(
@@ -3754,6 +5975,9 @@ def CallInsertOperandAt(
     lib.BinaryenCallInsertOperandAt(expr, index, operand_expr)
 
 
+BinaryenCallInsertOperandAt = CallInsertOperandAt
+
+
 def CallRemoveOperandAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -3766,11 +5990,17 @@ def CallRemoveOperandAt(
     return lib.BinaryenCallRemoveOperandAt(expr, index)
 
 
+BinaryenCallRemoveOperandAt = CallRemoveOperandAt
+
+
 def CallIsReturn(
     expr: BinaryenExpressionRef,
 ) -> bool:
     """ Gets whether the specified `call` expression is a tail call. """
     return lib.BinaryenCallIsReturn(expr)
+
+
+BinaryenCallIsReturn = CallIsReturn
 
 
 def CallSetReturn(
@@ -3781,14 +6011,17 @@ def CallSetReturn(
     lib.BinaryenCallSetReturn(expr, is_return)
 
 
+BinaryenCallSetReturn = CallSetReturn
+
+
 def CallIndirectGetTarget(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    CallIndirect
-    Gets the target expression of a `call_indirect` expression.
-    """
+    """ Gets the target expression of a `call_indirect` expression. """
     return lib.BinaryenCallIndirectGetTarget(expr)
+
+
+BinaryenCallIndirectGetTarget = CallIndirectGetTarget
 
 
 def CallIndirectSetTarget(
@@ -3799,11 +6032,17 @@ def CallIndirectSetTarget(
     lib.BinaryenCallIndirectSetTarget(expr, target_expr)
 
 
+BinaryenCallIndirectSetTarget = CallIndirectSetTarget
+
+
 def CallIndirectGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the table name of a `call_indirect` expression. """
     return lib.BinaryenCallIndirectGetTable(expr)
+
+
+BinaryenCallIndirectGetTable = CallIndirectGetTable
 
 
 def CallIndirectSetTable(
@@ -3814,11 +6053,17 @@ def CallIndirectSetTable(
     lib.BinaryenCallIndirectSetTable(expr, table.encode())
 
 
+BinaryenCallIndirectSetTable = CallIndirectSetTable
+
+
 def CallIndirectGetNumOperands(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     """ Gets the number of operands of a `call_indirect` expression. """
     return lib.BinaryenCallIndirectGetNumOperands(expr)
+
+
+BinaryenCallIndirectGetNumOperands = CallIndirectGetNumOperands
 
 
 def CallIndirectGetOperandAt(
@@ -3830,6 +6075,9 @@ def CallIndirectGetOperandAt(
     expression.
     """
     return lib.BinaryenCallIndirectGetOperandAt(expr, index)
+
+
+BinaryenCallIndirectGetOperandAt = CallIndirectGetOperandAt
 
 
 def CallIndirectSetOperandAt(
@@ -3844,6 +6092,9 @@ def CallIndirectSetOperandAt(
     lib.BinaryenCallIndirectSetOperandAt(expr, index, operand_expr)
 
 
+BinaryenCallIndirectSetOperandAt = CallIndirectSetOperandAt
+
+
 def CallIndirectAppendOperand(
     expr: BinaryenExpressionRef,
     operand_expr: BinaryenExpressionRef,
@@ -3853,6 +6104,9 @@ def CallIndirectAppendOperand(
     insertion index.
     """
     return lib.BinaryenCallIndirectAppendOperand(expr, operand_expr)
+
+
+BinaryenCallIndirectAppendOperand = CallIndirectAppendOperand
 
 
 def CallIndirectInsertOperandAt(
@@ -3868,6 +6122,9 @@ def CallIndirectInsertOperandAt(
     lib.BinaryenCallIndirectInsertOperandAt(expr, index, operand_expr)
 
 
+BinaryenCallIndirectInsertOperandAt = CallIndirectInsertOperandAt
+
+
 def CallIndirectRemoveOperandAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -3880,11 +6137,17 @@ def CallIndirectRemoveOperandAt(
     return lib.BinaryenCallIndirectRemoveOperandAt(expr, index)
 
 
+BinaryenCallIndirectRemoveOperandAt = CallIndirectRemoveOperandAt
+
+
 def CallIndirectIsReturn(
     expr: BinaryenExpressionRef,
 ) -> bool:
     """ Gets whether the specified `call_indirect` expression is a tail call. """
     return lib.BinaryenCallIndirectIsReturn(expr)
+
+
+BinaryenCallIndirectIsReturn = CallIndirectIsReturn
 
 
 def CallIndirectSetReturn(
@@ -3895,11 +6158,17 @@ def CallIndirectSetReturn(
     lib.BinaryenCallIndirectSetReturn(expr, is_return)
 
 
+BinaryenCallIndirectSetReturn = CallIndirectSetReturn
+
+
 def CallIndirectGetParams(
     expr: BinaryenExpressionRef,
 ) -> BinaryenType:
     """ Gets the parameter types of the specified `call_indirect` expression. """
     return lib.BinaryenCallIndirectGetParams(expr)
+
+
+BinaryenCallIndirectGetParams = CallIndirectGetParams
 
 
 def CallIndirectSetParams(
@@ -3910,11 +6179,17 @@ def CallIndirectSetParams(
     lib.BinaryenCallIndirectSetParams(expr, params)
 
 
+BinaryenCallIndirectSetParams = CallIndirectSetParams
+
+
 def CallIndirectGetResults(
     expr: BinaryenExpressionRef,
 ) -> BinaryenType:
     """ Gets the result types of the specified `call_indirect` expression. """
     return lib.BinaryenCallIndirectGetResults(expr)
+
+
+BinaryenCallIndirectGetResults = CallIndirectGetResults
 
 
 def CallIndirectSetResults(
@@ -3925,14 +6200,17 @@ def CallIndirectSetResults(
     lib.BinaryenCallIndirectSetResults(expr, params)
 
 
+BinaryenCallIndirectSetResults = CallIndirectSetResults
+
+
 def LocalGetGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """
-    LocalGet
-    Gets the local index of a `local.get` expression.
-    """
+    """ Gets the local index of a `local.get` expression. """
     return lib.BinaryenLocalGetGetIndex(expr)
+
+
+BinaryenLocalGetGetIndex = LocalGetGetIndex
 
 
 def LocalGetSetIndex(
@@ -3943,15 +6221,20 @@ def LocalGetSetIndex(
     lib.BinaryenLocalGetSetIndex(expr, index)
 
 
+BinaryenLocalGetSetIndex = LocalGetSetIndex
+
+
 def LocalSetIsTee(
     expr: BinaryenExpressionRef,
 ) -> bool:
     """
-    LocalSet
     Gets whether a `local.set` tees its value (is a `local.tee`). True if the
     expression has a type other than `none`.
     """
     return lib.BinaryenLocalSetIsTee(expr)
+
+
+BinaryenLocalSetIsTee = LocalSetIsTee
 
 
 def LocalSetGetIndex(
@@ -3959,6 +6242,9 @@ def LocalSetGetIndex(
 ) -> BinaryenIndex:
     """ Gets the local index of a `local.set` or `local.tee` expression. """
     return lib.BinaryenLocalSetGetIndex(expr)
+
+
+BinaryenLocalSetGetIndex = LocalSetGetIndex
 
 
 def LocalSetSetIndex(
@@ -3969,11 +6255,17 @@ def LocalSetSetIndex(
     lib.BinaryenLocalSetSetIndex(expr, index)
 
 
+BinaryenLocalSetSetIndex = LocalSetSetIndex
+
+
 def LocalSetGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of a `local.set` or `local.tee` expression. """
     return lib.BinaryenLocalSetGetValue(expr)
+
+
+BinaryenLocalSetGetValue = LocalSetGetValue
 
 
 def LocalSetSetValue(
@@ -3984,14 +6276,17 @@ def LocalSetSetValue(
     lib.BinaryenLocalSetSetValue(expr, value_expr)
 
 
+BinaryenLocalSetSetValue = LocalSetSetValue
+
+
 def GlobalGetGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    GlobalGet
-    Gets the name of the global being accessed by a `global.get` expression.
-    """
+    """ Gets the name of the global being accessed by a `global.get` expression. """
     return lib.BinaryenGlobalGetGetName(expr)
+
+
+BinaryenGlobalGetGetName = GlobalGetGetName
 
 
 def GlobalGetSetName(
@@ -4002,14 +6297,17 @@ def GlobalGetSetName(
     lib.BinaryenGlobalGetSetName(expr, name.encode())
 
 
+BinaryenGlobalGetSetName = GlobalGetSetName
+
+
 def GlobalSetGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    GlobalSet
-    Gets the name of the global being accessed by a `global.set` expression.
-    """
+    """ Gets the name of the global being accessed by a `global.set` expression. """
     return lib.BinaryenGlobalSetGetName(expr)
+
+
+BinaryenGlobalSetGetName = GlobalSetGetName
 
 
 def GlobalSetSetName(
@@ -4020,11 +6318,17 @@ def GlobalSetSetName(
     lib.BinaryenGlobalSetSetName(expr, name.encode())
 
 
+BinaryenGlobalSetSetName = GlobalSetSetName
+
+
 def GlobalSetGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of a `global.set` expression. """
     return lib.BinaryenGlobalSetGetValue(expr)
+
+
+BinaryenGlobalSetGetValue = GlobalSetGetValue
 
 
 def GlobalSetSetValue(
@@ -4035,14 +6339,17 @@ def GlobalSetSetValue(
     lib.BinaryenGlobalSetSetValue(expr, value_expr)
 
 
+BinaryenGlobalSetSetValue = GlobalSetSetValue
+
+
 def TableGetGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    TableGet
-    Gets the name of the table being accessed by a `table.get` expression.
-    """
+    """ Gets the name of the table being accessed by a `table.get` expression. """
     return lib.BinaryenTableGetGetTable(expr)
+
+
+BinaryenTableGetGetTable = TableGetGetTable
 
 
 def TableGetSetTable(
@@ -4053,11 +6360,17 @@ def TableGetSetTable(
     lib.BinaryenTableGetSetTable(expr, table.encode())
 
 
+BinaryenTableGetSetTable = TableGetSetTable
+
+
 def TableGetGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the index expression of a `table.get` expression. """
     return lib.BinaryenTableGetGetIndex(expr)
+
+
+BinaryenTableGetGetIndex = TableGetGetIndex
 
 
 def TableGetSetIndex(
@@ -4068,14 +6381,17 @@ def TableGetSetIndex(
     lib.BinaryenTableGetSetIndex(expr, index_expr)
 
 
+BinaryenTableGetSetIndex = TableGetSetIndex
+
+
 def TableSetGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    TableSet
-    Gets the name of the table being accessed by a `table.set` expression.
-    """
+    """ Gets the name of the table being accessed by a `table.set` expression. """
     return lib.BinaryenTableSetGetTable(expr)
+
+
+BinaryenTableSetGetTable = TableSetGetTable
 
 
 def TableSetSetTable(
@@ -4086,11 +6402,17 @@ def TableSetSetTable(
     lib.BinaryenTableSetSetTable(expr, table.encode())
 
 
+BinaryenTableSetSetTable = TableSetSetTable
+
+
 def TableSetGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the index expression of a `table.set` expression. """
     return lib.BinaryenTableSetGetIndex(expr)
+
+
+BinaryenTableSetGetIndex = TableSetGetIndex
 
 
 def TableSetSetIndex(
@@ -4101,11 +6423,17 @@ def TableSetSetIndex(
     lib.BinaryenTableSetSetIndex(expr, index_expr)
 
 
+BinaryenTableSetSetIndex = TableSetSetIndex
+
+
 def TableSetGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of a `table.set` expression. """
     return lib.BinaryenTableSetGetValue(expr)
+
+
+BinaryenTableSetGetValue = TableSetGetValue
 
 
 def TableSetSetValue(
@@ -4116,14 +6444,17 @@ def TableSetSetValue(
     lib.BinaryenTableSetSetValue(expr, value_expr)
 
 
+BinaryenTableSetSetValue = TableSetSetValue
+
+
 def TableSizeGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    TableSize
-    Gets the name of the table being accessed by a `table.size` expression.
-    """
+    """ Gets the name of the table being accessed by a `table.size` expression. """
     return lib.BinaryenTableSizeGetTable(expr)
+
+
+BinaryenTableSizeGetTable = TableSizeGetTable
 
 
 def TableSizeSetTable(
@@ -4134,14 +6465,17 @@ def TableSizeSetTable(
     lib.BinaryenTableSizeSetTable(expr, table.encode())
 
 
+BinaryenTableSizeSetTable = TableSizeSetTable
+
+
 def TableGrowGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    TableGrow
-    Gets the name of the table being accessed by a `table.grow` expression.
-    """
+    """ Gets the name of the table being accessed by a `table.grow` expression. """
     return lib.BinaryenTableGrowGetTable(expr)
+
+
+BinaryenTableGrowGetTable = TableGrowGetTable
 
 
 def TableGrowSetTable(
@@ -4152,11 +6486,17 @@ def TableGrowSetTable(
     lib.BinaryenTableGrowSetTable(expr, table.encode())
 
 
+BinaryenTableGrowSetTable = TableGrowSetTable
+
+
 def TableGrowGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of a `table.grow` expression. """
     return lib.BinaryenTableGrowGetValue(expr)
+
+
+BinaryenTableGrowGetValue = TableGrowGetValue
 
 
 def TableGrowSetValue(
@@ -4167,11 +6507,17 @@ def TableGrowSetValue(
     lib.BinaryenTableGrowSetValue(expr, value_expr)
 
 
+BinaryenTableGrowSetValue = TableGrowSetValue
+
+
 def TableGrowGetDelta(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the delta of a `table.grow` expression. """
     return lib.BinaryenTableGrowGetDelta(expr)
+
+
+BinaryenTableGrowGetDelta = TableGrowGetDelta
 
 
 def TableGrowSetDelta(
@@ -4182,14 +6528,17 @@ def TableGrowSetDelta(
     lib.BinaryenTableGrowSetDelta(expr, delta_expr)
 
 
+BinaryenTableGrowSetDelta = TableGrowSetDelta
+
+
 def MemoryGrowGetDelta(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    MemoryGrow
-    Gets the delta of a `memory.grow` expression.
-    """
+    """ Gets the delta of a `memory.grow` expression. """
     return lib.BinaryenMemoryGrowGetDelta(expr)
+
+
+BinaryenMemoryGrowGetDelta = MemoryGrowGetDelta
 
 
 def MemoryGrowSetDelta(
@@ -4200,14 +6549,17 @@ def MemoryGrowSetDelta(
     lib.BinaryenMemoryGrowSetDelta(expr, delta_expr)
 
 
+BinaryenMemoryGrowSetDelta = MemoryGrowSetDelta
+
+
 def LoadIsAtomic(
     expr: BinaryenExpressionRef,
 ) -> bool:
-    """
-    Load
-    Gets whether a `load` expression is atomic (is an `atomic.load`).
-    """
+    """ Gets whether a `load` expression is atomic (is an `atomic.load`). """
     return lib.BinaryenLoadIsAtomic(expr)
+
+
+BinaryenLoadIsAtomic = LoadIsAtomic
 
 
 def LoadSetAtomic(
@@ -4218,11 +6570,17 @@ def LoadSetAtomic(
     lib.BinaryenLoadSetAtomic(expr, is_atomic)
 
 
+BinaryenLoadSetAtomic = LoadSetAtomic
+
+
 def LoadIsSigned(
     expr: BinaryenExpressionRef,
 ) -> bool:
     """ Gets whether a `load` expression operates on a signed value (`_s`). """
     return lib.BinaryenLoadIsSigned(expr)
+
+
+BinaryenLoadIsSigned = LoadIsSigned
 
 
 def LoadSetSigned(
@@ -4233,11 +6591,17 @@ def LoadSetSigned(
     lib.BinaryenLoadSetSigned(expr, is_signed)
 
 
+BinaryenLoadSetSigned = LoadSetSigned
+
+
 def LoadGetOffset(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the constant offset of a `load` expression. """
     return lib.BinaryenLoadGetOffset(expr)
+
+
+BinaryenLoadGetOffset = LoadGetOffset
 
 
 def LoadSetOffset(
@@ -4248,11 +6612,17 @@ def LoadSetOffset(
     lib.BinaryenLoadSetOffset(expr, offset)
 
 
+BinaryenLoadSetOffset = LoadSetOffset
+
+
 def LoadGetBytes(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the number of bytes loaded by a `load` expression. """
     return lib.BinaryenLoadGetBytes(expr)
+
+
+BinaryenLoadGetBytes = LoadGetBytes
 
 
 def LoadSetBytes(
@@ -4263,11 +6633,17 @@ def LoadSetBytes(
     lib.BinaryenLoadSetBytes(expr, _bytes)
 
 
+BinaryenLoadSetBytes = LoadSetBytes
+
+
 def LoadGetAlign(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the byte alignment of a `load` expression. """
     return lib.BinaryenLoadGetAlign(expr)
+
+
+BinaryenLoadGetAlign = LoadGetAlign
 
 
 def LoadSetAlign(
@@ -4278,11 +6654,17 @@ def LoadSetAlign(
     lib.BinaryenLoadSetAlign(expr, align)
 
 
+BinaryenLoadSetAlign = LoadSetAlign
+
+
 def LoadGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the pointer expression of a `load` expression. """
     return lib.BinaryenLoadGetPtr(expr)
+
+
+BinaryenLoadGetPtr = LoadGetPtr
 
 
 def LoadSetPtr(
@@ -4293,14 +6675,17 @@ def LoadSetPtr(
     lib.BinaryenLoadSetPtr(expr, ptr_expr)
 
 
+BinaryenLoadSetPtr = LoadSetPtr
+
+
 def StoreIsAtomic(
     expr: BinaryenExpressionRef,
 ) -> bool:
-    """
-    Store
-    Gets whether a `store` expression is atomic (is an `atomic.store`).
-    """
+    """ Gets whether a `store` expression is atomic (is an `atomic.store`). """
     return lib.BinaryenStoreIsAtomic(expr)
+
+
+BinaryenStoreIsAtomic = StoreIsAtomic
 
 
 def StoreSetAtomic(
@@ -4311,11 +6696,17 @@ def StoreSetAtomic(
     lib.BinaryenStoreSetAtomic(expr, is_atomic)
 
 
+BinaryenStoreSetAtomic = StoreSetAtomic
+
+
 def StoreGetBytes(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the number of bytes stored by a `store` expression. """
     return lib.BinaryenStoreGetBytes(expr)
+
+
+BinaryenStoreGetBytes = StoreGetBytes
 
 
 def StoreSetBytes(
@@ -4326,11 +6717,17 @@ def StoreSetBytes(
     lib.BinaryenStoreSetBytes(expr, _bytes)
 
 
+BinaryenStoreSetBytes = StoreSetBytes
+
+
 def StoreGetOffset(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the constant offset of a `store` expression. """
     return lib.BinaryenStoreGetOffset(expr)
+
+
+BinaryenStoreGetOffset = StoreGetOffset
 
 
 def StoreSetOffset(
@@ -4341,11 +6738,17 @@ def StoreSetOffset(
     lib.BinaryenStoreSetOffset(expr, offset)
 
 
+BinaryenStoreSetOffset = StoreSetOffset
+
+
 def StoreGetAlign(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the byte alignment of a `store` expression. """
     return lib.BinaryenStoreGetAlign(expr)
+
+
+BinaryenStoreGetAlign = StoreGetAlign
 
 
 def StoreSetAlign(
@@ -4356,11 +6759,17 @@ def StoreSetAlign(
     lib.BinaryenStoreSetAlign(expr, align)
 
 
+BinaryenStoreSetAlign = StoreSetAlign
+
+
 def StoreGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the pointer expression of a `store` expression. """
     return lib.BinaryenStoreGetPtr(expr)
+
+
+BinaryenStoreGetPtr = StoreGetPtr
 
 
 def StoreSetPtr(
@@ -4371,11 +6780,17 @@ def StoreSetPtr(
     lib.BinaryenStoreSetPtr(expr, ptr_expr)
 
 
+BinaryenStoreSetPtr = StoreSetPtr
+
+
 def StoreGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of a `store` expression. """
     return lib.BinaryenStoreGetValue(expr)
+
+
+BinaryenStoreGetValue = StoreGetValue
 
 
 def StoreSetValue(
@@ -4386,11 +6801,17 @@ def StoreSetValue(
     lib.BinaryenStoreSetValue(expr, value_expr)
 
 
+BinaryenStoreSetValue = StoreSetValue
+
+
 def StoreGetValueType(
     expr: BinaryenExpressionRef,
 ) -> BinaryenType:
     """ Gets the value type of a `store` expression. """
     return lib.BinaryenStoreGetValueType(expr)
+
+
+BinaryenStoreGetValueType = StoreGetValueType
 
 
 def StoreSetValueType(
@@ -4401,14 +6822,17 @@ def StoreSetValueType(
     lib.BinaryenStoreSetValueType(expr, value_type)
 
 
+BinaryenStoreSetValueType = StoreSetValueType
+
+
 def ConstGetValueI32(
     expr: BinaryenExpressionRef,
 ) -> int:
-    """
-    Const
-    Gets the 32-bit integer value of an `i32.const` expression.
-    """
+    """ Gets the 32-bit integer value of an `i32.const` expression. """
     return lib.BinaryenConstGetValueI32(expr)
+
+
+BinaryenConstGetValueI32 = ConstGetValueI32
 
 
 def ConstSetValueI32(
@@ -4419,11 +6843,17 @@ def ConstSetValueI32(
     lib.BinaryenConstSetValueI32(expr, value)
 
 
+BinaryenConstSetValueI32 = ConstSetValueI32
+
+
 def ConstGetValueI64(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the 64-bit integer value of an `i64.const` expression. """
     return lib.BinaryenConstGetValueI64(expr)
+
+
+BinaryenConstGetValueI64 = ConstGetValueI64
 
 
 def ConstSetValueI64(
@@ -4434,6 +6864,9 @@ def ConstSetValueI64(
     lib.BinaryenConstSetValueI64(expr, value)
 
 
+BinaryenConstSetValueI64 = ConstSetValueI64
+
+
 def ConstGetValueI64Low(
     expr: BinaryenExpressionRef,
 ) -> int:
@@ -4442,6 +6875,9 @@ def ConstGetValueI64Low(
     expression.
     """
     return lib.BinaryenConstGetValueI64Low(expr)
+
+
+BinaryenConstGetValueI64Low = ConstGetValueI64Low
 
 
 def ConstSetValueI64Low(
@@ -4455,6 +6891,9 @@ def ConstSetValueI64Low(
     lib.BinaryenConstSetValueI64Low(expr, value_low)
 
 
+BinaryenConstSetValueI64Low = ConstSetValueI64Low
+
+
 def ConstGetValueI64High(
     expr: BinaryenExpressionRef,
 ) -> int:
@@ -4463,6 +6902,9 @@ def ConstGetValueI64High(
     expression.
     """
     return lib.BinaryenConstGetValueI64High(expr)
+
+
+BinaryenConstGetValueI64High = ConstGetValueI64High
 
 
 def ConstSetValueI64High(
@@ -4476,11 +6918,17 @@ def ConstSetValueI64High(
     lib.BinaryenConstSetValueI64High(expr, value_high)
 
 
+BinaryenConstSetValueI64High = ConstSetValueI64High
+
+
 def ConstGetValueF32(
     expr: BinaryenExpressionRef,
 ) -> float:
     """ Gets the 32-bit float value of a `f32.const` expression. """
     return lib.BinaryenConstGetValueF32(expr)
+
+
+BinaryenConstGetValueF32 = ConstGetValueF32
 
 
 def ConstSetValueF32(
@@ -4491,11 +6939,17 @@ def ConstSetValueF32(
     lib.BinaryenConstSetValueF32(expr, value)
 
 
+BinaryenConstSetValueF32 = ConstSetValueF32
+
+
 def ConstGetValueF64(
     expr: BinaryenExpressionRef,
 ) -> float:
     """ Gets the 64-bit float (double) value of a `f64.const` expression. """
     return lib.BinaryenConstGetValueF64(expr)
+
+
+BinaryenConstGetValueF64 = ConstGetValueF64
 
 
 def ConstSetValueF64(
@@ -4506,12 +6960,18 @@ def ConstSetValueF64(
     lib.BinaryenConstSetValueF64(expr, value)
 
 
+BinaryenConstSetValueF64 = ConstSetValueF64
+
+
 def ConstGetValueV128(
     expr: BinaryenExpressionRef,
     out: List[int],
 ) -> None:
     """ Reads the 128-bit vector value of a `v128.const` expression. """
     lib.BinaryenConstGetValueV128(expr, out)
+
+
+BinaryenConstGetValueV128 = ConstGetValueV128
 
 
 def ConstSetValueV128(
@@ -4522,14 +6982,17 @@ def ConstSetValueV128(
     lib.BinaryenConstSetValueV128(expr, value)
 
 
+BinaryenConstSetValueV128 = ConstSetValueV128
+
+
 def UnaryGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    Unary
-    Gets the operation being performed by a unary expression.
-    """
+    """ Gets the operation being performed by a unary expression. """
     return lib.BinaryenUnaryGetOp(expr)
+
+
+BinaryenUnaryGetOp = UnaryGetOp
 
 
 def UnarySetOp(
@@ -4540,11 +7003,17 @@ def UnarySetOp(
     lib.BinaryenUnarySetOp(expr, op)
 
 
+BinaryenUnarySetOp = UnarySetOp
+
+
 def UnaryGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of a unary expression. """
     return lib.BinaryenUnaryGetValue(expr)
+
+
+BinaryenUnaryGetValue = UnaryGetValue
 
 
 def UnarySetValue(
@@ -4555,14 +7024,17 @@ def UnarySetValue(
     lib.BinaryenUnarySetValue(expr, value_expr)
 
 
+BinaryenUnarySetValue = UnarySetValue
+
+
 def BinaryGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    Binary
-    Gets the operation being performed by a binary expression.
-    """
+    """ Gets the operation being performed by a binary expression. """
     return lib.BinaryenBinaryGetOp(expr)
+
+
+BinaryenBinaryGetOp = BinaryGetOp
 
 
 def BinarySetOp(
@@ -4573,11 +7045,17 @@ def BinarySetOp(
     lib.BinaryenBinarySetOp(expr, op)
 
 
+BinaryenBinarySetOp = BinarySetOp
+
+
 def BinaryGetLeft(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the left expression of a binary expression. """
     return lib.BinaryenBinaryGetLeft(expr)
+
+
+BinaryenBinaryGetLeft = BinaryGetLeft
 
 
 def BinarySetLeft(
@@ -4588,11 +7066,17 @@ def BinarySetLeft(
     lib.BinaryenBinarySetLeft(expr, left_expr)
 
 
+BinaryenBinarySetLeft = BinarySetLeft
+
+
 def BinaryGetRight(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the right expression of a binary expression. """
     return lib.BinaryenBinaryGetRight(expr)
+
+
+BinaryenBinaryGetRight = BinaryGetRight
 
 
 def BinarySetRight(
@@ -4603,15 +7087,20 @@ def BinarySetRight(
     lib.BinaryenBinarySetRight(expr, right_expr)
 
 
+BinaryenBinarySetRight = BinarySetRight
+
+
 def SelectGetIfTrue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """
-    Select
     Gets the expression becoming selected by a `select` expression if the
     condition turns out true.
     """
     return lib.BinaryenSelectGetIfTrue(expr)
+
+
+BinaryenSelectGetIfTrue = SelectGetIfTrue
 
 
 def SelectSetIfTrue(
@@ -4625,6 +7114,9 @@ def SelectSetIfTrue(
     lib.BinaryenSelectSetIfTrue(expr, if_true_expr)
 
 
+BinaryenSelectSetIfTrue = SelectSetIfTrue
+
+
 def SelectGetIfFalse(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
@@ -4633,6 +7125,9 @@ def SelectGetIfFalse(
     condition turns out false.
     """
     return lib.BinaryenSelectGetIfFalse(expr)
+
+
+BinaryenSelectGetIfFalse = SelectGetIfFalse
 
 
 def SelectSetIfFalse(
@@ -4646,11 +7141,17 @@ def SelectSetIfFalse(
     lib.BinaryenSelectSetIfFalse(expr, if_false_expr)
 
 
+BinaryenSelectSetIfFalse = SelectSetIfFalse
+
+
 def SelectGetCondition(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the condition expression of a `select` expression. """
     return lib.BinaryenSelectGetCondition(expr)
+
+
+BinaryenSelectGetCondition = SelectGetCondition
 
 
 def SelectSetCondition(
@@ -4661,14 +7162,17 @@ def SelectSetCondition(
     lib.BinaryenSelectSetCondition(expr, cond_expr)
 
 
+BinaryenSelectSetCondition = SelectSetCondition
+
+
 def DropGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    Drop
-    Gets the value expression being dropped by a `drop` expression.
-    """
+    """ Gets the value expression being dropped by a `drop` expression. """
     return lib.BinaryenDropGetValue(expr)
+
+
+BinaryenDropGetValue = DropGetValue
 
 
 def DropSetValue(
@@ -4679,14 +7183,17 @@ def DropSetValue(
     lib.BinaryenDropSetValue(expr, value_expr)
 
 
+BinaryenDropSetValue = DropSetValue
+
+
 def ReturnGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    Return
-    Gets the value expression, if any, being returned by a `return` expression.
-    """
+    """ Gets the value expression, if any, being returned by a `return` expression. """
     return lib.BinaryenReturnGetValue(expr)
+
+
+BinaryenReturnGetValue = ReturnGetValue
 
 
 def ReturnSetValue(
@@ -4697,14 +7204,17 @@ def ReturnSetValue(
     lib.BinaryenReturnSetValue(expr, value_expr)
 
 
+BinaryenReturnSetValue = ReturnSetValue
+
+
 def AtomicRMWGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    AtomicRMW
-    Gets the operation being performed by an atomic read-modify-write expression.
-    """
+    """ Gets the operation being performed by an atomic read-modify-write expression. """
     return lib.BinaryenAtomicRMWGetOp(expr)
+
+
+BinaryenAtomicRMWGetOp = AtomicRMWGetOp
 
 
 def AtomicRMWSetOp(
@@ -4715,11 +7225,17 @@ def AtomicRMWSetOp(
     lib.BinaryenAtomicRMWSetOp(expr, op)
 
 
+BinaryenAtomicRMWSetOp = AtomicRMWSetOp
+
+
 def AtomicRMWGetBytes(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the number of bytes affected by an atomic read-modify-write expression. """
     return lib.BinaryenAtomicRMWGetBytes(expr)
+
+
+BinaryenAtomicRMWGetBytes = AtomicRMWGetBytes
 
 
 def AtomicRMWSetBytes(
@@ -4730,11 +7246,17 @@ def AtomicRMWSetBytes(
     lib.BinaryenAtomicRMWSetBytes(expr, _bytes)
 
 
+BinaryenAtomicRMWSetBytes = AtomicRMWSetBytes
+
+
 def AtomicRMWGetOffset(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the constant offset of an atomic read-modify-write expression. """
     return lib.BinaryenAtomicRMWGetOffset(expr)
+
+
+BinaryenAtomicRMWGetOffset = AtomicRMWGetOffset
 
 
 def AtomicRMWSetOffset(
@@ -4745,11 +7267,17 @@ def AtomicRMWSetOffset(
     lib.BinaryenAtomicRMWSetOffset(expr, offset)
 
 
+BinaryenAtomicRMWSetOffset = AtomicRMWSetOffset
+
+
 def AtomicRMWGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the pointer expression of an atomic read-modify-write expression. """
     return lib.BinaryenAtomicRMWGetPtr(expr)
+
+
+BinaryenAtomicRMWGetPtr = AtomicRMWGetPtr
 
 
 def AtomicRMWSetPtr(
@@ -4760,11 +7288,17 @@ def AtomicRMWSetPtr(
     lib.BinaryenAtomicRMWSetPtr(expr, ptr_expr)
 
 
+BinaryenAtomicRMWSetPtr = AtomicRMWSetPtr
+
+
 def AtomicRMWGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of an atomic read-modify-write expression. """
     return lib.BinaryenAtomicRMWGetValue(expr)
+
+
+BinaryenAtomicRMWGetValue = AtomicRMWGetValue
 
 
 def AtomicRMWSetValue(
@@ -4775,15 +7309,20 @@ def AtomicRMWSetValue(
     lib.BinaryenAtomicRMWSetValue(expr, value_expr)
 
 
+BinaryenAtomicRMWSetValue = AtomicRMWSetValue
+
+
 def AtomicCmpxchgGetBytes(
     expr: BinaryenExpressionRef,
 ) -> int:
     """
-    AtomicCmpxchg
     Gets the number of bytes affected by an atomic compare and exchange
     expression.
     """
     return lib.BinaryenAtomicCmpxchgGetBytes(expr)
+
+
+BinaryenAtomicCmpxchgGetBytes = AtomicCmpxchgGetBytes
 
 
 def AtomicCmpxchgSetBytes(
@@ -4797,11 +7336,17 @@ def AtomicCmpxchgSetBytes(
     lib.BinaryenAtomicCmpxchgSetBytes(expr, _bytes)
 
 
+BinaryenAtomicCmpxchgSetBytes = AtomicCmpxchgSetBytes
+
+
 def AtomicCmpxchgGetOffset(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the constant offset of an atomic compare and exchange expression. """
     return lib.BinaryenAtomicCmpxchgGetOffset(expr)
+
+
+BinaryenAtomicCmpxchgGetOffset = AtomicCmpxchgGetOffset
 
 
 def AtomicCmpxchgSetOffset(
@@ -4812,11 +7357,17 @@ def AtomicCmpxchgSetOffset(
     lib.BinaryenAtomicCmpxchgSetOffset(expr, offset)
 
 
+BinaryenAtomicCmpxchgSetOffset = AtomicCmpxchgSetOffset
+
+
 def AtomicCmpxchgGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the pointer expression of an atomic compare and exchange expression. """
     return lib.BinaryenAtomicCmpxchgGetPtr(expr)
+
+
+BinaryenAtomicCmpxchgGetPtr = AtomicCmpxchgGetPtr
 
 
 def AtomicCmpxchgSetPtr(
@@ -4827,6 +7378,9 @@ def AtomicCmpxchgSetPtr(
     lib.BinaryenAtomicCmpxchgSetPtr(expr, ptr_expr)
 
 
+BinaryenAtomicCmpxchgSetPtr = AtomicCmpxchgSetPtr
+
+
 def AtomicCmpxchgGetExpected(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
@@ -4835,6 +7389,9 @@ def AtomicCmpxchgGetExpected(
     exchange expression.
     """
     return lib.BinaryenAtomicCmpxchgGetExpected(expr)
+
+
+BinaryenAtomicCmpxchgGetExpected = AtomicCmpxchgGetExpected
 
 
 def AtomicCmpxchgSetExpected(
@@ -4848,11 +7405,17 @@ def AtomicCmpxchgSetExpected(
     lib.BinaryenAtomicCmpxchgSetExpected(expr, expected_expr)
 
 
+BinaryenAtomicCmpxchgSetExpected = AtomicCmpxchgSetExpected
+
+
 def AtomicCmpxchgGetReplacement(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the replacement expression of an atomic compare and exchange expression. """
     return lib.BinaryenAtomicCmpxchgGetReplacement(expr)
+
+
+BinaryenAtomicCmpxchgGetReplacement = AtomicCmpxchgGetReplacement
 
 
 def AtomicCmpxchgSetReplacement(
@@ -4863,14 +7426,17 @@ def AtomicCmpxchgSetReplacement(
     lib.BinaryenAtomicCmpxchgSetReplacement(expr, replacement_expr)
 
 
+BinaryenAtomicCmpxchgSetReplacement = AtomicCmpxchgSetReplacement
+
+
 def AtomicWaitGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    AtomicWait
-    Gets the pointer expression of an `memory.atomic.wait` expression.
-    """
+    """ Gets the pointer expression of an `memory.atomic.wait` expression. """
     return lib.BinaryenAtomicWaitGetPtr(expr)
+
+
+BinaryenAtomicWaitGetPtr = AtomicWaitGetPtr
 
 
 def AtomicWaitSetPtr(
@@ -4881,6 +7447,9 @@ def AtomicWaitSetPtr(
     lib.BinaryenAtomicWaitSetPtr(expr, ptr_expr)
 
 
+BinaryenAtomicWaitSetPtr = AtomicWaitSetPtr
+
+
 def AtomicWaitGetExpected(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
@@ -4889,6 +7458,9 @@ def AtomicWaitGetExpected(
     `memory.atomic.wait` expression.
     """
     return lib.BinaryenAtomicWaitGetExpected(expr)
+
+
+BinaryenAtomicWaitGetExpected = AtomicWaitGetExpected
 
 
 def AtomicWaitSetExpected(
@@ -4902,11 +7474,17 @@ def AtomicWaitSetExpected(
     lib.BinaryenAtomicWaitSetExpected(expr, expected_expr)
 
 
+BinaryenAtomicWaitSetExpected = AtomicWaitSetExpected
+
+
 def AtomicWaitGetTimeout(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the timeout expression of an `memory.atomic.wait` expression. """
     return lib.BinaryenAtomicWaitGetTimeout(expr)
+
+
+BinaryenAtomicWaitGetTimeout = AtomicWaitGetTimeout
 
 
 def AtomicWaitSetTimeout(
@@ -4917,11 +7495,17 @@ def AtomicWaitSetTimeout(
     lib.BinaryenAtomicWaitSetTimeout(expr, timeout_expr)
 
 
+BinaryenAtomicWaitSetTimeout = AtomicWaitSetTimeout
+
+
 def AtomicWaitGetExpectedType(
     expr: BinaryenExpressionRef,
 ) -> BinaryenType:
     """ Gets the expected type of an `memory.atomic.wait` expression. """
     return lib.BinaryenAtomicWaitGetExpectedType(expr)
+
+
+BinaryenAtomicWaitGetExpectedType = AtomicWaitGetExpectedType
 
 
 def AtomicWaitSetExpectedType(
@@ -4932,14 +7516,17 @@ def AtomicWaitSetExpectedType(
     lib.BinaryenAtomicWaitSetExpectedType(expr, expected_type)
 
 
+BinaryenAtomicWaitSetExpectedType = AtomicWaitSetExpectedType
+
+
 def AtomicNotifyGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    AtomicNotify
-    Gets the pointer expression of an `memory.atomic.notify` expression.
-    """
+    """ Gets the pointer expression of an `memory.atomic.notify` expression. """
     return lib.BinaryenAtomicNotifyGetPtr(expr)
+
+
+BinaryenAtomicNotifyGetPtr = AtomicNotifyGetPtr
 
 
 def AtomicNotifySetPtr(
@@ -4950,11 +7537,17 @@ def AtomicNotifySetPtr(
     lib.BinaryenAtomicNotifySetPtr(expr, ptr_expr)
 
 
+BinaryenAtomicNotifySetPtr = AtomicNotifySetPtr
+
+
 def AtomicNotifyGetNotifyCount(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the notify count expression of an `memory.atomic.notify` expression. """
     return lib.BinaryenAtomicNotifyGetNotifyCount(expr)
+
+
+BinaryenAtomicNotifyGetNotifyCount = AtomicNotifyGetNotifyCount
 
 
 def AtomicNotifySetNotifyCount(
@@ -4965,14 +7558,17 @@ def AtomicNotifySetNotifyCount(
     lib.BinaryenAtomicNotifySetNotifyCount(expr, notify_count_expr)
 
 
+BinaryenAtomicNotifySetNotifyCount = AtomicNotifySetNotifyCount
+
+
 def AtomicFenceGetOrder(
     expr: BinaryenExpressionRef,
 ) -> int:
-    """
-    AtomicFence
-    Gets the order of an `atomic.fence` expression.
-    """
+    """ Gets the order of an `atomic.fence` expression. """
     return lib.BinaryenAtomicFenceGetOrder(expr)
+
+
+BinaryenAtomicFenceGetOrder = AtomicFenceGetOrder
 
 
 def AtomicFenceSetOrder(
@@ -4983,14 +7579,17 @@ def AtomicFenceSetOrder(
     lib.BinaryenAtomicFenceSetOrder(expr, order)
 
 
+BinaryenAtomicFenceSetOrder = AtomicFenceSetOrder
+
+
 def SIMDExtractGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    SIMDExtract
-    Gets the operation being performed by a SIMD extract expression.
-    """
+    """ Gets the operation being performed by a SIMD extract expression. """
     return lib.BinaryenSIMDExtractGetOp(expr)
+
+
+BinaryenSIMDExtractGetOp = SIMDExtractGetOp
 
 
 def SIMDExtractSetOp(
@@ -5001,11 +7600,17 @@ def SIMDExtractSetOp(
     lib.BinaryenSIMDExtractSetOp(expr, op)
 
 
+BinaryenSIMDExtractSetOp = SIMDExtractSetOp
+
+
 def SIMDExtractGetVec(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the vector expression a SIMD extract expression extracts from. """
     return lib.BinaryenSIMDExtractGetVec(expr)
+
+
+BinaryenSIMDExtractGetVec = SIMDExtractGetVec
 
 
 def SIMDExtractSetVec(
@@ -5016,11 +7621,17 @@ def SIMDExtractSetVec(
     lib.BinaryenSIMDExtractSetVec(expr, vec_expr)
 
 
+BinaryenSIMDExtractSetVec = SIMDExtractSetVec
+
+
 def SIMDExtractGetIndex(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the index of the extracted lane of a SIMD extract expression. """
     return lib.BinaryenSIMDExtractGetIndex(expr)
+
+
+BinaryenSIMDExtractGetIndex = SIMDExtractGetIndex
 
 
 def SIMDExtractSetIndex(
@@ -5031,14 +7642,17 @@ def SIMDExtractSetIndex(
     lib.BinaryenSIMDExtractSetIndex(expr, index)
 
 
+BinaryenSIMDExtractSetIndex = SIMDExtractSetIndex
+
+
 def SIMDReplaceGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    SIMDReplace
-    Gets the operation being performed by a SIMD replace expression.
-    """
+    """ Gets the operation being performed by a SIMD replace expression. """
     return lib.BinaryenSIMDReplaceGetOp(expr)
+
+
+BinaryenSIMDReplaceGetOp = SIMDReplaceGetOp
 
 
 def SIMDReplaceSetOp(
@@ -5049,11 +7663,17 @@ def SIMDReplaceSetOp(
     lib.BinaryenSIMDReplaceSetOp(expr, op)
 
 
+BinaryenSIMDReplaceSetOp = SIMDReplaceSetOp
+
+
 def SIMDReplaceGetVec(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the vector expression a SIMD replace expression replaces in. """
     return lib.BinaryenSIMDReplaceGetVec(expr)
+
+
+BinaryenSIMDReplaceGetVec = SIMDReplaceGetVec
 
 
 def SIMDReplaceSetVec(
@@ -5064,11 +7684,17 @@ def SIMDReplaceSetVec(
     lib.BinaryenSIMDReplaceSetVec(expr, vec_expr)
 
 
+BinaryenSIMDReplaceSetVec = SIMDReplaceSetVec
+
+
 def SIMDReplaceGetIndex(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the index of the replaced lane of a SIMD replace expression. """
     return lib.BinaryenSIMDReplaceGetIndex(expr)
+
+
+BinaryenSIMDReplaceGetIndex = SIMDReplaceGetIndex
 
 
 def SIMDReplaceSetIndex(
@@ -5079,11 +7705,17 @@ def SIMDReplaceSetIndex(
     lib.BinaryenSIMDReplaceSetIndex(expr, index)
 
 
+BinaryenSIMDReplaceSetIndex = SIMDReplaceSetIndex
+
+
 def SIMDReplaceGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression a SIMD replace expression replaces with. """
     return lib.BinaryenSIMDReplaceGetValue(expr)
+
+
+BinaryenSIMDReplaceGetValue = SIMDReplaceGetValue
 
 
 def SIMDReplaceSetValue(
@@ -5094,14 +7726,17 @@ def SIMDReplaceSetValue(
     lib.BinaryenSIMDReplaceSetValue(expr, value_expr)
 
 
+BinaryenSIMDReplaceSetValue = SIMDReplaceSetValue
+
+
 def SIMDShuffleGetLeft(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    SIMDShuffle
-    Gets the left expression of a SIMD shuffle expression.
-    """
+    """ Gets the left expression of a SIMD shuffle expression. """
     return lib.BinaryenSIMDShuffleGetLeft(expr)
+
+
+BinaryenSIMDShuffleGetLeft = SIMDShuffleGetLeft
 
 
 def SIMDShuffleSetLeft(
@@ -5112,11 +7747,17 @@ def SIMDShuffleSetLeft(
     lib.BinaryenSIMDShuffleSetLeft(expr, left_expr)
 
 
+BinaryenSIMDShuffleSetLeft = SIMDShuffleSetLeft
+
+
 def SIMDShuffleGetRight(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the right expression of a SIMD shuffle expression. """
     return lib.BinaryenSIMDShuffleGetRight(expr)
+
+
+BinaryenSIMDShuffleGetRight = SIMDShuffleGetRight
 
 
 def SIMDShuffleSetRight(
@@ -5127,12 +7768,18 @@ def SIMDShuffleSetRight(
     lib.BinaryenSIMDShuffleSetRight(expr, right_expr)
 
 
+BinaryenSIMDShuffleSetRight = SIMDShuffleSetRight
+
+
 def SIMDShuffleGetMask(
     expr: BinaryenExpressionRef,
     mask: List[int],
 ) -> None:
     """ Gets the 128-bit mask of a SIMD shuffle expression. """
     lib.BinaryenSIMDShuffleGetMask(expr, mask)
+
+
+BinaryenSIMDShuffleGetMask = SIMDShuffleGetMask
 
 
 def SIMDShuffleSetMask(
@@ -5143,14 +7790,17 @@ def SIMDShuffleSetMask(
     lib.BinaryenSIMDShuffleSetMask(expr, mask)
 
 
+BinaryenSIMDShuffleSetMask = SIMDShuffleSetMask
+
+
 def SIMDTernaryGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    SIMDTernary
-    Gets the operation being performed by a SIMD ternary expression.
-    """
+    """ Gets the operation being performed by a SIMD ternary expression. """
     return lib.BinaryenSIMDTernaryGetOp(expr)
+
+
+BinaryenSIMDTernaryGetOp = SIMDTernaryGetOp
 
 
 def SIMDTernarySetOp(
@@ -5161,11 +7811,17 @@ def SIMDTernarySetOp(
     lib.BinaryenSIMDTernarySetOp(expr, op)
 
 
+BinaryenSIMDTernarySetOp = SIMDTernarySetOp
+
+
 def SIMDTernaryGetA(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the first operand expression of a SIMD ternary expression. """
     return lib.BinaryenSIMDTernaryGetA(expr)
+
+
+BinaryenSIMDTernaryGetA = SIMDTernaryGetA
 
 
 def SIMDTernarySetA(
@@ -5176,11 +7832,17 @@ def SIMDTernarySetA(
     lib.BinaryenSIMDTernarySetA(expr, a_expr)
 
 
+BinaryenSIMDTernarySetA = SIMDTernarySetA
+
+
 def SIMDTernaryGetB(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the second operand expression of a SIMD ternary expression. """
     return lib.BinaryenSIMDTernaryGetB(expr)
+
+
+BinaryenSIMDTernaryGetB = SIMDTernaryGetB
 
 
 def SIMDTernarySetB(
@@ -5191,11 +7853,17 @@ def SIMDTernarySetB(
     lib.BinaryenSIMDTernarySetB(expr, b_expr)
 
 
+BinaryenSIMDTernarySetB = SIMDTernarySetB
+
+
 def SIMDTernaryGetC(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the third operand expression of a SIMD ternary expression. """
     return lib.BinaryenSIMDTernaryGetC(expr)
+
+
+BinaryenSIMDTernaryGetC = SIMDTernaryGetC
 
 
 def SIMDTernarySetC(
@@ -5206,14 +7874,17 @@ def SIMDTernarySetC(
     lib.BinaryenSIMDTernarySetC(expr, c_expr)
 
 
+BinaryenSIMDTernarySetC = SIMDTernarySetC
+
+
 def SIMDShiftGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    SIMDShift
-    Gets the operation being performed by a SIMD shift expression.
-    """
+    """ Gets the operation being performed by a SIMD shift expression. """
     return lib.BinaryenSIMDShiftGetOp(expr)
+
+
+BinaryenSIMDShiftGetOp = SIMDShiftGetOp
 
 
 def SIMDShiftSetOp(
@@ -5224,11 +7895,17 @@ def SIMDShiftSetOp(
     lib.BinaryenSIMDShiftSetOp(expr, op)
 
 
+BinaryenSIMDShiftSetOp = SIMDShiftSetOp
+
+
 def SIMDShiftGetVec(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the expression being shifted by a SIMD shift expression. """
     return lib.BinaryenSIMDShiftGetVec(expr)
+
+
+BinaryenSIMDShiftGetVec = SIMDShiftGetVec
 
 
 def SIMDShiftSetVec(
@@ -5239,11 +7916,17 @@ def SIMDShiftSetVec(
     lib.BinaryenSIMDShiftSetVec(expr, vec_expr)
 
 
+BinaryenSIMDShiftSetVec = SIMDShiftSetVec
+
+
 def SIMDShiftGetShift(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the expression representing the shift of a SIMD shift expression. """
     return lib.BinaryenSIMDShiftGetShift(expr)
+
+
+BinaryenSIMDShiftGetShift = SIMDShiftGetShift
 
 
 def SIMDShiftSetShift(
@@ -5254,14 +7937,17 @@ def SIMDShiftSetShift(
     lib.BinaryenSIMDShiftSetShift(expr, shift_expr)
 
 
+BinaryenSIMDShiftSetShift = SIMDShiftSetShift
+
+
 def SIMDLoadGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    SIMDLoad
-    Gets the operation being performed by a SIMD load expression.
-    """
+    """ Gets the operation being performed by a SIMD load expression. """
     return lib.BinaryenSIMDLoadGetOp(expr)
+
+
+BinaryenSIMDLoadGetOp = SIMDLoadGetOp
 
 
 def SIMDLoadSetOp(
@@ -5272,11 +7958,17 @@ def SIMDLoadSetOp(
     lib.BinaryenSIMDLoadSetOp(expr, op)
 
 
+BinaryenSIMDLoadSetOp = SIMDLoadSetOp
+
+
 def SIMDLoadGetOffset(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the constant offset of a SIMD load expression. """
     return lib.BinaryenSIMDLoadGetOffset(expr)
+
+
+BinaryenSIMDLoadGetOffset = SIMDLoadGetOffset
 
 
 def SIMDLoadSetOffset(
@@ -5287,11 +7979,17 @@ def SIMDLoadSetOffset(
     lib.BinaryenSIMDLoadSetOffset(expr, offset)
 
 
+BinaryenSIMDLoadSetOffset = SIMDLoadSetOffset
+
+
 def SIMDLoadGetAlign(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the byte alignment of a SIMD load expression. """
     return lib.BinaryenSIMDLoadGetAlign(expr)
+
+
+BinaryenSIMDLoadGetAlign = SIMDLoadGetAlign
 
 
 def SIMDLoadSetAlign(
@@ -5302,11 +8000,17 @@ def SIMDLoadSetAlign(
     lib.BinaryenSIMDLoadSetAlign(expr, align)
 
 
+BinaryenSIMDLoadSetAlign = SIMDLoadSetAlign
+
+
 def SIMDLoadGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the pointer expression of a SIMD load expression. """
     return lib.BinaryenSIMDLoadGetPtr(expr)
+
+
+BinaryenSIMDLoadGetPtr = SIMDLoadGetPtr
 
 
 def SIMDLoadSetPtr(
@@ -5317,14 +8021,17 @@ def SIMDLoadSetPtr(
     lib.BinaryenSIMDLoadSetPtr(expr, ptr_expr)
 
 
+BinaryenSIMDLoadSetPtr = SIMDLoadSetPtr
+
+
 def SIMDLoadStoreLaneGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    SIMDLoadStoreLane
-    Gets the operation being performed by a SIMD load/store lane expression.
-    """
+    """ Gets the operation being performed by a SIMD load/store lane expression. """
     return lib.BinaryenSIMDLoadStoreLaneGetOp(expr)
+
+
+BinaryenSIMDLoadStoreLaneGetOp = SIMDLoadStoreLaneGetOp
 
 
 def SIMDLoadStoreLaneSetOp(
@@ -5335,11 +8042,17 @@ def SIMDLoadStoreLaneSetOp(
     lib.BinaryenSIMDLoadStoreLaneSetOp(expr, op)
 
 
+BinaryenSIMDLoadStoreLaneSetOp = SIMDLoadStoreLaneSetOp
+
+
 def SIMDLoadStoreLaneGetOffset(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the constant offset of a SIMD load/store lane expression. """
     return lib.BinaryenSIMDLoadStoreLaneGetOffset(expr)
+
+
+BinaryenSIMDLoadStoreLaneGetOffset = SIMDLoadStoreLaneGetOffset
 
 
 def SIMDLoadStoreLaneSetOffset(
@@ -5350,11 +8063,17 @@ def SIMDLoadStoreLaneSetOffset(
     lib.BinaryenSIMDLoadStoreLaneSetOffset(expr, offset)
 
 
+BinaryenSIMDLoadStoreLaneSetOffset = SIMDLoadStoreLaneSetOffset
+
+
 def SIMDLoadStoreLaneGetAlign(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the byte alignment of a SIMD load/store lane expression. """
     return lib.BinaryenSIMDLoadStoreLaneGetAlign(expr)
+
+
+BinaryenSIMDLoadStoreLaneGetAlign = SIMDLoadStoreLaneGetAlign
 
 
 def SIMDLoadStoreLaneSetAlign(
@@ -5365,11 +8084,17 @@ def SIMDLoadStoreLaneSetAlign(
     lib.BinaryenSIMDLoadStoreLaneSetAlign(expr, align)
 
 
+BinaryenSIMDLoadStoreLaneSetAlign = SIMDLoadStoreLaneSetAlign
+
+
 def SIMDLoadStoreLaneGetIndex(
     expr: BinaryenExpressionRef,
 ) -> int:
     """ Gets the lane index of a SIMD load/store lane expression. """
     return lib.BinaryenSIMDLoadStoreLaneGetIndex(expr)
+
+
+BinaryenSIMDLoadStoreLaneGetIndex = SIMDLoadStoreLaneGetIndex
 
 
 def SIMDLoadStoreLaneSetIndex(
@@ -5380,11 +8105,17 @@ def SIMDLoadStoreLaneSetIndex(
     lib.BinaryenSIMDLoadStoreLaneSetIndex(expr, index)
 
 
+BinaryenSIMDLoadStoreLaneSetIndex = SIMDLoadStoreLaneSetIndex
+
+
 def SIMDLoadStoreLaneGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the pointer expression of a SIMD load/store lane expression. """
     return lib.BinaryenSIMDLoadStoreLaneGetPtr(expr)
+
+
+BinaryenSIMDLoadStoreLaneGetPtr = SIMDLoadStoreLaneGetPtr
 
 
 def SIMDLoadStoreLaneSetPtr(
@@ -5395,11 +8126,17 @@ def SIMDLoadStoreLaneSetPtr(
     lib.BinaryenSIMDLoadStoreLaneSetPtr(expr, ptr_expr)
 
 
+BinaryenSIMDLoadStoreLaneSetPtr = SIMDLoadStoreLaneSetPtr
+
+
 def SIMDLoadStoreLaneGetVec(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the vector expression of a SIMD load/store lane expression. """
     return lib.BinaryenSIMDLoadStoreLaneGetVec(expr)
+
+
+BinaryenSIMDLoadStoreLaneGetVec = SIMDLoadStoreLaneGetVec
 
 
 def SIMDLoadStoreLaneSetVec(
@@ -5408,6 +8145,9 @@ def SIMDLoadStoreLaneSetVec(
 ) -> None:
     """ Sets the vector expression of a SIMD load/store lane expression. """
     lib.BinaryenSIMDLoadStoreLaneSetVec(expr, vec_expr)
+
+
+BinaryenSIMDLoadStoreLaneSetVec = SIMDLoadStoreLaneSetVec
 
 
 def SIMDLoadStoreLaneIsStore(
@@ -5420,15 +8160,20 @@ def SIMDLoadStoreLaneIsStore(
     return lib.BinaryenSIMDLoadStoreLaneIsStore(expr)
 
 
+BinaryenSIMDLoadStoreLaneIsStore = SIMDLoadStoreLaneIsStore
+
+
 def MemoryInitGetSegment(
     expr: BinaryenExpressionRef,
 ) -> int:
     """
-    MemoryInit
     Gets the index of the segment being initialized by a `memory.init`
     expression.
     """
     return lib.BinaryenMemoryInitGetSegment(expr)
+
+
+BinaryenMemoryInitGetSegment = MemoryInitGetSegment
 
 
 def MemoryInitSetSegment(
@@ -5442,11 +8187,17 @@ def MemoryInitSetSegment(
     lib.BinaryenMemoryInitSetSegment(expr, segment_index)
 
 
+BinaryenMemoryInitSetSegment = MemoryInitSetSegment
+
+
 def MemoryInitGetDest(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the destination expression of a `memory.init` expression. """
     return lib.BinaryenMemoryInitGetDest(expr)
+
+
+BinaryenMemoryInitGetDest = MemoryInitGetDest
 
 
 def MemoryInitSetDest(
@@ -5457,11 +8208,17 @@ def MemoryInitSetDest(
     lib.BinaryenMemoryInitSetDest(expr, dest_expr)
 
 
+BinaryenMemoryInitSetDest = MemoryInitSetDest
+
+
 def MemoryInitGetOffset(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the offset expression of a `memory.init` expression. """
     return lib.BinaryenMemoryInitGetOffset(expr)
+
+
+BinaryenMemoryInitGetOffset = MemoryInitGetOffset
 
 
 def MemoryInitSetOffset(
@@ -5472,11 +8229,17 @@ def MemoryInitSetOffset(
     lib.BinaryenMemoryInitSetOffset(expr, offset_expr)
 
 
+BinaryenMemoryInitSetOffset = MemoryInitSetOffset
+
+
 def MemoryInitGetSize(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the size expression of a `memory.init` expression. """
     return lib.BinaryenMemoryInitGetSize(expr)
+
+
+BinaryenMemoryInitGetSize = MemoryInitGetSize
 
 
 def MemoryInitSetSize(
@@ -5487,14 +8250,17 @@ def MemoryInitSetSize(
     lib.BinaryenMemoryInitSetSize(expr, size_expr)
 
 
+BinaryenMemoryInitSetSize = MemoryInitSetSize
+
+
 def DataDropGetSegment(
     expr: BinaryenExpressionRef,
 ) -> int:
-    """
-    DataDrop
-    Gets the index of the segment being dropped by a `data.drop` expression.
-    """
+    """ Gets the index of the segment being dropped by a `data.drop` expression. """
     return lib.BinaryenDataDropGetSegment(expr)
+
+
+BinaryenDataDropGetSegment = DataDropGetSegment
 
 
 def DataDropSetSegment(
@@ -5505,14 +8271,17 @@ def DataDropSetSegment(
     lib.BinaryenDataDropSetSegment(expr, segment_index)
 
 
+BinaryenDataDropSetSegment = DataDropSetSegment
+
+
 def MemoryCopyGetDest(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    MemoryCopy
-    Gets the destination expression of a `memory.copy` expression.
-    """
+    """ Gets the destination expression of a `memory.copy` expression. """
     return lib.BinaryenMemoryCopyGetDest(expr)
+
+
+BinaryenMemoryCopyGetDest = MemoryCopyGetDest
 
 
 def MemoryCopySetDest(
@@ -5523,11 +8292,17 @@ def MemoryCopySetDest(
     lib.BinaryenMemoryCopySetDest(expr, dest_expr)
 
 
+BinaryenMemoryCopySetDest = MemoryCopySetDest
+
+
 def MemoryCopyGetSource(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the source expression of a `memory.copy` expression. """
     return lib.BinaryenMemoryCopyGetSource(expr)
+
+
+BinaryenMemoryCopyGetSource = MemoryCopyGetSource
 
 
 def MemoryCopySetSource(
@@ -5538,6 +8313,9 @@ def MemoryCopySetSource(
     lib.BinaryenMemoryCopySetSource(expr, source_expr)
 
 
+BinaryenMemoryCopySetSource = MemoryCopySetSource
+
+
 def MemoryCopyGetSize(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
@@ -5546,6 +8324,9 @@ def MemoryCopyGetSize(
     expression.
     """
     return lib.BinaryenMemoryCopyGetSize(expr)
+
+
+BinaryenMemoryCopyGetSize = MemoryCopyGetSize
 
 
 def MemoryCopySetSize(
@@ -5559,14 +8340,17 @@ def MemoryCopySetSize(
     lib.BinaryenMemoryCopySetSize(expr, size_expr)
 
 
+BinaryenMemoryCopySetSize = MemoryCopySetSize
+
+
 def MemoryFillGetDest(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    MemoryFill
-    Gets the destination expression of a `memory.fill` expression.
-    """
+    """ Gets the destination expression of a `memory.fill` expression. """
     return lib.BinaryenMemoryFillGetDest(expr)
+
+
+BinaryenMemoryFillGetDest = MemoryFillGetDest
 
 
 def MemoryFillSetDest(
@@ -5577,11 +8361,17 @@ def MemoryFillSetDest(
     lib.BinaryenMemoryFillSetDest(expr, dest_expr)
 
 
+BinaryenMemoryFillSetDest = MemoryFillSetDest
+
+
 def MemoryFillGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression of a `memory.fill` expression. """
     return lib.BinaryenMemoryFillGetValue(expr)
+
+
+BinaryenMemoryFillGetValue = MemoryFillGetValue
 
 
 def MemoryFillSetValue(
@@ -5592,6 +8382,9 @@ def MemoryFillSetValue(
     lib.BinaryenMemoryFillSetValue(expr, value_expr)
 
 
+BinaryenMemoryFillSetValue = MemoryFillSetValue
+
+
 def MemoryFillGetSize(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
@@ -5600,6 +8393,9 @@ def MemoryFillGetSize(
     expression.
     """
     return lib.BinaryenMemoryFillGetSize(expr)
+
+
+BinaryenMemoryFillGetSize = MemoryFillGetSize
 
 
 def MemoryFillSetSize(
@@ -5613,14 +8409,17 @@ def MemoryFillSetSize(
     lib.BinaryenMemoryFillSetSize(expr, size_expr)
 
 
+BinaryenMemoryFillSetSize = MemoryFillSetSize
+
+
 def RefIsGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    RefIs
-    Gets the operation performed by a `ref.is_*` expression.
-    """
+    """ Gets the operation performed by a `ref.is_*` expression. """
     return lib.BinaryenRefIsGetOp(expr)
+
+
+BinaryenRefIsGetOp = RefIsGetOp
 
 
 def RefIsSetOp(
@@ -5631,11 +8430,17 @@ def RefIsSetOp(
     lib.BinaryenRefIsSetOp(expr, op)
 
 
+BinaryenRefIsSetOp = RefIsSetOp
+
+
 def RefIsGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression tested by a `ref.is_*` expression. """
     return lib.BinaryenRefIsGetValue(expr)
+
+
+BinaryenRefIsGetValue = RefIsGetValue
 
 
 def RefIsSetValue(
@@ -5646,14 +8451,17 @@ def RefIsSetValue(
     lib.BinaryenRefIsSetValue(expr, value_expr)
 
 
+BinaryenRefIsSetValue = RefIsSetValue
+
+
 def RefAsGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """
-    RefAs
-    Gets the operation performed by a `ref.as_*` expression.
-    """
+    """ Gets the operation performed by a `ref.as_*` expression. """
     return lib.BinaryenRefAsGetOp(expr)
+
+
+BinaryenRefAsGetOp = RefAsGetOp
 
 
 def RefAsSetOp(
@@ -5664,11 +8472,17 @@ def RefAsSetOp(
     lib.BinaryenRefAsSetOp(expr, op)
 
 
+BinaryenRefAsSetOp = RefAsSetOp
+
+
 def RefAsGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the value expression tested by a `ref.as_*` expression. """
     return lib.BinaryenRefAsGetValue(expr)
+
+
+BinaryenRefAsGetValue = RefAsGetValue
 
 
 def RefAsSetValue(
@@ -5679,14 +8493,17 @@ def RefAsSetValue(
     lib.BinaryenRefAsSetValue(expr, value_expr)
 
 
+BinaryenRefAsSetValue = RefAsSetValue
+
+
 def RefFuncGetFunc(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    RefFunc
-    Gets the name of the function being wrapped by a `ref.func` expression.
-    """
+    """ Gets the name of the function being wrapped by a `ref.func` expression. """
     return lib.BinaryenRefFuncGetFunc(expr)
+
+
+BinaryenRefFuncGetFunc = RefFuncGetFunc
 
 
 def RefFuncSetFunc(
@@ -5697,14 +8514,17 @@ def RefFuncSetFunc(
     lib.BinaryenRefFuncSetFunc(expr, func_name.encode())
 
 
+BinaryenRefFuncSetFunc = RefFuncSetFunc
+
+
 def RefEqGetLeft(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    RefEq
-    Gets the left expression of a `ref.eq` expression.
-    """
+    """ Gets the left expression of a `ref.eq` expression. """
     return lib.BinaryenRefEqGetLeft(expr)
+
+
+BinaryenRefEqGetLeft = RefEqGetLeft
 
 
 def RefEqSetLeft(
@@ -5715,11 +8535,17 @@ def RefEqSetLeft(
     lib.BinaryenRefEqSetLeft(expr, left)
 
 
+BinaryenRefEqSetLeft = RefEqSetLeft
+
+
 def RefEqGetRight(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the right expression of a `ref.eq` expression. """
     return lib.BinaryenRefEqGetRight(expr)
+
+
+BinaryenRefEqGetRight = RefEqGetRight
 
 
 def RefEqSetRight(
@@ -5730,14 +8556,17 @@ def RefEqSetRight(
     lib.BinaryenRefEqSetRight(expr, right)
 
 
+BinaryenRefEqSetRight = RefEqSetRight
+
+
 def TryGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    Try
-    Gets the name (label) of a `try` expression.
-    """
+    """ Gets the name (label) of a `try` expression. """
     return lib.BinaryenTryGetName(expr)
+
+
+BinaryenTryGetName = TryGetName
 
 
 def TrySetName(
@@ -5748,11 +8577,17 @@ def TrySetName(
     lib.BinaryenTrySetName(expr, name.encode())
 
 
+BinaryenTrySetName = TrySetName
+
+
 def TryGetBody(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the body expression of a `try` expression. """
     return lib.BinaryenTryGetBody(expr)
+
+
+BinaryenTryGetBody = TryGetBody
 
 
 def TrySetBody(
@@ -5761,6 +8596,9 @@ def TrySetBody(
 ) -> None:
     """ Sets the body expression of a `try` expression. """
     lib.BinaryenTrySetBody(expr, body_expr)
+
+
+BinaryenTrySetBody = TrySetBody
 
 
 def TryGetNumCatchTags(
@@ -5773,11 +8611,17 @@ def TryGetNumCatchTags(
     return lib.BinaryenTryGetNumCatchTags(expr)
 
 
+BinaryenTryGetNumCatchTags = TryGetNumCatchTags
+
+
 def TryGetNumCatchBodies(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     """ Gets the number of catch/catch_all blocks of a `try` expression. """
     return lib.BinaryenTryGetNumCatchBodies(expr)
+
+
+BinaryenTryGetNumCatchBodies = TryGetNumCatchBodies
 
 
 def TryGetCatchTagAt(
@@ -5786,6 +8630,9 @@ def TryGetCatchTagAt(
 ) -> str:
     """ Gets the catch tag at the specified index of a `try` expression. """
     return lib.BinaryenTryGetCatchTagAt(expr, index)
+
+
+BinaryenTryGetCatchTagAt = TryGetCatchTagAt
 
 
 def TrySetCatchTagAt(
@@ -5797,12 +8644,18 @@ def TrySetCatchTagAt(
     lib.BinaryenTrySetCatchTagAt(expr, index, catch_tag.encode())
 
 
+BinaryenTrySetCatchTagAt = TrySetCatchTagAt
+
+
 def TryAppendCatchTag(
     expr: BinaryenExpressionRef,
     catch_tag: str,
 ) -> BinaryenIndex:
     """ Appends a catch tag to a `try` expression, returning its insertion index. """
     return lib.BinaryenTryAppendCatchTag(expr, catch_tag.encode())
+
+
+BinaryenTryAppendCatchTag = TryAppendCatchTag
 
 
 def TryInsertCatchTagAt(
@@ -5817,6 +8670,9 @@ def TryInsertCatchTagAt(
     lib.BinaryenTryInsertCatchTagAt(expr, index, catch_tag.encode())
 
 
+BinaryenTryInsertCatchTagAt = TryInsertCatchTagAt
+
+
 def TryRemoveCatchTagAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -5828,12 +8684,18 @@ def TryRemoveCatchTagAt(
     return lib.BinaryenTryRemoveCatchTagAt(expr, index)
 
 
+BinaryenTryRemoveCatchTagAt = TryRemoveCatchTagAt
+
+
 def TryGetCatchBodyAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
 ) -> BinaryenExpressionRef:
     """ Gets the catch body expression at the specified index of a `try` expression. """
     return lib.BinaryenTryGetCatchBodyAt(expr, index)
+
+
+BinaryenTryGetCatchBodyAt = TryGetCatchBodyAt
 
 
 def TrySetCatchBodyAt(
@@ -5845,6 +8707,9 @@ def TrySetCatchBodyAt(
     lib.BinaryenTrySetCatchBodyAt(expr, index, catch_expr)
 
 
+BinaryenTrySetCatchBodyAt = TrySetCatchBodyAt
+
+
 def TryAppendCatchBody(
     expr: BinaryenExpressionRef,
     catch_expr: BinaryenExpressionRef,
@@ -5854,6 +8719,9 @@ def TryAppendCatchBody(
     index.
     """
     return lib.BinaryenTryAppendCatchBody(expr, catch_expr)
+
+
+BinaryenTryAppendCatchBody = TryAppendCatchBody
 
 
 def TryInsertCatchBodyAt(
@@ -5869,6 +8737,9 @@ def TryInsertCatchBodyAt(
     lib.BinaryenTryInsertCatchBodyAt(expr, index, catch_expr)
 
 
+BinaryenTryInsertCatchBodyAt = TryInsertCatchBodyAt
+
+
 def TryRemoveCatchBodyAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -5881,6 +8752,9 @@ def TryRemoveCatchBodyAt(
     return lib.BinaryenTryRemoveCatchBodyAt(expr, index)
 
 
+BinaryenTryRemoveCatchBodyAt = TryRemoveCatchBodyAt
+
+
 def TryHasCatchAll(
     expr: BinaryenExpressionRef,
 ) -> bool:
@@ -5888,11 +8762,17 @@ def TryHasCatchAll(
     return lib.BinaryenTryHasCatchAll(expr)
 
 
+BinaryenTryHasCatchAll = TryHasCatchAll
+
+
 def TryGetDelegateTarget(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the target label of a `delegate`. """
     return lib.BinaryenTryGetDelegateTarget(expr)
+
+
+BinaryenTryGetDelegateTarget = TryGetDelegateTarget
 
 
 def TrySetDelegateTarget(
@@ -5903,6 +8783,9 @@ def TrySetDelegateTarget(
     lib.BinaryenTrySetDelegateTarget(expr, delegate_target.encode())
 
 
+BinaryenTrySetDelegateTarget = TrySetDelegateTarget
+
+
 def TryIsDelegate(
     expr: BinaryenExpressionRef,
 ) -> bool:
@@ -5910,14 +8793,17 @@ def TryIsDelegate(
     return lib.BinaryenTryIsDelegate(expr)
 
 
+BinaryenTryIsDelegate = TryIsDelegate
+
+
 def ThrowGetTag(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    Throw
-    Gets the name of the tag being thrown by a `throw` expression.
-    """
+    """ Gets the name of the tag being thrown by a `throw` expression. """
     return lib.BinaryenThrowGetTag(expr)
+
+
+BinaryenThrowGetTag = ThrowGetTag
 
 
 def ThrowSetTag(
@@ -5928,11 +8814,17 @@ def ThrowSetTag(
     lib.BinaryenThrowSetTag(expr, tag_name.encode())
 
 
+BinaryenThrowSetTag = ThrowSetTag
+
+
 def ThrowGetNumOperands(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     """ Gets the number of operands of a `throw` expression. """
     return lib.BinaryenThrowGetNumOperands(expr)
+
+
+BinaryenThrowGetNumOperands = ThrowGetNumOperands
 
 
 def ThrowGetOperandAt(
@@ -5941,6 +8833,9 @@ def ThrowGetOperandAt(
 ) -> BinaryenExpressionRef:
     """ Gets the operand at the specified index of a `throw` expression. """
     return lib.BinaryenThrowGetOperandAt(expr, index)
+
+
+BinaryenThrowGetOperandAt = ThrowGetOperandAt
 
 
 def ThrowSetOperandAt(
@@ -5952,6 +8847,9 @@ def ThrowSetOperandAt(
     lib.BinaryenThrowSetOperandAt(expr, index, operand_expr)
 
 
+BinaryenThrowSetOperandAt = ThrowSetOperandAt
+
+
 def ThrowAppendOperand(
     expr: BinaryenExpressionRef,
     operand_expr: BinaryenExpressionRef,
@@ -5961,6 +8859,9 @@ def ThrowAppendOperand(
     insertion index.
     """
     return lib.BinaryenThrowAppendOperand(expr, operand_expr)
+
+
+BinaryenThrowAppendOperand = ThrowAppendOperand
 
 
 def ThrowInsertOperandAt(
@@ -5976,6 +8877,9 @@ def ThrowInsertOperandAt(
     lib.BinaryenThrowInsertOperandAt(expr, index, operand_expr)
 
 
+BinaryenThrowInsertOperandAt = ThrowInsertOperandAt
+
+
 def ThrowRemoveOperandAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -5988,14 +8892,17 @@ def ThrowRemoveOperandAt(
     return lib.BinaryenThrowRemoveOperandAt(expr, index)
 
 
+BinaryenThrowRemoveOperandAt = ThrowRemoveOperandAt
+
+
 def RethrowGetTarget(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """
-    Rethrow
-    Gets the target catch's corresponding try label of a `rethrow` expression.
-    """
+    """ Gets the target catch's corresponding try label of a `rethrow` expression. """
     return lib.BinaryenRethrowGetTarget(expr)
+
+
+BinaryenRethrowGetTarget = RethrowGetTarget
 
 
 def RethrowSetTarget(
@@ -6006,14 +8913,17 @@ def RethrowSetTarget(
     lib.BinaryenRethrowSetTarget(expr, target.encode())
 
 
+BinaryenRethrowSetTarget = RethrowSetTarget
+
+
 def TupleMakeGetNumOperands(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """
-    TupleMake
-    Gets the number of operands of a `tuple.make` expression.
-    """
+    """ Gets the number of operands of a `tuple.make` expression. """
     return lib.BinaryenTupleMakeGetNumOperands(expr)
+
+
+BinaryenTupleMakeGetNumOperands = TupleMakeGetNumOperands
 
 
 def TupleMakeGetOperandAt(
@@ -6022,6 +8932,9 @@ def TupleMakeGetOperandAt(
 ) -> BinaryenExpressionRef:
     """ Gets the operand at the specified index of a `tuple.make` expression. """
     return lib.BinaryenTupleMakeGetOperandAt(expr, index)
+
+
+BinaryenTupleMakeGetOperandAt = TupleMakeGetOperandAt
 
 
 def TupleMakeSetOperandAt(
@@ -6033,6 +8946,9 @@ def TupleMakeSetOperandAt(
     lib.BinaryenTupleMakeSetOperandAt(expr, index, operand_expr)
 
 
+BinaryenTupleMakeSetOperandAt = TupleMakeSetOperandAt
+
+
 def TupleMakeAppendOperand(
     expr: BinaryenExpressionRef,
     operand_expr: BinaryenExpressionRef,
@@ -6042,6 +8958,9 @@ def TupleMakeAppendOperand(
     insertion index.
     """
     return lib.BinaryenTupleMakeAppendOperand(expr, operand_expr)
+
+
+BinaryenTupleMakeAppendOperand = TupleMakeAppendOperand
 
 
 def TupleMakeInsertOperandAt(
@@ -6057,6 +8976,9 @@ def TupleMakeInsertOperandAt(
     lib.BinaryenTupleMakeInsertOperandAt(expr, index, operand_expr)
 
 
+BinaryenTupleMakeInsertOperandAt = TupleMakeInsertOperandAt
+
+
 def TupleMakeRemoveOperandAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -6069,14 +8991,17 @@ def TupleMakeRemoveOperandAt(
     return lib.BinaryenTupleMakeRemoveOperandAt(expr, index)
 
 
+BinaryenTupleMakeRemoveOperandAt = TupleMakeRemoveOperandAt
+
+
 def TupleExtractGetTuple(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    TupleExtract
-    Gets the tuple extracted from of a `tuple.extract` expression.
-    """
+    """ Gets the tuple extracted from of a `tuple.extract` expression. """
     return lib.BinaryenTupleExtractGetTuple(expr)
+
+
+BinaryenTupleExtractGetTuple = TupleExtractGetTuple
 
 
 def TupleExtractSetTuple(
@@ -6087,11 +9012,17 @@ def TupleExtractSetTuple(
     lib.BinaryenTupleExtractSetTuple(expr, tuple_expr)
 
 
+BinaryenTupleExtractSetTuple = TupleExtractSetTuple
+
+
 def TupleExtractGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     """ Gets the index extracted at of a `tuple.extract` expression. """
     return lib.BinaryenTupleExtractGetIndex(expr)
+
+
+BinaryenTupleExtractGetIndex = TupleExtractGetIndex
 
 
 def TupleExtractSetIndex(
@@ -6102,14 +9033,17 @@ def TupleExtractSetIndex(
     lib.BinaryenTupleExtractSetIndex(expr, index)
 
 
+BinaryenTupleExtractSetIndex = TupleExtractSetIndex
+
+
 def I31NewGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    I31New
-    Gets the value expression of an `i31.new` expression.
-    """
+    """ Gets the value expression of an `i31.new` expression. """
     return lib.BinaryenI31NewGetValue(expr)
+
+
+BinaryenI31NewGetValue = I31NewGetValue
 
 
 def I31NewSetValue(
@@ -6120,14 +9054,17 @@ def I31NewSetValue(
     lib.BinaryenI31NewSetValue(expr, value_expr)
 
 
+BinaryenI31NewSetValue = I31NewSetValue
+
+
 def I31GetGetI31(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """
-    I31Get
-    Gets the i31 expression of an `i31.get` expression.
-    """
+    """ Gets the i31 expression of an `i31.get` expression. """
     return lib.BinaryenI31GetGetI31(expr)
+
+
+BinaryenI31GetGetI31 = I31GetGetI31
 
 
 def I31GetSetI31(
@@ -6138,11 +9075,17 @@ def I31GetSetI31(
     lib.BinaryenI31GetSetI31(expr, i31_expr)
 
 
+BinaryenI31GetSetI31 = I31GetSetI31
+
+
 def I31GetIsSigned(
     expr: BinaryenExpressionRef,
 ) -> bool:
     """ Gets whether an `i31.get` expression returns a signed value (`_s`). """
     return lib.BinaryenI31GetIsSigned(expr)
+
+
+BinaryenI31GetIsSigned = I31GetIsSigned
 
 
 def I31GetSetSigned(
@@ -6153,11 +9096,16 @@ def I31GetSetSigned(
     lib.BinaryenI31GetSetSigned(expr, signed_)
 
 
+BinaryenI31GetSetSigned = I31GetSetSigned
+
+
 def CallRefGetNumOperands(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """ CallRef """
     return lib.BinaryenCallRefGetNumOperands(expr)
+
+
+BinaryenCallRefGetNumOperands = CallRefGetNumOperands
 
 
 def CallRefGetOperandAt(
@@ -6165,6 +9113,9 @@ def CallRefGetOperandAt(
     index: BinaryenIndex,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenCallRefGetOperandAt(expr, index)
+
+
+BinaryenCallRefGetOperandAt = CallRefGetOperandAt
 
 
 def CallRefSetOperandAt(
@@ -6175,11 +9126,17 @@ def CallRefSetOperandAt(
     lib.BinaryenCallRefSetOperandAt(expr, index, operand_expr)
 
 
+BinaryenCallRefSetOperandAt = CallRefSetOperandAt
+
+
 def CallRefAppendOperand(
     expr: BinaryenExpressionRef,
     operand_expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     return lib.BinaryenCallRefAppendOperand(expr, operand_expr)
+
+
+BinaryenCallRefAppendOperand = CallRefAppendOperand
 
 
 def CallRefInsertOperandAt(
@@ -6190,6 +9147,9 @@ def CallRefInsertOperandAt(
     lib.BinaryenCallRefInsertOperandAt(expr, index, operand_expr)
 
 
+BinaryenCallRefInsertOperandAt = CallRefInsertOperandAt
+
+
 def CallRefRemoveOperandAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -6197,10 +9157,16 @@ def CallRefRemoveOperandAt(
     return lib.BinaryenCallRefRemoveOperandAt(expr, index)
 
 
+BinaryenCallRefRemoveOperandAt = CallRefRemoveOperandAt
+
+
 def CallRefGetTarget(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenCallRefGetTarget(expr)
+
+
+BinaryenCallRefGetTarget = CallRefGetTarget
 
 
 def CallRefSetTarget(
@@ -6210,10 +9176,16 @@ def CallRefSetTarget(
     lib.BinaryenCallRefSetTarget(expr, target_expr)
 
 
+BinaryenCallRefSetTarget = CallRefSetTarget
+
+
 def CallRefIsReturn(
     expr: BinaryenExpressionRef,
 ) -> bool:
     return lib.BinaryenCallRefIsReturn(expr)
+
+
+BinaryenCallRefIsReturn = CallRefIsReturn
 
 
 def CallRefSetReturn(
@@ -6223,11 +9195,16 @@ def CallRefSetReturn(
     lib.BinaryenCallRefSetReturn(expr, is_return)
 
 
+BinaryenCallRefSetReturn = CallRefSetReturn
+
+
 def RefTestGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ RefTest """
     return lib.BinaryenRefTestGetRef(expr)
+
+
+BinaryenRefTestGetRef = RefTestGetRef
 
 
 def RefTestSetRef(
@@ -6237,10 +9214,16 @@ def RefTestSetRef(
     lib.BinaryenRefTestSetRef(expr, ref_expr)
 
 
+BinaryenRefTestSetRef = RefTestSetRef
+
+
 def RefTestGetIntendedType(
     expr: BinaryenExpressionRef,
 ) -> BinaryenHeapType:
     return lib.BinaryenRefTestGetIntendedType(expr)
+
+
+BinaryenRefTestGetIntendedType = RefTestGetIntendedType
 
 
 def RefTestSetIntendedType(
@@ -6250,11 +9233,16 @@ def RefTestSetIntendedType(
     lib.BinaryenRefTestSetIntendedType(expr, intended_type)
 
 
+BinaryenRefTestSetIntendedType = RefTestSetIntendedType
+
+
 def RefCastGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ RefCast """
     return lib.BinaryenRefCastGetRef(expr)
+
+
+BinaryenRefCastGetRef = RefCastGetRef
 
 
 def RefCastSetRef(
@@ -6264,10 +9252,16 @@ def RefCastSetRef(
     lib.BinaryenRefCastSetRef(expr, ref_expr)
 
 
+BinaryenRefCastSetRef = RefCastSetRef
+
+
 def RefCastGetIntendedType(
     expr: BinaryenExpressionRef,
 ) -> BinaryenHeapType:
     return lib.BinaryenRefCastGetIntendedType(expr)
+
+
+BinaryenRefCastGetIntendedType = RefCastGetIntendedType
 
 
 def RefCastSetIntendedType(
@@ -6277,11 +9271,16 @@ def RefCastSetIntendedType(
     lib.BinaryenRefCastSetIntendedType(expr, intended_type)
 
 
+BinaryenRefCastSetIntendedType = RefCastSetIntendedType
+
+
 def BrOnGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """ BrOn """
     return lib.BinaryenBrOnGetOp(expr)
+
+
+BinaryenBrOnGetOp = BrOnGetOp
 
 
 def BrOnSetOp(
@@ -6291,10 +9290,16 @@ def BrOnSetOp(
     lib.BinaryenBrOnSetOp(expr, op)
 
 
+BinaryenBrOnSetOp = BrOnSetOp
+
+
 def BrOnGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
     return lib.BinaryenBrOnGetName(expr)
+
+
+BinaryenBrOnGetName = BrOnGetName
 
 
 def BrOnSetName(
@@ -6304,10 +9309,16 @@ def BrOnSetName(
     lib.BinaryenBrOnSetName(expr, name_str.encode())
 
 
+BinaryenBrOnSetName = BrOnSetName
+
+
 def BrOnGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenBrOnGetRef(expr)
+
+
+BinaryenBrOnGetRef = BrOnGetRef
 
 
 def BrOnSetRef(
@@ -6317,10 +9328,16 @@ def BrOnSetRef(
     lib.BinaryenBrOnSetRef(expr, ref_expr)
 
 
+BinaryenBrOnSetRef = BrOnSetRef
+
+
 def BrOnGetIntendedType(
     expr: BinaryenExpressionRef,
 ) -> BinaryenHeapType:
     return lib.BinaryenBrOnGetIntendedType(expr)
+
+
+BinaryenBrOnGetIntendedType = BrOnGetIntendedType
 
 
 def BrOnSetIntendedType(
@@ -6330,11 +9347,16 @@ def BrOnSetIntendedType(
     lib.BinaryenBrOnSetIntendedType(expr, intended_type)
 
 
+BinaryenBrOnSetIntendedType = BrOnSetIntendedType
+
+
 def StructNewGetNumOperands(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """ StructNew """
     return lib.BinaryenStructNewGetNumOperands(expr)
+
+
+BinaryenStructNewGetNumOperands = StructNewGetNumOperands
 
 
 def StructNewGetOperandAt(
@@ -6342,6 +9364,9 @@ def StructNewGetOperandAt(
     index: BinaryenIndex,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStructNewGetOperandAt(expr, index)
+
+
+BinaryenStructNewGetOperandAt = StructNewGetOperandAt
 
 
 def StructNewSetOperandAt(
@@ -6352,11 +9377,17 @@ def StructNewSetOperandAt(
     lib.BinaryenStructNewSetOperandAt(expr, index, operand_expr)
 
 
+BinaryenStructNewSetOperandAt = StructNewSetOperandAt
+
+
 def StructNewAppendOperand(
     expr: BinaryenExpressionRef,
     operand_expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     return lib.BinaryenStructNewAppendOperand(expr, operand_expr)
+
+
+BinaryenStructNewAppendOperand = StructNewAppendOperand
 
 
 def StructNewInsertOperandAt(
@@ -6367,6 +9398,9 @@ def StructNewInsertOperandAt(
     lib.BinaryenStructNewInsertOperandAt(expr, index, operand_expr)
 
 
+BinaryenStructNewInsertOperandAt = StructNewInsertOperandAt
+
+
 def StructNewRemoveOperandAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -6374,11 +9408,16 @@ def StructNewRemoveOperandAt(
     return lib.BinaryenStructNewRemoveOperandAt(expr, index)
 
 
+BinaryenStructNewRemoveOperandAt = StructNewRemoveOperandAt
+
+
 def StructGetGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """ StructGet """
     return lib.BinaryenStructGetGetIndex(expr)
+
+
+BinaryenStructGetGetIndex = StructGetGetIndex
 
 
 def StructGetSetIndex(
@@ -6388,10 +9427,16 @@ def StructGetSetIndex(
     lib.BinaryenStructGetSetIndex(expr, index)
 
 
+BinaryenStructGetSetIndex = StructGetSetIndex
+
+
 def StructGetGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStructGetGetRef(expr)
+
+
+BinaryenStructGetGetRef = StructGetGetRef
 
 
 def StructGetSetRef(
@@ -6401,10 +9446,16 @@ def StructGetSetRef(
     lib.BinaryenStructGetSetRef(expr, ref_expr)
 
 
+BinaryenStructGetSetRef = StructGetSetRef
+
+
 def StructGetIsSigned(
     expr: BinaryenExpressionRef,
 ) -> bool:
     return lib.BinaryenStructGetIsSigned(expr)
+
+
+BinaryenStructGetIsSigned = StructGetIsSigned
 
 
 def StructGetSetSigned(
@@ -6414,11 +9465,16 @@ def StructGetSetSigned(
     lib.BinaryenStructGetSetSigned(expr, signed_)
 
 
+BinaryenStructGetSetSigned = StructGetSetSigned
+
+
 def StructSetGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """ StructSet """
     return lib.BinaryenStructSetGetIndex(expr)
+
+
+BinaryenStructSetGetIndex = StructSetGetIndex
 
 
 def StructSetSetIndex(
@@ -6428,10 +9484,16 @@ def StructSetSetIndex(
     lib.BinaryenStructSetSetIndex(expr, index)
 
 
+BinaryenStructSetSetIndex = StructSetSetIndex
+
+
 def StructSetGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStructSetGetRef(expr)
+
+
+BinaryenStructSetGetRef = StructSetGetRef
 
 
 def StructSetSetRef(
@@ -6441,10 +9503,16 @@ def StructSetSetRef(
     lib.BinaryenStructSetSetRef(expr, ref_expr)
 
 
+BinaryenStructSetSetRef = StructSetSetRef
+
+
 def StructSetGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStructSetGetValue(expr)
+
+
+BinaryenStructSetGetValue = StructSetGetValue
 
 
 def StructSetSetValue(
@@ -6454,11 +9522,16 @@ def StructSetSetValue(
     lib.BinaryenStructSetSetValue(expr, value_expr)
 
 
+BinaryenStructSetSetValue = StructSetSetValue
+
+
 def ArrayNewGetInit(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ ArrayNew """
     return lib.BinaryenArrayNewGetInit(expr)
+
+
+BinaryenArrayNewGetInit = ArrayNewGetInit
 
 
 def ArrayNewSetInit(
@@ -6468,10 +9541,16 @@ def ArrayNewSetInit(
     lib.BinaryenArrayNewSetInit(expr, init_expr)
 
 
+BinaryenArrayNewSetInit = ArrayNewSetInit
+
+
 def ArrayNewGetSize(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayNewGetSize(expr)
+
+
+BinaryenArrayNewGetSize = ArrayNewGetSize
 
 
 def ArrayNewSetSize(
@@ -6481,11 +9560,16 @@ def ArrayNewSetSize(
     lib.BinaryenArrayNewSetSize(expr, size_expr)
 
 
+BinaryenArrayNewSetSize = ArrayNewSetSize
+
+
 def ArrayInitGetNumValues(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    """ ArrayInit """
     return lib.BinaryenArrayInitGetNumValues(expr)
+
+
+BinaryenArrayInitGetNumValues = ArrayInitGetNumValues
 
 
 def ArrayInitGetValueAt(
@@ -6493,6 +9577,9 @@ def ArrayInitGetValueAt(
     index: BinaryenIndex,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayInitGetValueAt(expr, index)
+
+
+BinaryenArrayInitGetValueAt = ArrayInitGetValueAt
 
 
 def ArrayInitSetValueAt(
@@ -6503,11 +9590,17 @@ def ArrayInitSetValueAt(
     lib.BinaryenArrayInitSetValueAt(expr, index, value_expr)
 
 
+BinaryenArrayInitSetValueAt = ArrayInitSetValueAt
+
+
 def ArrayInitAppendValue(
     expr: BinaryenExpressionRef,
     value_expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
     return lib.BinaryenArrayInitAppendValue(expr, value_expr)
+
+
+BinaryenArrayInitAppendValue = ArrayInitAppendValue
 
 
 def ArrayInitInsertValueAt(
@@ -6518,6 +9611,9 @@ def ArrayInitInsertValueAt(
     lib.BinaryenArrayInitInsertValueAt(expr, index, value_expr)
 
 
+BinaryenArrayInitInsertValueAt = ArrayInitInsertValueAt
+
+
 def ArrayInitRemoveValueAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
@@ -6525,11 +9621,16 @@ def ArrayInitRemoveValueAt(
     return lib.BinaryenArrayInitRemoveValueAt(expr, index)
 
 
+BinaryenArrayInitRemoveValueAt = ArrayInitRemoveValueAt
+
+
 def ArrayGetGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ ArrayGet """
     return lib.BinaryenArrayGetGetRef(expr)
+
+
+BinaryenArrayGetGetRef = ArrayGetGetRef
 
 
 def ArrayGetSetRef(
@@ -6539,10 +9640,16 @@ def ArrayGetSetRef(
     lib.BinaryenArrayGetSetRef(expr, ref_expr)
 
 
+BinaryenArrayGetSetRef = ArrayGetSetRef
+
+
 def ArrayGetGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayGetGetIndex(expr)
+
+
+BinaryenArrayGetGetIndex = ArrayGetGetIndex
 
 
 def ArrayGetSetIndex(
@@ -6552,10 +9659,16 @@ def ArrayGetSetIndex(
     lib.BinaryenArrayGetSetIndex(expr, index_expr)
 
 
+BinaryenArrayGetSetIndex = ArrayGetSetIndex
+
+
 def ArrayGetIsSigned(
     expr: BinaryenExpressionRef,
 ) -> bool:
     return lib.BinaryenArrayGetIsSigned(expr)
+
+
+BinaryenArrayGetIsSigned = ArrayGetIsSigned
 
 
 def ArrayGetSetSigned(
@@ -6565,11 +9678,16 @@ def ArrayGetSetSigned(
     lib.BinaryenArrayGetSetSigned(expr, signed_)
 
 
+BinaryenArrayGetSetSigned = ArrayGetSetSigned
+
+
 def ArraySetGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ ArraySet """
     return lib.BinaryenArraySetGetRef(expr)
+
+
+BinaryenArraySetGetRef = ArraySetGetRef
 
 
 def ArraySetSetRef(
@@ -6579,10 +9697,16 @@ def ArraySetSetRef(
     lib.BinaryenArraySetSetRef(expr, ref_expr)
 
 
+BinaryenArraySetSetRef = ArraySetSetRef
+
+
 def ArraySetGetIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArraySetGetIndex(expr)
+
+
+BinaryenArraySetGetIndex = ArraySetGetIndex
 
 
 def ArraySetSetIndex(
@@ -6592,10 +9716,16 @@ def ArraySetSetIndex(
     lib.BinaryenArraySetSetIndex(expr, index_expr)
 
 
+BinaryenArraySetSetIndex = ArraySetSetIndex
+
+
 def ArraySetGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArraySetGetValue(expr)
+
+
+BinaryenArraySetGetValue = ArraySetGetValue
 
 
 def ArraySetSetValue(
@@ -6605,11 +9735,16 @@ def ArraySetSetValue(
     lib.BinaryenArraySetSetValue(expr, value_expr)
 
 
+BinaryenArraySetSetValue = ArraySetSetValue
+
+
 def ArrayLenGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ ArrayLen """
     return lib.BinaryenArrayLenGetRef(expr)
+
+
+BinaryenArrayLenGetRef = ArrayLenGetRef
 
 
 def ArrayLenSetRef(
@@ -6619,11 +9754,16 @@ def ArrayLenSetRef(
     lib.BinaryenArrayLenSetRef(expr, ref_expr)
 
 
+BinaryenArrayLenSetRef = ArrayLenSetRef
+
+
 def ArrayCopyGetDestRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ ArrayCopy """
     return lib.BinaryenArrayCopyGetDestRef(expr)
+
+
+BinaryenArrayCopyGetDestRef = ArrayCopyGetDestRef
 
 
 def ArrayCopySetDestRef(
@@ -6633,10 +9773,16 @@ def ArrayCopySetDestRef(
     lib.BinaryenArrayCopySetDestRef(expr, dest_ref_expr)
 
 
+BinaryenArrayCopySetDestRef = ArrayCopySetDestRef
+
+
 def ArrayCopyGetDestIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayCopyGetDestIndex(expr)
+
+
+BinaryenArrayCopyGetDestIndex = ArrayCopyGetDestIndex
 
 
 def ArrayCopySetDestIndex(
@@ -6646,10 +9792,16 @@ def ArrayCopySetDestIndex(
     lib.BinaryenArrayCopySetDestIndex(expr, dest_index_expr)
 
 
+BinaryenArrayCopySetDestIndex = ArrayCopySetDestIndex
+
+
 def ArrayCopyGetSrcRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayCopyGetSrcRef(expr)
+
+
+BinaryenArrayCopyGetSrcRef = ArrayCopyGetSrcRef
 
 
 def ArrayCopySetSrcRef(
@@ -6659,10 +9811,16 @@ def ArrayCopySetSrcRef(
     lib.BinaryenArrayCopySetSrcRef(expr, src_ref_expr)
 
 
+BinaryenArrayCopySetSrcRef = ArrayCopySetSrcRef
+
+
 def ArrayCopyGetSrcIndex(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayCopyGetSrcIndex(expr)
+
+
+BinaryenArrayCopyGetSrcIndex = ArrayCopyGetSrcIndex
 
 
 def ArrayCopySetSrcIndex(
@@ -6672,10 +9830,16 @@ def ArrayCopySetSrcIndex(
     lib.BinaryenArrayCopySetSrcIndex(expr, src_index_expr)
 
 
+BinaryenArrayCopySetSrcIndex = ArrayCopySetSrcIndex
+
+
 def ArrayCopyGetLength(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenArrayCopyGetLength(expr)
+
+
+BinaryenArrayCopyGetLength = ArrayCopyGetLength
 
 
 def ArrayCopySetLength(
@@ -6685,11 +9849,16 @@ def ArrayCopySetLength(
     lib.BinaryenArrayCopySetLength(expr, length_expr)
 
 
+BinaryenArrayCopySetLength = ArrayCopySetLength
+
+
 def StringNewGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """ StringNew """
     return lib.BinaryenStringNewGetOp(expr)
+
+
+BinaryenStringNewGetOp = StringNewGetOp
 
 
 def StringNewSetOp(
@@ -6699,10 +9868,16 @@ def StringNewSetOp(
     lib.BinaryenStringNewSetOp(expr, op)
 
 
+BinaryenStringNewSetOp = StringNewSetOp
+
+
 def StringNewGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringNewGetPtr(expr)
+
+
+BinaryenStringNewGetPtr = StringNewGetPtr
 
 
 def StringNewSetPtr(
@@ -6712,10 +9887,16 @@ def StringNewSetPtr(
     lib.BinaryenStringNewSetPtr(expr, ptr_expr)
 
 
+BinaryenStringNewSetPtr = StringNewSetPtr
+
+
 def StringNewGetLength(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringNewGetLength(expr)
+
+
+BinaryenStringNewGetLength = StringNewGetLength
 
 
 def StringNewSetLength(
@@ -6725,10 +9906,16 @@ def StringNewSetLength(
     lib.BinaryenStringNewSetLength(expr, length_expr)
 
 
+BinaryenStringNewSetLength = StringNewSetLength
+
+
 def StringNewGetStart(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringNewGetStart(expr)
+
+
+BinaryenStringNewGetStart = StringNewGetStart
 
 
 def StringNewSetStart(
@@ -6738,10 +9925,16 @@ def StringNewSetStart(
     lib.BinaryenStringNewSetStart(expr, start_expr)
 
 
+BinaryenStringNewSetStart = StringNewSetStart
+
+
 def StringNewGetEnd(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringNewGetEnd(expr)
+
+
+BinaryenStringNewGetEnd = StringNewGetEnd
 
 
 def StringNewSetEnd(
@@ -6751,11 +9944,16 @@ def StringNewSetEnd(
     lib.BinaryenStringNewSetEnd(expr, end_expr)
 
 
+BinaryenStringNewSetEnd = StringNewSetEnd
+
+
 def StringConstGetString(
     expr: BinaryenExpressionRef,
 ) -> str:
-    """ StringConst """
     return lib.BinaryenStringConstGetString(expr)
+
+
+BinaryenStringConstGetString = StringConstGetString
 
 
 def StringConstSetString(
@@ -6765,11 +9963,16 @@ def StringConstSetString(
     lib.BinaryenStringConstSetString(expr, string_str.encode())
 
 
+BinaryenStringConstSetString = StringConstSetString
+
+
 def StringMeasureGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """ StringMeasure """
     return lib.BinaryenStringMeasureGetOp(expr)
+
+
+BinaryenStringMeasureGetOp = StringMeasureGetOp
 
 
 def StringMeasureSetOp(
@@ -6779,10 +9982,16 @@ def StringMeasureSetOp(
     lib.BinaryenStringMeasureSetOp(expr, op)
 
 
+BinaryenStringMeasureSetOp = StringMeasureSetOp
+
+
 def StringMeasureGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringMeasureGetRef(expr)
+
+
+BinaryenStringMeasureGetRef = StringMeasureGetRef
 
 
 def StringMeasureSetRef(
@@ -6792,11 +10001,16 @@ def StringMeasureSetRef(
     lib.BinaryenStringMeasureSetRef(expr, ref_expr)
 
 
+BinaryenStringMeasureSetRef = StringMeasureSetRef
+
+
 def StringEncodeGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """ StringEncode """
     return lib.BinaryenStringEncodeGetOp(expr)
+
+
+BinaryenStringEncodeGetOp = StringEncodeGetOp
 
 
 def StringEncodeSetOp(
@@ -6806,10 +10020,16 @@ def StringEncodeSetOp(
     lib.BinaryenStringEncodeSetOp(expr, op)
 
 
+BinaryenStringEncodeSetOp = StringEncodeSetOp
+
+
 def StringEncodeGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringEncodeGetRef(expr)
+
+
+BinaryenStringEncodeGetRef = StringEncodeGetRef
 
 
 def StringEncodeSetRef(
@@ -6819,10 +10039,16 @@ def StringEncodeSetRef(
     lib.BinaryenStringEncodeSetRef(expr, ref_expr)
 
 
+BinaryenStringEncodeSetRef = StringEncodeSetRef
+
+
 def StringEncodeGetPtr(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringEncodeGetPtr(expr)
+
+
+BinaryenStringEncodeGetPtr = StringEncodeGetPtr
 
 
 def StringEncodeSetPtr(
@@ -6832,10 +10058,16 @@ def StringEncodeSetPtr(
     lib.BinaryenStringEncodeSetPtr(expr, ptr_expr)
 
 
+BinaryenStringEncodeSetPtr = StringEncodeSetPtr
+
+
 def StringEncodeGetStart(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringEncodeGetStart(expr)
+
+
+BinaryenStringEncodeGetStart = StringEncodeGetStart
 
 
 def StringEncodeSetStart(
@@ -6845,11 +10077,16 @@ def StringEncodeSetStart(
     lib.BinaryenStringEncodeSetStart(expr, start_expr)
 
 
+BinaryenStringEncodeSetStart = StringEncodeSetStart
+
+
 def StringConcatGetLeft(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ StringConcat """
     return lib.BinaryenStringConcatGetLeft(expr)
+
+
+BinaryenStringConcatGetLeft = StringConcatGetLeft
 
 
 def StringConcatSetLeft(
@@ -6859,10 +10096,16 @@ def StringConcatSetLeft(
     lib.BinaryenStringConcatSetLeft(expr, left_expr)
 
 
+BinaryenStringConcatSetLeft = StringConcatSetLeft
+
+
 def StringConcatGetRight(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringConcatGetRight(expr)
+
+
+BinaryenStringConcatGetRight = StringConcatGetRight
 
 
 def StringConcatSetRight(
@@ -6872,11 +10115,16 @@ def StringConcatSetRight(
     lib.BinaryenStringConcatSetRight(expr, right_expr)
 
 
+BinaryenStringConcatSetRight = StringConcatSetRight
+
+
 def StringEqGetLeft(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ StringEq """
     return lib.BinaryenStringEqGetLeft(expr)
+
+
+BinaryenStringEqGetLeft = StringEqGetLeft
 
 
 def StringEqSetLeft(
@@ -6886,10 +10134,16 @@ def StringEqSetLeft(
     lib.BinaryenStringEqSetLeft(expr, left_expr)
 
 
+BinaryenStringEqSetLeft = StringEqSetLeft
+
+
 def StringEqGetRight(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringEqGetRight(expr)
+
+
+BinaryenStringEqGetRight = StringEqGetRight
 
 
 def StringEqSetRight(
@@ -6899,11 +10153,16 @@ def StringEqSetRight(
     lib.BinaryenStringEqSetRight(expr, right_expr)
 
 
+BinaryenStringEqSetRight = StringEqSetRight
+
+
 def StringAsGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """ StringAs """
     return lib.BinaryenStringAsGetOp(expr)
+
+
+BinaryenStringAsGetOp = StringAsGetOp
 
 
 def StringAsSetOp(
@@ -6913,10 +10172,16 @@ def StringAsSetOp(
     lib.BinaryenStringAsSetOp(expr, op)
 
 
+BinaryenStringAsSetOp = StringAsSetOp
+
+
 def StringAsGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringAsGetRef(expr)
+
+
+BinaryenStringAsGetRef = StringAsGetRef
 
 
 def StringAsSetRef(
@@ -6926,11 +10191,16 @@ def StringAsSetRef(
     lib.BinaryenStringAsSetRef(expr, ref_expr)
 
 
+BinaryenStringAsSetRef = StringAsSetRef
+
+
 def StringWTF8AdvanceGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ StringWTF8Advance """
     return lib.BinaryenStringWTF8AdvanceGetRef(expr)
+
+
+BinaryenStringWTF8AdvanceGetRef = StringWTF8AdvanceGetRef
 
 
 def StringWTF8AdvanceSetRef(
@@ -6940,10 +10210,16 @@ def StringWTF8AdvanceSetRef(
     lib.BinaryenStringWTF8AdvanceSetRef(expr, ref_expr)
 
 
+BinaryenStringWTF8AdvanceSetRef = StringWTF8AdvanceSetRef
+
+
 def StringWTF8AdvanceGetPos(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringWTF8AdvanceGetPos(expr)
+
+
+BinaryenStringWTF8AdvanceGetPos = StringWTF8AdvanceGetPos
 
 
 def StringWTF8AdvanceSetPos(
@@ -6953,10 +10229,16 @@ def StringWTF8AdvanceSetPos(
     lib.BinaryenStringWTF8AdvanceSetPos(expr, pos_expr)
 
 
+BinaryenStringWTF8AdvanceSetPos = StringWTF8AdvanceSetPos
+
+
 def StringWTF8AdvanceGetBytes(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringWTF8AdvanceGetBytes(expr)
+
+
+BinaryenStringWTF8AdvanceGetBytes = StringWTF8AdvanceGetBytes
 
 
 def StringWTF8AdvanceSetBytes(
@@ -6966,11 +10248,16 @@ def StringWTF8AdvanceSetBytes(
     lib.BinaryenStringWTF8AdvanceSetBytes(expr, bytes_expr)
 
 
+BinaryenStringWTF8AdvanceSetBytes = StringWTF8AdvanceSetBytes
+
+
 def StringWTF16GetGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ StringWTF16Get """
     return lib.BinaryenStringWTF16GetGetRef(expr)
+
+
+BinaryenStringWTF16GetGetRef = StringWTF16GetGetRef
 
 
 def StringWTF16GetSetRef(
@@ -6980,10 +10267,16 @@ def StringWTF16GetSetRef(
     lib.BinaryenStringWTF16GetSetRef(expr, ref_expr)
 
 
+BinaryenStringWTF16GetSetRef = StringWTF16GetSetRef
+
+
 def StringWTF16GetGetPos(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringWTF16GetGetPos(expr)
+
+
+BinaryenStringWTF16GetGetPos = StringWTF16GetGetPos
 
 
 def StringWTF16GetSetPos(
@@ -6993,11 +10286,16 @@ def StringWTF16GetSetPos(
     lib.BinaryenStringWTF16GetSetPos(expr, pos_expr)
 
 
+BinaryenStringWTF16GetSetPos = StringWTF16GetSetPos
+
+
 def StringIterNextGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ StringIterNext """
     return lib.BinaryenStringIterNextGetRef(expr)
+
+
+BinaryenStringIterNextGetRef = StringIterNextGetRef
 
 
 def StringIterNextSetRef(
@@ -7007,11 +10305,16 @@ def StringIterNextSetRef(
     lib.BinaryenStringIterNextSetRef(expr, ref_expr)
 
 
+BinaryenStringIterNextSetRef = StringIterNextSetRef
+
+
 def StringIterMoveGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """ StringIterMove """
     return lib.BinaryenStringIterMoveGetOp(expr)
+
+
+BinaryenStringIterMoveGetOp = StringIterMoveGetOp
 
 
 def StringIterMoveSetOp(
@@ -7021,10 +10324,16 @@ def StringIterMoveSetOp(
     lib.BinaryenStringIterMoveSetOp(expr, op)
 
 
+BinaryenStringIterMoveSetOp = StringIterMoveSetOp
+
+
 def StringIterMoveGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringIterMoveGetRef(expr)
+
+
+BinaryenStringIterMoveGetRef = StringIterMoveGetRef
 
 
 def StringIterMoveSetRef(
@@ -7034,23 +10343,35 @@ def StringIterMoveSetRef(
     lib.BinaryenStringIterMoveSetRef(expr, ref_expr)
 
 
+BinaryenStringIterMoveSetRef = StringIterMoveSetRef
+
+
 def StringIterMoveGetNum(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringIterMoveGetNum(expr)
 
 
+BinaryenStringIterMoveGetNum = StringIterMoveGetNum
+
+
 def StringIterMoveSetNum(
     expr: BinaryenExpressionRef,
+    num_expr: BinaryenExpressionRef,
 ) -> None:
-    lib.BinaryenStringIterMoveSetNum(expr, len(expr))
+    lib.BinaryenStringIterMoveSetNum(expr, num_expr)
+
+
+BinaryenStringIterMoveSetNum = StringIterMoveSetNum
 
 
 def StringSliceWTFGetOp(
     expr: BinaryenExpressionRef,
 ) -> BinaryenOp:
-    """ StringSliceWTF """
     return lib.BinaryenStringSliceWTFGetOp(expr)
+
+
+BinaryenStringSliceWTFGetOp = StringSliceWTFGetOp
 
 
 def StringSliceWTFSetOp(
@@ -7060,10 +10381,16 @@ def StringSliceWTFSetOp(
     lib.BinaryenStringSliceWTFSetOp(expr, op)
 
 
+BinaryenStringSliceWTFSetOp = StringSliceWTFSetOp
+
+
 def StringSliceWTFGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringSliceWTFGetRef(expr)
+
+
+BinaryenStringSliceWTFGetRef = StringSliceWTFGetRef
 
 
 def StringSliceWTFSetRef(
@@ -7073,10 +10400,16 @@ def StringSliceWTFSetRef(
     lib.BinaryenStringSliceWTFSetRef(expr, ref_expr)
 
 
+BinaryenStringSliceWTFSetRef = StringSliceWTFSetRef
+
+
 def StringSliceWTFGetStart(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringSliceWTFGetStart(expr)
+
+
+BinaryenStringSliceWTFGetStart = StringSliceWTFGetStart
 
 
 def StringSliceWTFSetStart(
@@ -7086,10 +10419,16 @@ def StringSliceWTFSetStart(
     lib.BinaryenStringSliceWTFSetStart(expr, start_expr)
 
 
+BinaryenStringSliceWTFSetStart = StringSliceWTFSetStart
+
+
 def StringSliceWTFGetEnd(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringSliceWTFGetEnd(expr)
+
+
+BinaryenStringSliceWTFGetEnd = StringSliceWTFGetEnd
 
 
 def StringSliceWTFSetEnd(
@@ -7099,11 +10438,16 @@ def StringSliceWTFSetEnd(
     lib.BinaryenStringSliceWTFSetEnd(expr, end_expr)
 
 
+BinaryenStringSliceWTFSetEnd = StringSliceWTFSetEnd
+
+
 def StringSliceIterGetRef(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ StringSliceIter """
     return lib.BinaryenStringSliceIterGetRef(expr)
+
+
+BinaryenStringSliceIterGetRef = StringSliceIterGetRef
 
 
 def StringSliceIterSetRef(
@@ -7113,16 +10457,26 @@ def StringSliceIterSetRef(
     lib.BinaryenStringSliceIterSetRef(expr, ref_expr)
 
 
+BinaryenStringSliceIterSetRef = StringSliceIterSetRef
+
+
 def StringSliceIterGetNum(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     return lib.BinaryenStringSliceIterGetNum(expr)
 
 
+BinaryenStringSliceIterGetNum = StringSliceIterGetNum
+
+
 def StringSliceIterSetNum(
     expr: BinaryenExpressionRef,
+    num_expr: BinaryenExpressionRef,
 ) -> None:
-    lib.BinaryenStringSliceIterSetNum(expr, len(expr))
+    lib.BinaryenStringSliceIterSetNum(expr, num_expr)
+
+
+BinaryenStringSliceIterSetNum = StringSliceIterSetNum
 
 
 def AddFunction(
@@ -7131,6 +10485,7 @@ def AddFunction(
     params: BinaryenType,
     results: BinaryenType,
     var_types: List[BinaryenType],
+    num_var_types: BinaryenIndex,
     body: BinaryenExpressionRef,
 ) -> BinaryenFunctionRef:
     """
@@ -7143,7 +10498,10 @@ def AddFunction(
     0 (and written $0), and if you also have 2 vars they will be
     at indexes 1 and 2, etc., that is, they share an index space.
     """
-    return lib.BinaryenAddFunction(module, name.encode(), params, results, var_types, len(var_types), body)
+    return lib.BinaryenAddFunction(module, name.encode(), params, results, var_types, num_var_types, body)
+
+
+BinaryenAddFunction = AddFunction
 
 
 def GetFunction(
@@ -7157,6 +10515,9 @@ def GetFunction(
     return lib.BinaryenGetFunction(module, name.encode())
 
 
+BinaryenGetFunction = GetFunction
+
+
 def RemoveFunction(
     module: BinaryenModuleRef,
     name: str,
@@ -7165,11 +10526,17 @@ def RemoveFunction(
     lib.BinaryenRemoveFunction(module, name.encode())
 
 
+BinaryenRemoveFunction = RemoveFunction
+
+
 def GetNumFunctions(
     module: BinaryenModuleRef,
 ) -> BinaryenIndex:
     """ Gets the number of functions in the module. """
     return lib.BinaryenGetNumFunctions(module)
+
+
+BinaryenGetNumFunctions = GetNumFunctions
 
 
 def GetFunctionByIndex(
@@ -7180,6 +10547,9 @@ def GetFunctionByIndex(
     return lib.BinaryenGetFunctionByIndex(module, index)
 
 
+BinaryenGetFunctionByIndex = GetFunctionByIndex
+
+
 def AddFunctionImport(
     module: BinaryenModuleRef,
     internal_name: str,
@@ -7188,13 +10558,10 @@ def AddFunctionImport(
     params: BinaryenType,
     results: BinaryenType,
 ) -> None:
-    """
-    Imports
-    These either create a new entity (function/table/memory/etc.) and
-    mark it as an import, or, if an entity already exists with internalName then
-    the existing entity is turned into an import.
-    """
     lib.BinaryenAddFunctionImport(module, internal_name.encode(), external_module_name.encode(), external_base_name.encode(), params, results)
+
+
+BinaryenAddFunctionImport = AddFunctionImport
 
 
 def AddTableImport(
@@ -7206,6 +10573,9 @@ def AddTableImport(
     lib.BinaryenAddTableImport(module, internal_name.encode(), external_module_name.encode(), external_base_name.encode())
 
 
+BinaryenAddTableImport = AddTableImport
+
+
 def AddMemoryImport(
     module: BinaryenModuleRef,
     internal_name: str,
@@ -7214,6 +10584,9 @@ def AddMemoryImport(
     shared: int,
 ) -> None:
     lib.BinaryenAddMemoryImport(module, internal_name.encode(), external_module_name.encode(), external_base_name.encode(), shared)
+
+
+BinaryenAddMemoryImport = AddMemoryImport
 
 
 def AddGlobalImport(
@@ -7227,6 +10600,9 @@ def AddGlobalImport(
     lib.BinaryenAddGlobalImport(module, internal_name.encode(), external_module_name.encode(), external_base_name.encode(), global_type, mutable_)
 
 
+BinaryenAddGlobalImport = AddGlobalImport
+
+
 def AddTagImport(
     module: BinaryenModuleRef,
     internal_name: str,
@@ -7238,6 +10614,9 @@ def AddTagImport(
     lib.BinaryenAddTagImport(module, internal_name.encode(), external_module_name.encode(), external_base_name.encode(), params, results)
 
 
+BinaryenAddTagImport = AddTagImport
+
+
 def AddFunctionExport(
     module: BinaryenModuleRef,
     internal_name: str,
@@ -7245,6 +10624,9 @@ def AddFunctionExport(
 ) -> BinaryenExportRef:
     """ Adds a function export to the module. """
     return lib.BinaryenAddFunctionExport(module, internal_name.encode(), external_name.encode())
+
+
+BinaryenAddFunctionExport = AddFunctionExport
 
 
 def AddTableExport(
@@ -7256,6 +10638,9 @@ def AddTableExport(
     return lib.BinaryenAddTableExport(module, internal_name.encode(), external_name.encode())
 
 
+BinaryenAddTableExport = AddTableExport
+
+
 def AddMemoryExport(
     module: BinaryenModuleRef,
     internal_name: str,
@@ -7263,6 +10648,9 @@ def AddMemoryExport(
 ) -> BinaryenExportRef:
     """ Adds a memory export to the module. """
     return lib.BinaryenAddMemoryExport(module, internal_name.encode(), external_name.encode())
+
+
+BinaryenAddMemoryExport = AddMemoryExport
 
 
 def AddGlobalExport(
@@ -7274,6 +10662,9 @@ def AddGlobalExport(
     return lib.BinaryenAddGlobalExport(module, internal_name.encode(), external_name.encode())
 
 
+BinaryenAddGlobalExport = AddGlobalExport
+
+
 def AddTagExport(
     module: BinaryenModuleRef,
     internal_name: str,
@@ -7281,6 +10672,9 @@ def AddTagExport(
 ) -> BinaryenExportRef:
     """ Adds a tag export to the module. """
     return lib.BinaryenAddTagExport(module, internal_name.encode(), external_name.encode())
+
+
+BinaryenAddTagExport = AddTagExport
 
 
 def GetExport(
@@ -7294,12 +10688,18 @@ def GetExport(
     return lib.BinaryenGetExport(module, external_name.encode())
 
 
+BinaryenGetExport = GetExport
+
+
 def RemoveExport(
     module: BinaryenModuleRef,
     external_name: str,
 ) -> None:
     """ Removes an export by external name. """
     lib.BinaryenRemoveExport(module, external_name.encode())
+
+
+BinaryenRemoveExport = RemoveExport
 
 
 def GetNumExports(
@@ -7309,12 +10709,18 @@ def GetNumExports(
     return lib.BinaryenGetNumExports(module)
 
 
+BinaryenGetNumExports = GetNumExports
+
+
 def GetExportByIndex(
     module: BinaryenModuleRef,
     index: BinaryenIndex,
 ) -> BinaryenExportRef:
     """ Gets the export at the specified index. """
     return lib.BinaryenGetExportByIndex(module, index)
+
+
+BinaryenGetExportByIndex = GetExportByIndex
 
 
 def AddGlobal(
@@ -7328,12 +10734,18 @@ def AddGlobal(
     return lib.BinaryenAddGlobal(module, name.encode(), _type, mutable_, init)
 
 
+BinaryenAddGlobal = AddGlobal
+
+
 def GetGlobal(
     module: BinaryenModuleRef,
     name: str,
 ) -> BinaryenGlobalRef:
     """ Gets a global reference by name. Returns NULL if the global does not exist. """
     return lib.BinaryenGetGlobal(module, name.encode())
+
+
+BinaryenGetGlobal = GetGlobal
 
 
 def RemoveGlobal(
@@ -7344,11 +10756,17 @@ def RemoveGlobal(
     lib.BinaryenRemoveGlobal(module, name.encode())
 
 
+BinaryenRemoveGlobal = RemoveGlobal
+
+
 def GetNumGlobals(
     module: BinaryenModuleRef,
 ) -> BinaryenIndex:
     """ Gets the number of globals in the module. """
     return lib.BinaryenGetNumGlobals(module)
+
+
+BinaryenGetNumGlobals = GetNumGlobals
 
 
 def GetGlobalByIndex(
@@ -7357,6 +10775,9 @@ def GetGlobalByIndex(
 ) -> BinaryenGlobalRef:
     """ Gets the global at the specified index. """
     return lib.BinaryenGetGlobalByIndex(module, index)
+
+
+BinaryenGetGlobalByIndex = GetGlobalByIndex
 
 
 def AddTag(
@@ -7369,6 +10790,9 @@ def AddTag(
     return lib.BinaryenAddTag(module, name.encode(), params, results)
 
 
+BinaryenAddTag = AddTag
+
+
 def GetTag(
     module: BinaryenModuleRef,
     name: str,
@@ -7377,12 +10801,18 @@ def GetTag(
     return lib.BinaryenGetTag(module, name.encode())
 
 
+BinaryenGetTag = GetTag
+
+
 def RemoveTag(
     module: BinaryenModuleRef,
     name: str,
 ) -> None:
     """ Removes a tag by name. """
     lib.BinaryenRemoveTag(module, name.encode())
+
+
+BinaryenRemoveTag = RemoveTag
 
 
 def AddTable(
@@ -7395,6 +10825,9 @@ def AddTable(
     return lib.BinaryenAddTable(module, table.encode(), initial, maximum, table_type)
 
 
+BinaryenAddTable = AddTable
+
+
 def RemoveTable(
     module: BinaryenModuleRef,
     table: str,
@@ -7402,10 +10835,16 @@ def RemoveTable(
     lib.BinaryenRemoveTable(module, table.encode())
 
 
+BinaryenRemoveTable = RemoveTable
+
+
 def GetNumTables(
     module: BinaryenModuleRef,
 ) -> BinaryenIndex:
     return lib.BinaryenGetNumTables(module)
+
+
+BinaryenGetNumTables = GetNumTables
 
 
 def GetTable(
@@ -7415,6 +10854,9 @@ def GetTable(
     return lib.BinaryenGetTable(module, name.encode())
 
 
+BinaryenGetTable = GetTable
+
+
 def GetTableByIndex(
     module: BinaryenModuleRef,
     index: BinaryenIndex,
@@ -7422,22 +10864,33 @@ def GetTableByIndex(
     return lib.BinaryenGetTableByIndex(module, index)
 
 
+BinaryenGetTableByIndex = GetTableByIndex
+
+
 def AddActiveElementSegment(
     module: BinaryenModuleRef,
     table: str,
     name: str,
     func_names: List[str],
+    num_func_names: BinaryenIndex,
     offset: BinaryenExpressionRef,
 ) -> BinaryenElementSegmentRef:
-    return lib.BinaryenAddActiveElementSegment(module, table.encode(), name.encode(), [item.encode() for item in func_names], len(func_names), offset)
+    return lib.BinaryenAddActiveElementSegment(module, table.encode(), name.encode(), [item.encode() for item in func_names], num_func_names, offset)
+
+
+BinaryenAddActiveElementSegment = AddActiveElementSegment
 
 
 def AddPassiveElementSegment(
     module: BinaryenModuleRef,
     name: str,
     func_names: List[str],
+    num_func_names: BinaryenIndex,
 ) -> BinaryenElementSegmentRef:
-    return lib.BinaryenAddPassiveElementSegment(module, name.encode(), [item.encode() for item in func_names], len(func_names))
+    return lib.BinaryenAddPassiveElementSegment(module, name.encode(), [item.encode() for item in func_names], num_func_names)
+
+
+BinaryenAddPassiveElementSegment = AddPassiveElementSegment
 
 
 def RemoveElementSegment(
@@ -7447,10 +10900,16 @@ def RemoveElementSegment(
     lib.BinaryenRemoveElementSegment(module, name.encode())
 
 
+BinaryenRemoveElementSegment = RemoveElementSegment
+
+
 def GetNumElementSegments(
     module: BinaryenModuleRef,
 ) -> BinaryenIndex:
     return lib.BinaryenGetNumElementSegments(module)
+
+
+BinaryenGetNumElementSegments = GetNumElementSegments
 
 
 def GetElementSegment(
@@ -7460,11 +10919,17 @@ def GetElementSegment(
     return lib.BinaryenGetElementSegment(module, name.encode())
 
 
+BinaryenGetElementSegment = GetElementSegment
+
+
 def GetElementSegmentByIndex(
     module: BinaryenModuleRef,
     index: BinaryenIndex,
 ) -> BinaryenElementSegmentRef:
     return lib.BinaryenGetElementSegmentByIndex(module, index)
+
+
+BinaryenGetElementSegmentByIndex = GetElementSegmentByIndex
 
 
 def SetMemory(
@@ -7476,6 +10941,7 @@ def SetMemory(
     segment_passive: List[bool],
     segment_offsets: List[BinaryenExpressionRef],
     segment_sizes: List[BinaryenIndex],
+    num_segments: BinaryenIndex,
     shared: bool,
     memory64: bool,
     name: str,
@@ -7485,13 +10951,22 @@ def SetMemory(
     Each memory has data in segments, a start offset in segmentOffsets, and a
     size in segmentSizes. exportName can be NULL
     """
-    lib.BinaryenSetMemory(module, initial, maximum, export_name.encode(), [item.encode() for item in segments], segment_passive, segment_offsets, segment_sizes, len(segment_sizes), shared, memory64, name.encode())
+    lib.BinaryenSetMemory(
+        module, initial, maximum, export_name.encode(), [ffi.from_buffer(item.encode()) for item in segments], segment_passive,
+        segment_offsets, segment_sizes, num_segments, shared, memory64, name.encode()
+    )
+
+
+BinaryenSetMemory = SetMemory
 
 
 def HasMemory(
     module: BinaryenModuleRef,
 ) -> bool:
     return lib.BinaryenHasMemory(module)
+
+
+BinaryenHasMemory = HasMemory
 
 
 def MemoryGetInitial(
@@ -7501,11 +10976,17 @@ def MemoryGetInitial(
     return lib.BinaryenMemoryGetInitial(module, name.encode())
 
 
+BinaryenMemoryGetInitial = MemoryGetInitial
+
+
 def MemoryHasMax(
     module: BinaryenModuleRef,
     name: str,
 ) -> bool:
     return lib.BinaryenMemoryHasMax(module, name.encode())
+
+
+BinaryenMemoryHasMax = MemoryHasMax
 
 
 def MemoryGetMax(
@@ -7515,11 +10996,17 @@ def MemoryGetMax(
     return lib.BinaryenMemoryGetMax(module, name.encode())
 
 
+BinaryenMemoryGetMax = MemoryGetMax
+
+
 def MemoryImportGetModule(
     module: BinaryenModuleRef,
     name: str,
 ) -> str:
     return lib.BinaryenMemoryImportGetModule(module, name.encode())
+
+
+BinaryenMemoryImportGetModule = MemoryImportGetModule
 
 
 def MemoryImportGetBase(
@@ -7529,11 +11016,17 @@ def MemoryImportGetBase(
     return lib.BinaryenMemoryImportGetBase(module, name.encode())
 
 
+BinaryenMemoryImportGetBase = MemoryImportGetBase
+
+
 def MemoryIsShared(
     module: BinaryenModuleRef,
     name: str,
 ) -> bool:
     return lib.BinaryenMemoryIsShared(module, name.encode())
+
+
+BinaryenMemoryIsShared = MemoryIsShared
 
 
 def MemoryIs64(
@@ -7543,11 +11036,16 @@ def MemoryIs64(
     return lib.BinaryenMemoryIs64(module, name.encode())
 
 
+BinaryenMemoryIs64 = MemoryIs64
+
+
 def GetNumMemorySegments(
     module: BinaryenModuleRef,
 ) -> int:
-    """ Memory segments. Query utilities. """
     return lib.BinaryenGetNumMemorySegments(module)
+
+
+BinaryenGetNumMemorySegments = GetNumMemorySegments
 
 
 def GetMemorySegmentByteOffset(
@@ -7557,6 +11055,9 @@ def GetMemorySegmentByteOffset(
     return lib.BinaryenGetMemorySegmentByteOffset(module, _id)
 
 
+BinaryenGetMemorySegmentByteOffset = GetMemorySegmentByteOffset
+
+
 def GetMemorySegmentByteLength(
     module: BinaryenModuleRef,
     _id: BinaryenIndex,
@@ -7564,11 +11065,17 @@ def GetMemorySegmentByteLength(
     return lib.BinaryenGetMemorySegmentByteLength(module, _id)
 
 
+BinaryenGetMemorySegmentByteLength = GetMemorySegmentByteLength
+
+
 def GetMemorySegmentPassive(
     module: BinaryenModuleRef,
     _id: BinaryenIndex,
 ) -> bool:
     return lib.BinaryenGetMemorySegmentPassive(module, _id)
+
+
+BinaryenGetMemorySegmentPassive = GetMemorySegmentPassive
 
 
 def CopyMemorySegmentData(
@@ -7579,22 +11086,27 @@ def CopyMemorySegmentData(
     lib.BinaryenCopyMemorySegmentData(module, _id, buffer.encode())
 
 
+BinaryenCopyMemorySegmentData = CopyMemorySegmentData
+
+
 def SetStart(
     module: BinaryenModuleRef,
     start: BinaryenFunctionRef,
 ) -> None:
-    """ Start function. One per module """
     lib.BinaryenSetStart(module, start)
+
+
+BinaryenSetStart = SetStart
 
 
 def ModuleGetFeatures(
     module: BinaryenModuleRef,
 ) -> BinaryenFeatures:
-    """
-    Features
-    These control what features are allowed when validation and in passes.
-    """
+    """ These control what features are allowed when validation and in passes. """
     return lib.BinaryenModuleGetFeatures(module)
+
+
+BinaryenModuleGetFeatures = ModuleGetFeatures
 
 
 def ModuleSetFeatures(
@@ -7604,16 +11116,17 @@ def ModuleSetFeatures(
     lib.BinaryenModuleSetFeatures(module, features)
 
 
+BinaryenModuleSetFeatures = ModuleSetFeatures
+
+
 def ModuleParse(
     text: str,
 ) -> BinaryenModuleRef:
-    """
-    
-    ========== Module Operations ==========
-    
-    Parse a module in s-expression text format
-    """
+    """ Parse a module in s-expression text format """
     return lib.BinaryenModuleParse(text.encode())
+
+
+BinaryenModuleParse = ModuleParse
 
 
 def ModulePrint(
@@ -7621,6 +11134,9 @@ def ModulePrint(
 ) -> None:
     """ Print a module to stdout in s-expression text format. Useful for debugging. """
     lib.BinaryenModulePrint(module)
+
+
+BinaryenModulePrint = ModulePrint
 
 
 def ModulePrintStackIR(
@@ -7631,11 +11147,17 @@ def ModulePrintStackIR(
     lib.BinaryenModulePrintStackIR(module, optimize)
 
 
+BinaryenModulePrintStackIR = ModulePrintStackIR
+
+
 def ModulePrintAsmjs(
     module: BinaryenModuleRef,
 ) -> None:
     """ Print a module to stdout in asm.js syntax. """
     lib.BinaryenModulePrintAsmjs(module)
+
+
+BinaryenModulePrintAsmjs = ModulePrintAsmjs
 
 
 def ModuleValidate(
@@ -7648,6 +11170,9 @@ def ModuleValidate(
     return lib.BinaryenModuleValidate(module)
 
 
+BinaryenModuleValidate = ModuleValidate
+
+
 def ModuleOptimize(
     module: BinaryenModuleRef,
 ) -> None:
@@ -7656,6 +11181,9 @@ def ModuleOptimize(
     global optimize and shrink level.
     """
     lib.BinaryenModuleOptimize(module)
+
+
+BinaryenModuleOptimize = ModuleOptimize
 
 
 def ModuleUpdateMaps(
@@ -7668,12 +11196,18 @@ def ModuleUpdateMaps(
     lib.BinaryenModuleUpdateMaps(module)
 
 
+BinaryenModuleUpdateMaps = ModuleUpdateMaps
+
+
 def GetOptimizeLevel() -> int:
     """
     Gets the currently set optimize level. Applies to all modules, globally.
     0, 1, 2 correspond to -O0, -O1, -O2 (default), etc.
     """
     return lib.BinaryenGetOptimizeLevel()
+
+
+BinaryenGetOptimizeLevel = GetOptimizeLevel
 
 
 def SetOptimizeLevel(
@@ -7686,12 +11220,18 @@ def SetOptimizeLevel(
     lib.BinaryenSetOptimizeLevel(level)
 
 
+BinaryenSetOptimizeLevel = SetOptimizeLevel
+
+
 def GetShrinkLevel() -> int:
     """
     Gets the currently set shrink level. Applies to all modules, globally.
     0, 1, 2 correspond to -O0, -Os (default), -Oz.
     """
     return lib.BinaryenGetShrinkLevel()
+
+
+BinaryenGetShrinkLevel = GetShrinkLevel
 
 
 def SetShrinkLevel(
@@ -7704,12 +11244,18 @@ def SetShrinkLevel(
     lib.BinaryenSetShrinkLevel(level)
 
 
+BinaryenSetShrinkLevel = SetShrinkLevel
+
+
 def GetDebugInfo() -> bool:
     """
     Gets whether generating debug information is currently enabled or not.
     Applies to all modules, globally.
     """
     return lib.BinaryenGetDebugInfo()
+
+
+BinaryenGetDebugInfo = GetDebugInfo
 
 
 def SetDebugInfo(
@@ -7722,12 +11268,18 @@ def SetDebugInfo(
     lib.BinaryenSetDebugInfo(on)
 
 
+BinaryenSetDebugInfo = SetDebugInfo
+
+
 def GetLowMemoryUnused() -> bool:
     """
     Gets whether the low 1K of memory can be considered unused when optimizing.
     Applies to all modules, globally.
     """
     return lib.BinaryenGetLowMemoryUnused()
+
+
+BinaryenGetLowMemoryUnused = GetLowMemoryUnused
 
 
 def SetLowMemoryUnused(
@@ -7740,9 +11292,15 @@ def SetLowMemoryUnused(
     lib.BinaryenSetLowMemoryUnused(on)
 
 
+BinaryenSetLowMemoryUnused = SetLowMemoryUnused
+
+
 def GetZeroFilledMemory() -> bool:
     """ Gets whether to assume that an imported memory is zero-initialized. """
     return lib.BinaryenGetZeroFilledMemory()
+
+
+BinaryenGetZeroFilledMemory = GetZeroFilledMemory
 
 
 def SetZeroFilledMemory(
@@ -7755,6 +11313,9 @@ def SetZeroFilledMemory(
     lib.BinaryenSetZeroFilledMemory(on)
 
 
+BinaryenSetZeroFilledMemory = SetZeroFilledMemory
+
+
 def GetFastMath() -> bool:
     """
     Gets whether fast math optimizations are enabled, ignoring for example
@@ -7762,6 +11323,9 @@ def GetFastMath() -> bool:
     Applies to all modules, globally.
     """
     return lib.BinaryenGetFastMath()
+
+
+BinaryenGetFastMath = GetFastMath
 
 
 def SetFastMath(
@@ -7775,6 +11339,9 @@ def SetFastMath(
     lib.BinaryenSetFastMath(value)
 
 
+BinaryenSetFastMath = SetFastMath
+
+
 def GetPassArgument(
     name: str,
 ) -> str:
@@ -7783,6 +11350,9 @@ def GetPassArgument(
     Applies to all modules, globally.
     """
     return lib.BinaryenGetPassArgument(name.encode())
+
+
+BinaryenGetPassArgument = GetPassArgument
 
 
 def SetPassArgument(
@@ -7796,6 +11366,9 @@ def SetPassArgument(
     lib.BinaryenSetPassArgument(name.encode(), value.encode())
 
 
+BinaryenSetPassArgument = SetPassArgument
+
+
 def ClearPassArguments() -> None:
     """
     Clears all arbitrary pass arguments.
@@ -7804,12 +11377,18 @@ def ClearPassArguments() -> None:
     lib.BinaryenClearPassArguments()
 
 
+BinaryenClearPassArguments = ClearPassArguments
+
+
 def GetAlwaysInlineMaxSize() -> BinaryenIndex:
     """
     Gets the function size at which we always inline.
     Applies to all modules, globally.
     """
     return lib.BinaryenGetAlwaysInlineMaxSize()
+
+
+BinaryenGetAlwaysInlineMaxSize = GetAlwaysInlineMaxSize
 
 
 def SetAlwaysInlineMaxSize(
@@ -7822,12 +11401,18 @@ def SetAlwaysInlineMaxSize(
     lib.BinaryenSetAlwaysInlineMaxSize(size)
 
 
+BinaryenSetAlwaysInlineMaxSize = SetAlwaysInlineMaxSize
+
+
 def GetFlexibleInlineMaxSize() -> BinaryenIndex:
     """
     Gets the function size which we inline when functions are lightweight.
     Applies to all modules, globally.
     """
     return lib.BinaryenGetFlexibleInlineMaxSize()
+
+
+BinaryenGetFlexibleInlineMaxSize = GetFlexibleInlineMaxSize
 
 
 def SetFlexibleInlineMaxSize(
@@ -7840,12 +11425,18 @@ def SetFlexibleInlineMaxSize(
     lib.BinaryenSetFlexibleInlineMaxSize(size)
 
 
+BinaryenSetFlexibleInlineMaxSize = SetFlexibleInlineMaxSize
+
+
 def GetOneCallerInlineMaxSize() -> BinaryenIndex:
     """
     Gets the function size which we inline when there is only one caller.
     Applies to all modules, globally.
     """
     return lib.BinaryenGetOneCallerInlineMaxSize()
+
+
+BinaryenGetOneCallerInlineMaxSize = GetOneCallerInlineMaxSize
 
 
 def SetOneCallerInlineMaxSize(
@@ -7858,12 +11449,18 @@ def SetOneCallerInlineMaxSize(
     lib.BinaryenSetOneCallerInlineMaxSize(size)
 
 
+BinaryenSetOneCallerInlineMaxSize = SetOneCallerInlineMaxSize
+
+
 def GetAllowInliningFunctionsWithLoops() -> bool:
     """
     Gets whether functions with loops are allowed to be inlined.
     Applies to all modules, globally.
     """
     return lib.BinaryenGetAllowInliningFunctionsWithLoops()
+
+
+BinaryenGetAllowInliningFunctionsWithLoops = GetAllowInliningFunctionsWithLoops
 
 
 def SetAllowInliningFunctionsWithLoops(
@@ -7876,15 +11473,22 @@ def SetAllowInliningFunctionsWithLoops(
     lib.BinaryenSetAllowInliningFunctionsWithLoops(enabled)
 
 
+BinaryenSetAllowInliningFunctionsWithLoops = SetAllowInliningFunctionsWithLoops
+
+
 def ModuleRunPasses(
     module: BinaryenModuleRef,
     passes: List[str],
+    num_passes: BinaryenIndex,
 ) -> None:
     """
     Runs the specified passes on the module. Uses the currently set global
     optimize and shrink level.
     """
-    lib.BinaryenModuleRunPasses(module, [item.encode() for item in passes], len(passes))
+    lib.BinaryenModuleRunPasses(module, [item.encode() for item in passes], num_passes)
+
+
+BinaryenModuleRunPasses = ModuleRunPasses
 
 
 def ModuleAutoDrop(
@@ -7896,6 +11500,9 @@ def ModuleAutoDrop(
     yourself, but simpler to use autodrop).
     """
     lib.BinaryenModuleAutoDrop(module)
+
+
+BinaryenModuleAutoDrop = ModuleAutoDrop
 
 
 def ModuleWrite(
@@ -7912,6 +11519,9 @@ def ModuleWrite(
     return lib.BinaryenModuleWrite(module, output.encode(), output_size)
 
 
+BinaryenModuleWrite = ModuleWrite
+
+
 def ModuleWriteText(
     module: BinaryenModuleRef,
     output: str,
@@ -7923,6 +11533,9 @@ def ModuleWriteText(
     outputSize
     """
     return lib.BinaryenModuleWriteText(module, output.encode(), output_size)
+
+
+BinaryenModuleWriteText = ModuleWriteText
 
 
 def ModuleWriteStackIR(
@@ -7937,6 +11550,9 @@ def ModuleWriteStackIR(
     outputSize
     """
     return lib.BinaryenModuleWriteStackIR(module, output.encode(), output_size, optimize)
+
+
+BinaryenModuleWriteStackIR = ModuleWriteStackIR
 
 
 def ModuleWriteWithSourceMap(
@@ -7956,6 +11572,9 @@ def ModuleWriteWithSourceMap(
     return lib.BinaryenModuleWriteWithSourceMap(module, url.encode(), output.encode(), output_size, source_map.encode(), source_map_size)
 
 
+BinaryenModuleWriteWithSourceMap = ModuleWriteWithSourceMap
+
+
 def ModuleAllocateAndWrite(
     module: BinaryenModuleRef,
     source_map_url: str,
@@ -7970,6 +11589,9 @@ def ModuleAllocateAndWrite(
     return lib.BinaryenModuleAllocateAndWrite(module, source_map_url.encode())
 
 
+BinaryenModuleAllocateAndWrite = ModuleAllocateAndWrite
+
+
 def ModuleAllocateAndWriteText(
     module: BinaryenModuleRef,
 ) -> str:
@@ -7979,6 +11601,9 @@ def ModuleAllocateAndWriteText(
     once not needed anymore.
     """
     return lib.BinaryenModuleAllocateAndWriteText(module)
+
+
+BinaryenModuleAllocateAndWriteText = ModuleAllocateAndWriteText
 
 
 def ModuleAllocateAndWriteStackIR(
@@ -7993,12 +11618,18 @@ def ModuleAllocateAndWriteStackIR(
     return lib.BinaryenModuleAllocateAndWriteStackIR(module, optimize)
 
 
+BinaryenModuleAllocateAndWriteStackIR = ModuleAllocateAndWriteStackIR
+
+
 def ModuleRead(
     _input: str,
     input_size: int,
 ) -> BinaryenModuleRef:
     """ Deserialize a module from binary form. """
     return lib.BinaryenModuleRead(_input.encode(), input_size)
+
+
+BinaryenModuleRead = ModuleRead
 
 
 def ModuleInterpret(
@@ -8012,12 +11643,18 @@ def ModuleInterpret(
     lib.BinaryenModuleInterpret(module)
 
 
+BinaryenModuleInterpret = ModuleInterpret
+
+
 def ModuleAddDebugInfoFileName(
     module: BinaryenModuleRef,
     filename: str,
 ) -> BinaryenIndex:
     """ Adds a debug info file name to the module and returns its index. """
     return lib.BinaryenModuleAddDebugInfoFileName(module, filename.encode())
+
+
+BinaryenModuleAddDebugInfoFileName = ModuleAddDebugInfoFileName
 
 
 def ModuleGetDebugInfoFileName(
@@ -8031,16 +11668,17 @@ def ModuleGetDebugInfoFileName(
     return lib.BinaryenModuleGetDebugInfoFileName(module, index)
 
 
+BinaryenModuleGetDebugInfoFileName = ModuleGetDebugInfoFileName
+
+
 def FunctionGetName(
     func: BinaryenFunctionRef,
 ) -> str:
-    """
-    
-    ========== Function Operations ==========
-    
-    Gets the name of the specified `Function`.
-    """
+    """ Gets the name of the specified `Function`. """
     return lib.BinaryenFunctionGetName(func)
+
+
+BinaryenFunctionGetName = FunctionGetName
 
 
 def FunctionGetParams(
@@ -8053,6 +11691,9 @@ def FunctionGetParams(
     return lib.BinaryenFunctionGetParams(func)
 
 
+BinaryenFunctionGetParams = FunctionGetParams
+
+
 def FunctionGetResults(
     func: BinaryenFunctionRef,
 ) -> BinaryenType:
@@ -8060,11 +11701,17 @@ def FunctionGetResults(
     return lib.BinaryenFunctionGetResults(func)
 
 
+BinaryenFunctionGetResults = FunctionGetResults
+
+
 def FunctionGetNumVars(
     func: BinaryenFunctionRef,
 ) -> BinaryenIndex:
     """ Gets the number of additional locals within the specified `Function`. """
     return lib.BinaryenFunctionGetNumVars(func)
+
+
+BinaryenFunctionGetNumVars = FunctionGetNumVars
 
 
 def FunctionGetVar(
@@ -8078,11 +11725,17 @@ def FunctionGetVar(
     return lib.BinaryenFunctionGetVar(func, index)
 
 
+BinaryenFunctionGetVar = FunctionGetVar
+
+
 def FunctionGetNumLocals(
     func: BinaryenFunctionRef,
 ) -> BinaryenIndex:
     """ Gets the number of locals within the specified function. Includes parameters. """
     return lib.BinaryenFunctionGetNumLocals(func)
+
+
+BinaryenFunctionGetNumLocals = FunctionGetNumLocals
 
 
 def FunctionHasLocalName(
@@ -8093,12 +11746,18 @@ def FunctionHasLocalName(
     return lib.BinaryenFunctionHasLocalName(func, index)
 
 
+BinaryenFunctionHasLocalName = FunctionHasLocalName
+
+
 def FunctionGetLocalName(
     func: BinaryenFunctionRef,
     index: BinaryenIndex,
 ) -> str:
     """ Gets the name of the local at the specified index. """
     return lib.BinaryenFunctionGetLocalName(func, index)
+
+
+BinaryenFunctionGetLocalName = FunctionGetLocalName
 
 
 def FunctionSetLocalName(
@@ -8110,11 +11769,17 @@ def FunctionSetLocalName(
     lib.BinaryenFunctionSetLocalName(func, index, name.encode())
 
 
+BinaryenFunctionSetLocalName = FunctionSetLocalName
+
+
 def FunctionGetBody(
     func: BinaryenFunctionRef,
 ) -> BinaryenExpressionRef:
     """ Gets the body of the specified `Function`. """
     return lib.BinaryenFunctionGetBody(func)
+
+
+BinaryenFunctionGetBody = FunctionGetBody
 
 
 def FunctionSetBody(
@@ -8123,6 +11788,9 @@ def FunctionSetBody(
 ) -> None:
     """ Sets the body of the specified `Function`. """
     lib.BinaryenFunctionSetBody(func, body)
+
+
+BinaryenFunctionSetBody = FunctionSetBody
 
 
 def FunctionOptimize(
@@ -8136,16 +11804,23 @@ def FunctionOptimize(
     lib.BinaryenFunctionOptimize(func, module)
 
 
+BinaryenFunctionOptimize = FunctionOptimize
+
+
 def FunctionRunPasses(
     func: BinaryenFunctionRef,
     module: BinaryenModuleRef,
     passes: List[str],
+    num_passes: BinaryenIndex,
 ) -> None:
     """
     Runs the specified passes on the function. Uses the currently set global
     optimize and shrink level.
     """
-    lib.BinaryenFunctionRunPasses(func, module, [item.encode() for item in passes], len(passes))
+    lib.BinaryenFunctionRunPasses(func, module, [item.encode() for item in passes], num_passes)
+
+
+BinaryenFunctionRunPasses = FunctionRunPasses
 
 
 def FunctionSetDebugLocation(
@@ -8162,16 +11837,17 @@ def FunctionSetDebugLocation(
     lib.BinaryenFunctionSetDebugLocation(func, expr, file_index, line_number, column_number)
 
 
+BinaryenFunctionSetDebugLocation = FunctionSetDebugLocation
+
+
 def TableGetName(
     table: BinaryenTableRef,
 ) -> str:
-    """
-    
-    ========== Table Operations ==========
-    
-    Gets the name of the specified `Table`.
-    """
+    """ Gets the name of the specified `Table`. """
     return lib.BinaryenTableGetName(table)
+
+
+BinaryenTableGetName = TableGetName
 
 
 def TableSetName(
@@ -8182,11 +11858,17 @@ def TableSetName(
     lib.BinaryenTableSetName(table, name.encode())
 
 
+BinaryenTableSetName = TableSetName
+
+
 def TableGetInitial(
     table: BinaryenTableRef,
 ) -> BinaryenIndex:
     """ Gets the initial number of pages of the specified `Table`. """
     return lib.BinaryenTableGetInitial(table)
+
+
+BinaryenTableGetInitial = TableGetInitial
 
 
 def TableSetInitial(
@@ -8197,6 +11879,9 @@ def TableSetInitial(
     lib.BinaryenTableSetInitial(table, initial)
 
 
+BinaryenTableSetInitial = TableSetInitial
+
+
 def TableHasMax(
     table: BinaryenTableRef,
 ) -> bool:
@@ -8204,11 +11889,17 @@ def TableHasMax(
     return lib.BinaryenTableHasMax(table)
 
 
+BinaryenTableHasMax = TableHasMax
+
+
 def TableGetMax(
     table: BinaryenTableRef,
 ) -> BinaryenIndex:
     """ Gets the maximum number of pages of the specified `Table`. """
     return lib.BinaryenTableGetMax(table)
+
+
+BinaryenTableGetMax = TableGetMax
 
 
 def TableSetMax(
@@ -8219,16 +11910,17 @@ def TableSetMax(
     lib.BinaryenTableSetMax(table, _max)
 
 
+BinaryenTableSetMax = TableSetMax
+
+
 def ElementSegmentGetName(
     elem: BinaryenElementSegmentRef,
 ) -> str:
-    """
-    
-    ========== Elem Segment Operations ==========
-    
-    Gets the name of the specified `ElementSegment`.
-    """
+    """ Gets the name of the specified `ElementSegment`. """
     return lib.BinaryenElementSegmentGetName(elem)
+
+
+BinaryenElementSegmentGetName = ElementSegmentGetName
 
 
 def ElementSegmentSetName(
@@ -8239,11 +11931,17 @@ def ElementSegmentSetName(
     lib.BinaryenElementSegmentSetName(elem, name.encode())
 
 
+BinaryenElementSegmentSetName = ElementSegmentSetName
+
+
 def ElementSegmentGetTable(
     elem: BinaryenElementSegmentRef,
 ) -> str:
     """ Gets the table name of the specified `ElementSegment`. """
     return lib.BinaryenElementSegmentGetTable(elem)
+
+
+BinaryenElementSegmentGetTable = ElementSegmentGetTable
 
 
 def ElementSegmentSetTable(
@@ -8254,6 +11952,9 @@ def ElementSegmentSetTable(
     lib.BinaryenElementSegmentSetTable(elem, table.encode())
 
 
+BinaryenElementSegmentSetTable = ElementSegmentSetTable
+
+
 def ElementSegmentGetOffset(
     elem: BinaryenElementSegmentRef,
 ) -> BinaryenExpressionRef:
@@ -8261,11 +11962,17 @@ def ElementSegmentGetOffset(
     return lib.BinaryenElementSegmentGetOffset(elem)
 
 
+BinaryenElementSegmentGetOffset = ElementSegmentGetOffset
+
+
 def ElementSegmentGetLength(
     elem: BinaryenElementSegmentRef,
 ) -> BinaryenIndex:
     """ Gets the length of items in the segment """
     return lib.BinaryenElementSegmentGetLength(elem)
+
+
+BinaryenElementSegmentGetLength = ElementSegmentGetLength
 
 
 def ElementSegmentGetData(
@@ -8276,6 +11983,9 @@ def ElementSegmentGetData(
     return lib.BinaryenElementSegmentGetData(elem, data_id)
 
 
+BinaryenElementSegmentGetData = ElementSegmentGetData
+
+
 def ElementSegmentIsPassive(
     elem: BinaryenElementSegmentRef,
 ) -> bool:
@@ -8283,16 +11993,17 @@ def ElementSegmentIsPassive(
     return lib.BinaryenElementSegmentIsPassive(elem)
 
 
+BinaryenElementSegmentIsPassive = ElementSegmentIsPassive
+
+
 def GlobalGetName(
     _global: BinaryenGlobalRef,
 ) -> str:
-    """
-    
-    ========== Global Operations ==========
-    
-    Gets the name of the specified `Global`.
-    """
+    """ Gets the name of the specified `Global`. """
     return lib.BinaryenGlobalGetName(_global)
+
+
+BinaryenGlobalGetName = GlobalGetName
 
 
 def GlobalGetType(
@@ -8305,11 +12016,17 @@ def GlobalGetType(
     return lib.BinaryenGlobalGetType(_global)
 
 
+BinaryenGlobalGetType = GlobalGetType
+
+
 def GlobalIsMutable(
     _global: BinaryenGlobalRef,
 ) -> bool:
     """ Returns true if the specified `Global` is mutable. """
     return lib.BinaryenGlobalIsMutable(_global)
+
+
+BinaryenGlobalIsMutable = GlobalIsMutable
 
 
 def GlobalGetInitExpr(
@@ -8319,16 +12036,17 @@ def GlobalGetInitExpr(
     return lib.BinaryenGlobalGetInitExpr(_global)
 
 
+BinaryenGlobalGetInitExpr = GlobalGetInitExpr
+
+
 def TagGetName(
     tag: BinaryenTagRef,
 ) -> str:
-    """
-    
-    ========== Tag Operations ==========
-    
-    Gets the name of the specified `Tag`.
-    """
+    """ Gets the name of the specified `Tag`. """
     return lib.BinaryenTagGetName(tag)
+
+
+BinaryenTagGetName = TagGetName
 
 
 def TagGetParams(
@@ -8338,6 +12056,9 @@ def TagGetParams(
     return lib.BinaryenTagGetParams(tag)
 
 
+BinaryenTagGetParams = TagGetParams
+
+
 def TagGetResults(
     tag: BinaryenTagRef,
 ) -> BinaryenType:
@@ -8345,16 +12066,17 @@ def TagGetResults(
     return lib.BinaryenTagGetResults(tag)
 
 
+BinaryenTagGetResults = TagGetResults
+
+
 def FunctionImportGetModule(
     _import: BinaryenFunctionRef,
 ) -> str:
-    """
-    
-    ========== Import Operations ==========
-    
-    Gets the external module name of the specified import.
-    """
+    """ Gets the external module name of the specified import. """
     return lib.BinaryenFunctionImportGetModule(_import)
+
+
+BinaryenFunctionImportGetModule = FunctionImportGetModule
 
 
 def TableImportGetModule(
@@ -8363,16 +12085,25 @@ def TableImportGetModule(
     return lib.BinaryenTableImportGetModule(_import)
 
 
+BinaryenTableImportGetModule = TableImportGetModule
+
+
 def GlobalImportGetModule(
     _import: BinaryenGlobalRef,
 ) -> str:
     return lib.BinaryenGlobalImportGetModule(_import)
 
 
+BinaryenGlobalImportGetModule = GlobalImportGetModule
+
+
 def TagImportGetModule(
     _import: BinaryenTagRef,
 ) -> str:
     return lib.BinaryenTagImportGetModule(_import)
+
+
+BinaryenTagImportGetModule = TagImportGetModule
 
 
 def FunctionImportGetBase(
@@ -8382,10 +12113,16 @@ def FunctionImportGetBase(
     return lib.BinaryenFunctionImportGetBase(_import)
 
 
+BinaryenFunctionImportGetBase = FunctionImportGetBase
+
+
 def TableImportGetBase(
     _import: BinaryenTableRef,
 ) -> str:
     return lib.BinaryenTableImportGetBase(_import)
+
+
+BinaryenTableImportGetBase = TableImportGetBase
 
 
 def GlobalImportGetBase(
@@ -8394,22 +12131,26 @@ def GlobalImportGetBase(
     return lib.BinaryenGlobalImportGetBase(_import)
 
 
+BinaryenGlobalImportGetBase = GlobalImportGetBase
+
+
 def TagImportGetBase(
     _import: BinaryenTagRef,
 ) -> str:
     return lib.BinaryenTagImportGetBase(_import)
 
 
+BinaryenTagImportGetBase = TagImportGetBase
+
+
 def ExportGetKind(
     export_: BinaryenExportRef,
 ) -> BinaryenExternalKind:
-    """
-    
-    ========== Export Operations ==========
-    
-    Gets the external kind of the specified export.
-    """
+    """ Gets the external kind of the specified export. """
     return lib.BinaryenExportGetKind(export_)
+
+
+BinaryenExportGetKind = ExportGetKind
 
 
 def ExportGetName(
@@ -8419,11 +12160,17 @@ def ExportGetName(
     return lib.BinaryenExportGetName(export_)
 
 
+BinaryenExportGetName = ExportGetName
+
+
 def ExportGetValue(
     export_: BinaryenExportRef,
 ) -> str:
     """ Gets the internal name of the specified export. """
     return lib.BinaryenExportGetValue(export_)
+
+
+BinaryenExportGetValue = ExportGetValue
 
 
 def AddCustomSection(
@@ -8432,80 +12179,129 @@ def AddCustomSection(
     contents: str,
     contents_size: BinaryenIndex,
 ) -> None:
-    """
-    
-    ========= Custom sections =========
-    
-    """
     lib.BinaryenAddCustomSection(module, name.encode(), contents.encode(), contents_size)
+
+
+BinaryenAddCustomSection = AddCustomSection
 
 
 def SideEffectNone() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectNone()
 
 
+BinaryenSideEffectNone = SideEffectNone
+
+
 def SideEffectBranches() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectBranches()
+
+
+BinaryenSideEffectBranches = SideEffectBranches
 
 
 def SideEffectCalls() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectCalls()
 
 
+BinaryenSideEffectCalls = SideEffectCalls
+
+
 def SideEffectReadsLocal() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectReadsLocal()
+
+
+BinaryenSideEffectReadsLocal = SideEffectReadsLocal
 
 
 def SideEffectWritesLocal() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectWritesLocal()
 
 
+BinaryenSideEffectWritesLocal = SideEffectWritesLocal
+
+
 def SideEffectReadsGlobal() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectReadsGlobal()
+
+
+BinaryenSideEffectReadsGlobal = SideEffectReadsGlobal
 
 
 def SideEffectWritesGlobal() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectWritesGlobal()
 
 
+BinaryenSideEffectWritesGlobal = SideEffectWritesGlobal
+
+
 def SideEffectReadsMemory() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectReadsMemory()
+
+
+BinaryenSideEffectReadsMemory = SideEffectReadsMemory
 
 
 def SideEffectWritesMemory() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectWritesMemory()
 
 
+BinaryenSideEffectWritesMemory = SideEffectWritesMemory
+
+
 def SideEffectReadsTable() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectReadsTable()
+
+
+BinaryenSideEffectReadsTable = SideEffectReadsTable
 
 
 def SideEffectWritesTable() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectWritesTable()
 
 
+BinaryenSideEffectWritesTable = SideEffectWritesTable
+
+
 def SideEffectImplicitTrap() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectImplicitTrap()
+
+
+BinaryenSideEffectImplicitTrap = SideEffectImplicitTrap
 
 
 def SideEffectTrapsNeverHappen() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectTrapsNeverHappen()
 
 
+BinaryenSideEffectTrapsNeverHappen = SideEffectTrapsNeverHappen
+
+
 def SideEffectIsAtomic() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectIsAtomic()
+
+
+BinaryenSideEffectIsAtomic = SideEffectIsAtomic
 
 
 def SideEffectThrows() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectThrows()
 
 
+BinaryenSideEffectThrows = SideEffectThrows
+
+
 def SideEffectDanglingPop() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectDanglingPop()
 
 
+BinaryenSideEffectDanglingPop = SideEffectDanglingPop
+
+
 def SideEffectAny() -> BinaryenSideEffects:
     return lib.BinaryenSideEffectAny()
+
+
+BinaryenSideEffectAny = SideEffectAny
 
 
 def ExpressionGetSideEffects(
@@ -8513,6 +12309,9 @@ def ExpressionGetSideEffects(
     module: BinaryenModuleRef,
 ) -> BinaryenSideEffects:
     return lib.BinaryenExpressionGetSideEffects(expr, module)
+
+
+BinaryenExpressionGetSideEffects = ExpressionGetSideEffects
 
 
 def RelooperCreate(
@@ -8557,13 +12356,14 @@ def RelooperAddBranchForSwitch(
     _from: RelooperBlockRef,
     to: RelooperBlockRef,
     indexes: List[BinaryenIndex],
+    num_indexes: BinaryenIndex,
     code: BinaryenExpressionRef,
 ) -> None:
     """
     Create a switch-style branch to another basic block. The block's switch table
     will have these indexes going to that target
     """
-    lib.RelooperAddBranchForSwitch(_from, to, indexes, len(indexes), code)
+    lib.RelooperAddBranchForSwitch(_from, to, indexes, num_indexes, code)
 
 
 def RelooperRenderAndDispose(
@@ -8739,9 +12539,10 @@ def TypeBuilderSetStructType(
     field_types: List[BinaryenType],
     field_packed_types: List[BinaryenPackedType],
     field_mutables: List[bool],
+    num_fields: int,
 ) -> None:
     """ Sets the heap type at index `index` to a concrete struct type. """
-    lib.TypeBuilderSetStructType(builder, index, field_types, field_packed_types, field_mutables, len(field_mutables))
+    lib.TypeBuilderSetStructType(builder, index, field_types, field_packed_types, field_mutables, num_fields)
 
 
 def TypeBuilderSetArrayType(
@@ -8785,9 +12586,10 @@ def TypeBuilderGetTempHeapType(
 def TypeBuilderGetTempTupleType(
     builder: TypeBuilderRef,
     types: List[BinaryenType],
+    num_types: BinaryenIndex,
 ) -> BinaryenType:
     """ Gets a temporary tuple type for use with and owned by the type builder. """
-    return lib.TypeBuilderGetTempTupleType(builder, types, len(types))
+    return lib.TypeBuilderGetTempTupleType(builder, types, num_types)
 
 
 def TypeBuilderGetTempRefType(
@@ -8845,6 +12647,9 @@ def ModuleSetTypeName(
     lib.BinaryenModuleSetTypeName(module, heap_type, name.encode())
 
 
+BinaryenModuleSetTypeName = ModuleSetTypeName
+
+
 def ModuleSetFieldName(
     module: BinaryenModuleRef,
     heap_type: BinaryenHeapType,
@@ -8855,18 +12660,22 @@ def ModuleSetFieldName(
     lib.BinaryenModuleSetFieldName(module, heap_type, index, name.encode())
 
 
+BinaryenModuleSetFieldName = ModuleSetFieldName
+
+
 def SetColorsEnabled(
     enabled: bool,
 ) -> None:
-    """
-    
-    ========= Utilities =========
-    
-    Enable or disable coloring for the Wasm printer
-    """
+    """ Enable or disable coloring for the Wasm printer """
     lib.BinaryenSetColorsEnabled(enabled)
+
+
+BinaryenSetColorsEnabled = SetColorsEnabled
 
 
 def AreColorsEnabled() -> bool:
     """ Query whether color is enable for the Wasm printer """
     return lib.BinaryenAreColorsEnabled()
+
+
+BinaryenAreColorsEnabled = AreColorsEnabled
