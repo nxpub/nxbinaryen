@@ -1,6 +1,7 @@
 # Project level
 .idea/
 .env*/
+*.bak
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

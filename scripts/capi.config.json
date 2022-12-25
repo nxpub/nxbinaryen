@@ -1,0 +1,36 @@
+{
+  "enums": [
+    {
+      "module": "typings",
+      "binaryen_type": "BinaryenType",
+      "py_enum_name": "Type",
+      "base": "IntEnum"
+    },
+    {
+      "module": "expressions",
+      "binaryen_type": "BinaryenExpressionId",
+      "py_enum_name": "ExpressionId",
+      "base": "IntEnum",
+      "item_name_rule": "(?P<name>.*)Id"
+    },
+    {
+      "module": "external_kinds",
+      "binaryen_type": "BinaryenExternalKind",
+      "py_enum_name": "ExternalKind",
+      "base": "IntEnum",
+      "item_name_rule": "External(?P<name>.*)"
+    },
+    {
+      "module": "features",
+      "binaryen_type": "BinaryenFeatures",
+      "py_enum_name": "Feature",
+      "base": "IntFlag"
+    },
+    {
+      "module": "side_effects",
+      "binaryen_type": "BinaryenSideEffects",
+      "py_enum_name": "SideEffect",
+      "base": "IntFlag"
+    }
+  ]
+}
