@@ -1,3 +1,4 @@
+import re
 import tempfile
 
 from pathlib import Path
@@ -14,9 +15,9 @@ from scripts.utils import (
 PY_PROLOGUE = [
     '# *** DO NOT EDIT ***',
     '# Auto-generated from binaryen-c.h',  # TODO: Versioning?
-    'from nxbinaryen._binaryen_capi import ffi, lib',
+    'from typing import List, Any, Optional',
     ''
-    'from typing import List, Any',
+    'from nxbinaryen.binaryen import ffi, lib',
     '\n',
 ]
 
@@ -107,6 +108,7 @@ class PyFunctionsWriter(PyWriter):
                 if ParamFlag.List in param_flag:
                     str_builder.append(f'[item.encode() for item in {param_name}]')
                 else:
+                    # TODO: Use some utils.str_encode(param_name) instead to handle None as ffi.NULL
                     str_builder.append(f'{param_name}.encode()')
             elif ParamFlag.List in param_flag or ParamFlag.Struct in param_flag:
                 str_builder.append(param_name)
@@ -121,6 +123,14 @@ class PyFunctionsWriter(PyWriter):
             line_idx -= 1
         return result
 
+    RE_POSSIBLE_NULL = re.compile(r'\b(?P<param>[a-zA-Z0-9]+)\s+(can|should)\s+be\s+NULL', re.MULTILINE)
+
+    def _get_optional_params(self, doc_strings: list[str]) -> list[str]:
+        result = []
+        for match in self.RE_POSSIBLE_NULL.finditer(' '.join(doc_strings)):
+            result.append(match.groupdict()['param'])
+        return result
+
     def visit_FuncDecl(self, node):
         return_type, func_name = self._parse_proto(node)
         if (
@@ -129,6 +139,12 @@ class PyFunctionsWriter(PyWriter):
             or func_name.startswith('ExpressionRunner')
             or func_name.startswith('TypeBuilder')
         ):
+            # Let's recover some docstrings and extract some info
+            optional_params = []  # TODO: Get some from capi.config.json
+            start_line = self._get_start_line(node)
+            if doc_strings := self._get_doc_strings(start_line - 1):
+                optional_params.extend(self._get_optional_params(doc_strings))
+
             self.emit('\n')
             params, py_func_name = [], func_name[8:] if remove_prefix else func_name
             # Let's skip params parsing for cases, like () and (void)
@@ -138,17 +154,17 @@ class PyFunctionsWriter(PyWriter):
                     param_name, (param_type, flag) = None, to_python_type(param.type, ptr_as_list=True)
                     if param_type:
                         param_name = pythonize(param.name)
+                        if param.name in optional_params:
+                            param_type = f'Optional[{param_type}]'
                         self.emit(f'    {param_name}: {param_type},')
-                    params.append((param_name, flag))
+                    params.append((param_name, flag))  # TODO: Add param_type also, wrap as dataclass
                 # TODO: Some _render_proto here?
                 self.emit(f') -> {return_type}:')
             else:
                 self.emit(f'def {py_func_name}() -> {return_type}:')
 
-            # Let's recover some docstrings
-            # TODO: We sometimes capture the comment from region separation, seems fixable
-            start_line = self._get_start_line(node)
-            if doc_strings := self._get_doc_strings(start_line - 1):
+            # Let's render the docstrings
+            if doc_strings:
                 if len(doc_strings) == 1:
                     self.emit(f'    """ {doc_strings[0]} """')
                 else:

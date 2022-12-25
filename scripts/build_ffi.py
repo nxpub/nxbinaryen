@@ -9,7 +9,7 @@ BINARYEN_C_SOURCE = """
 ffi = cffi.FFI()
 ffi.cdef(preprocess_header(BINARYEN_C_HEADER_PATH, strip_deprecated=True))
 ffi.set_source(
-    module_name='nxbinaryen._binaryen_capi',
+    module_name='nxbinaryen.binaryen',
     source=BINARYEN_C_SOURCE,
     libraries=['binaryen'],
     # TODO: Static build? Seems pretty big (53 mb w/ BUILD_LLVM_DWARF, 50 mb w/o)

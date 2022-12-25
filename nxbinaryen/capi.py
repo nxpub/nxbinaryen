@@ -1,7 +1,7 @@
 # *** DO NOT EDIT ***
 # Auto-generated from binaryen-c.h
-from nxbinaryen._binaryen_capi import ffi, lib
-from typing import List, Any
+from typing import List, Any, Optional
+from nxbinaryen.binaryen import ffi, lib
 
 
 BinaryenIndex = int
@@ -4324,7 +4324,7 @@ BinaryenStringSliceWTF16 = StringSliceWTF16
 
 def Block(
     module: BinaryenModuleRef,
-    name: str,
+    name: Optional[str],
     children: List[BinaryenExpressionRef],
     num_children: BinaryenIndex,
     _type: BinaryenType,
@@ -4345,7 +4345,7 @@ def If(
     module: BinaryenModuleRef,
     condition: BinaryenExpressionRef,
     if_true: BinaryenExpressionRef,
-    if_false: BinaryenExpressionRef,
+    if_false: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
     """ If: ifFalse can be NULL """
     return lib.BinaryenIf(module, condition, if_true, if_false)
@@ -4368,7 +4368,7 @@ BinaryenLoop = Loop
 def Break(
     module: BinaryenModuleRef,
     name: str,
-    condition: BinaryenExpressionRef,
+    condition: Optional[BinaryenExpressionRef],
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
     """ Break: value and condition can be NULL """
@@ -4384,7 +4384,7 @@ def Switch(
     num_names: BinaryenIndex,
     default_name: str,
     condition: BinaryenExpressionRef,
-    value: BinaryenExpressionRef,
+    value: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
     """ Switch: value can be NULL """
     return lib.BinaryenSwitch(module, [item.encode() for item in names], num_names, default_name.encode(), condition, value)
@@ -4625,7 +4625,7 @@ BinaryenDrop = Drop
 
 def Return(
     module: BinaryenModuleRef,
-    value: BinaryenExpressionRef,
+    value: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
     """ Return: value can be NULL """
     return lib.BinaryenReturn(module, value)
@@ -5016,13 +5016,13 @@ BinaryenTableGrow = TableGrow
 
 def Try(
     module: BinaryenModuleRef,
-    name: str,
+    name: Optional[str],
     body: BinaryenExpressionRef,
     catch_tags: List[str],
     num_catch_tags: BinaryenIndex,
     catch_bodies: List[BinaryenExpressionRef],
     num_catch_bodies: BinaryenIndex,
-    delegate_target: str,
+    delegate_target: Optional[str],
 ) -> BinaryenExpressionRef:
     """ Try: name can be NULL. delegateTarget should be NULL in try-catch. """
     return lib.BinaryenTry(module, name.encode(), body, [item.encode() for item in catch_tags], num_catch_tags, catch_bodies, num_catch_bodies, delegate_target.encode())
@@ -10936,7 +10936,7 @@ def SetMemory(
     module: BinaryenModuleRef,
     initial: BinaryenIndex,
     maximum: BinaryenIndex,
-    export_name: str,
+    export_name: Optional[str],
     segments: List[str],
     segment_passive: List[bool],
     segment_offsets: List[BinaryenExpressionRef],
@@ -10951,10 +10951,7 @@ def SetMemory(
     Each memory has data in segments, a start offset in segmentOffsets, and a
     size in segmentSizes. exportName can be NULL
     """
-    lib.BinaryenSetMemory(
-        module, initial, maximum, export_name.encode(), [ffi.from_buffer(item.encode()) for item in segments], segment_passive,
-        segment_offsets, segment_sizes, num_segments, shared, memory64, name.encode()
-    )
+    lib.BinaryenSetMemory(module, initial, maximum, export_name.encode(), [item.encode() for item in segments], segment_passive, segment_offsets, segment_sizes, num_segments, shared, memory64, name.encode())
 
 
 BinaryenSetMemory = SetMemory
@@ -12333,7 +12330,7 @@ def RelooperAddBranch(
     _from: RelooperBlockRef,
     to: RelooperBlockRef,
     condition: BinaryenExpressionRef,
-    code: BinaryenExpressionRef,
+    code: Optional[BinaryenExpressionRef],
 ) -> None:
     """
     Create a branch to another basic block
