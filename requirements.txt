@@ -1,2 +1,4 @@
 cffi
 pycparser
+pytest
+pytest-cov
