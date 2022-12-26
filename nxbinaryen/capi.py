@@ -1,7 +1,43 @@
 # *** DO NOT EDIT ***
 # Auto-generated from binaryen-c.h
-from typing import List, Any, Optional
+from typing import List, Any, Optional, Tuple
 from nxbinaryen.binaryen import ffi, lib
+
+
+def _enc(value: Optional[str]) -> bytes | ffi.CData:
+    if value is None:
+        return ffi.NULL
+    return value.encode()
+
+    
+def _enc_seq(values: List[str]) -> Any:
+    return [ffi.from_buffer(item.encode()) for item in values]
+
+
+def _opt(value: Optional[Any]) -> Any | ffi.CData:
+    return ffi.NULL if value is None else value
+
+
+def _opt_seq(value: Optional[List[Any]]) -> List[Any] | ffi.CData:
+    if value is None:
+        return ffi.NULL
+    if not isinstance(value, list):
+        return [value]
+    # TODO: Should we avoid list recreate? Seems doable
+    # TODO: What's the best type to wrap? Can be a tuple?
+    return [ffi.NULL if item is None else item for item in value]
+
+
+def _len(value: Optional[List[Any]]) -> int:
+    if value is None:
+        return 0
+    if isinstance(value, list):
+        return len(value)
+    return 1
+
+
+def _dec(value: ffi.CData) -> str:
+    return ffi.string(value).decode()
 
 
 BinaryenIndex = int
@@ -195,9 +231,8 @@ BinaryenTypeAuto = TypeAuto
 
 def TypeCreate(
     value_types: List[BinaryenType],
-    num_types: BinaryenIndex,
 ) -> BinaryenType:
-    return lib.BinaryenTypeCreate(value_types, num_types)
+    return lib.BinaryenTypeCreate(value_types, len(value_types))
 
 
 BinaryenTypeCreate = TypeCreate
@@ -214,9 +249,11 @@ BinaryenTypeArity = TypeArity
 
 def TypeExpand(
     t: BinaryenType,
-    buf: List[BinaryenType],
-) -> None:
+) -> List[BinaryenType]:
+    dim = lib.BinaryenTypeArity(t)
+    buf = ffi.new(f'BinaryenType[{dim}]')
     lib.BinaryenTypeExpand(t, buf)
+    return list(buf)
 
 
 BinaryenTypeExpand = TypeExpand
@@ -4325,8 +4362,7 @@ BinaryenStringSliceWTF16 = StringSliceWTF16
 def Block(
     module: BinaryenModuleRef,
     name: Optional[str],
-    children: List[BinaryenExpressionRef],
-    num_children: BinaryenIndex,
+    children: Optional[BinaryenExpressionRef | List[BinaryenExpressionRef]],
     _type: BinaryenType,
 ) -> BinaryenExpressionRef:
     """
@@ -4335,7 +4371,7 @@ def Block(
     automatically instead of explicitly providing it. This conforms
     to the behavior before the 'type' parameter has been introduced.
     """
-    return lib.BinaryenBlock(module, name.encode(), children, num_children, _type)
+    return lib.BinaryenBlock(module, _enc(name), _opt_seq(children), _len(children), _type)
 
 
 BinaryenBlock = Block
@@ -4348,7 +4384,7 @@ def If(
     if_false: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
     """ If: ifFalse can be NULL """
-    return lib.BinaryenIf(module, condition, if_true, if_false)
+    return lib.BinaryenIf(module, condition, if_true, _opt(if_false))
 
 
 BinaryenIf = If
@@ -4356,10 +4392,10 @@ BinaryenIf = If
 
 def Loop(
     module: BinaryenModuleRef,
-    _in: str,
+    _in: Optional[str],
     body: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenLoop(module, _in.encode(), body)
+    return lib.BinaryenLoop(module, _enc(_in), body)
 
 
 BinaryenLoop = Loop
@@ -4369,10 +4405,10 @@ def Break(
     module: BinaryenModuleRef,
     name: str,
     condition: Optional[BinaryenExpressionRef],
-    value: BinaryenExpressionRef,
+    value: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
     """ Break: value and condition can be NULL """
-    return lib.BinaryenBreak(module, name.encode(), condition, value)
+    return lib.BinaryenBreak(module, name.encode(), _opt(condition), _opt(value))
 
 
 BinaryenBreak = Break
@@ -4381,13 +4417,12 @@ BinaryenBreak = Break
 def Switch(
     module: BinaryenModuleRef,
     names: List[str],
-    num_names: BinaryenIndex,
     default_name: str,
     condition: BinaryenExpressionRef,
     value: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
     """ Switch: value can be NULL """
-    return lib.BinaryenSwitch(module, [item.encode() for item in names], num_names, default_name.encode(), condition, value)
+    return lib.BinaryenSwitch(module, _enc_seq(names), len(names), default_name.encode(), condition, _opt(value))
 
 
 BinaryenSwitch = Switch
@@ -4397,7 +4432,6 @@ def Call(
     module: BinaryenModuleRef,
     target: str,
     operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
     return_type: BinaryenType,
 ) -> BinaryenExpressionRef:
     """
@@ -4406,7 +4440,7 @@ def Call(
     function might not have been created yet, so we don't
     know what it is.
     """
-    return lib.BinaryenCall(module, target.encode(), operands, num_operands, return_type)
+    return lib.BinaryenCall(module, target.encode(), operands, len(operands), return_type)
 
 
 BinaryenCall = Call
@@ -4416,12 +4450,13 @@ def CallIndirect(
     module: BinaryenModuleRef,
     table: str,
     target: BinaryenExpressionRef,
-    operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
+    operands: Optional[List[BinaryenExpressionRef]],
     params: BinaryenType,
     results: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenCallIndirect(module, table.encode(), target, operands, num_operands, params, results)
+    return lib.BinaryenCallIndirect(
+        module, table.encode(), target, _opt_seq(operands), _len(operands), params, results
+    )
 
 
 BinaryenCallIndirect = CallIndirect
@@ -4431,10 +4466,9 @@ def ReturnCall(
     module: BinaryenModuleRef,
     target: str,
     operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
     return_type: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenReturnCall(module, target.encode(), operands, num_operands, return_type)
+    return lib.BinaryenReturnCall(module, target.encode(), operands, len(operands), return_type)
 
 
 BinaryenReturnCall = ReturnCall
@@ -4445,11 +4479,10 @@ def ReturnCallIndirect(
     table: str,
     target: BinaryenExpressionRef,
     operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
     params: BinaryenType,
     results: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenReturnCallIndirect(module, table.encode(), target, operands, num_operands, params, results)
+    return lib.BinaryenReturnCallIndirect(module, table.encode(), target, operands, len(operands), params, results)
 
 
 BinaryenReturnCallIndirect = ReturnCallIndirect
@@ -4628,7 +4661,7 @@ def Return(
     value: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
     """ Return: value can be NULL """
-    return lib.BinaryenReturn(module, value)
+    return lib.BinaryenReturn(module, _opt(value))
 
 
 BinaryenReturn = Return
@@ -4800,8 +4833,9 @@ def SIMDShuffle(
     module: BinaryenModuleRef,
     left: BinaryenExpressionRef,
     right: BinaryenExpressionRef,
-    mask: List[int],
+    mask: bytes,
 ) -> BinaryenExpressionRef:
+    assert len(mask) == 16
     return lib.BinaryenSIMDShuffle(module, left, right, mask)
 
 
@@ -5019,13 +5053,14 @@ def Try(
     name: Optional[str],
     body: BinaryenExpressionRef,
     catch_tags: List[str],
-    num_catch_tags: BinaryenIndex,
     catch_bodies: List[BinaryenExpressionRef],
-    num_catch_bodies: BinaryenIndex,
     delegate_target: Optional[str],
 ) -> BinaryenExpressionRef:
     """ Try: name can be NULL. delegateTarget should be NULL in try-catch. """
-    return lib.BinaryenTry(module, name.encode(), body, [item.encode() for item in catch_tags], num_catch_tags, catch_bodies, num_catch_bodies, delegate_target.encode())
+    return lib.BinaryenTry(
+        module, _enc(name), body, _enc_seq(catch_tags), len(catch_tags),
+        catch_bodies, len(catch_bodies), _enc(delegate_target)
+    )
 
 
 BinaryenTry = Try
@@ -5035,9 +5070,8 @@ def Throw(
     module: BinaryenModuleRef,
     tag: str,
     operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenThrow(module, tag.encode(), operands, num_operands)
+    return lib.BinaryenThrow(module, tag.encode(), operands, len(operands))
 
 
 BinaryenThrow = Throw
@@ -5056,9 +5090,8 @@ BinaryenRethrow = Rethrow
 def TupleMake(
     module: BinaryenModuleRef,
     operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenTupleMake(module, operands, num_operands)
+    return lib.BinaryenTupleMake(module, operands, len(operands))
 
 
 BinaryenTupleMake = TupleMake
@@ -5110,11 +5143,10 @@ def CallRef(
     module: BinaryenModuleRef,
     target: BinaryenExpressionRef,
     operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
     _type: BinaryenType,
     is_return: bool,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenCallRef(module, target, operands, num_operands, _type, is_return)
+    return lib.BinaryenCallRef(module, target, operands, len(operands), _type, is_return)
 
 
 BinaryenCallRef = CallRef
@@ -5157,11 +5189,10 @@ BinaryenBrOn = BrOn
 
 def StructNew(
     module: BinaryenModuleRef,
-    operands: List[BinaryenExpressionRef],
-    num_operands: BinaryenIndex,
+    operands: Optional[List[BinaryenExpressionRef]],
     _type: BinaryenHeapType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenStructNew(module, operands, num_operands, _type)
+    return lib.BinaryenStructNew(module, _opt_seq(operands), _len(operands), _type)
 
 
 BinaryenStructNew = StructNew
@@ -5196,9 +5227,9 @@ def ArrayNew(
     module: BinaryenModuleRef,
     _type: BinaryenHeapType,
     size: BinaryenExpressionRef,
-    init: BinaryenExpressionRef,
+    init: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenArrayNew(module, _type, size, init)
+    return lib.BinaryenArrayNew(module, _type, size, _opt(init))
 
 
 BinaryenArrayNew = ArrayNew
@@ -5208,9 +5239,8 @@ def ArrayInit(
     module: BinaryenModuleRef,
     _type: BinaryenHeapType,
     values: List[BinaryenExpressionRef],
-    num_values: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenArrayInit(module, _type, values, num_values)
+    return lib.BinaryenArrayInit(module, _type, values, len(values))
 
 
 BinaryenArrayInit = ArrayInit
@@ -5269,11 +5299,11 @@ def StringNew(
     module: BinaryenModuleRef,
     op: BinaryenOp,
     ptr: BinaryenExpressionRef,
-    length: BinaryenExpressionRef,
-    start: BinaryenExpressionRef,
-    end: BinaryenExpressionRef,
+    length: Optional[BinaryenExpressionRef],
+    start: Optional[BinaryenExpressionRef],
+    end: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenStringNew(module, op, ptr, length, start, end)
+    return lib.BinaryenStringNew(module, op, ptr, _opt(length), _opt(start), _opt(end))
 
 
 BinaryenStringNew = StringNew
@@ -5305,9 +5335,9 @@ def StringEncode(
     op: BinaryenOp,
     ref: BinaryenExpressionRef,
     ptr: BinaryenExpressionRef,
-    start: BinaryenExpressionRef,
+    start: Optional[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenStringEncode(module, op, ref, ptr, start)
+    return lib.BinaryenStringEncode(module, op, ref, ptr, _opt(start))
 
 
 BinaryenStringEncode = StringEncode
@@ -5481,7 +5511,7 @@ def BlockGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name (label) of a `block` expression. """
-    return lib.BinaryenBlockGetName(expr)
+    return _dec(lib.BinaryenBlockGetName(expr))
 
 
 BinaryenBlockGetName = BlockGetName
@@ -5645,7 +5675,7 @@ def LoopGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name (label) of a `loop` expression. """
-    return lib.BinaryenLoopGetName(expr)
+    return _dec(lib.BinaryenLoopGetName(expr))
 
 
 BinaryenLoopGetName = LoopGetName
@@ -5687,7 +5717,7 @@ def BreakGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name (target label) of a `br` or `br_if` expression. """
-    return lib.BinaryenBreakGetName(expr)
+    return _dec(lib.BinaryenBreakGetName(expr))
 
 
 BinaryenBreakGetName = BreakGetName
@@ -5770,7 +5800,7 @@ def SwitchGetNameAt(
     Gets the name (target label) at the specified index of a `br_table`
     expression.
     """
-    return lib.BinaryenSwitchGetNameAt(expr, index)
+    return _dec(lib.BinaryenSwitchGetNameAt(expr, index))
 
 
 BinaryenSwitchGetNameAt = SwitchGetNameAt
@@ -5825,7 +5855,7 @@ def SwitchRemoveNameAt(
     Removes the name at the specified index of a `br_table` expression, moving
     all subsequent names one index down. Returns the name.
     """
-    return lib.BinaryenSwitchRemoveNameAt(expr, index)
+    return _dec(lib.BinaryenSwitchRemoveNameAt(expr, index))
 
 
 BinaryenSwitchRemoveNameAt = SwitchRemoveNameAt
@@ -5835,7 +5865,7 @@ def SwitchGetDefaultName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the default name (target label), if any, of a `br_table` expression. """
-    return lib.BinaryenSwitchGetDefaultName(expr)
+    return _dec(lib.BinaryenSwitchGetDefaultName(expr))
 
 
 BinaryenSwitchGetDefaultName = SwitchGetDefaultName
@@ -5898,7 +5928,7 @@ def CallGetTarget(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the target function name of a `call` expression. """
-    return lib.BinaryenCallGetTarget(expr)
+    return _dec(lib.BinaryenCallGetTarget(expr))
 
 
 BinaryenCallGetTarget = CallGetTarget
@@ -6039,7 +6069,7 @@ def CallIndirectGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the table name of a `call_indirect` expression. """
-    return lib.BinaryenCallIndirectGetTable(expr)
+    return _dec(lib.BinaryenCallIndirectGetTable(expr))
 
 
 BinaryenCallIndirectGetTable = CallIndirectGetTable
@@ -6283,7 +6313,7 @@ def GlobalGetGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the global being accessed by a `global.get` expression. """
-    return lib.BinaryenGlobalGetGetName(expr)
+    return _dec(lib.BinaryenGlobalGetGetName(expr))
 
 
 BinaryenGlobalGetGetName = GlobalGetGetName
@@ -6304,7 +6334,7 @@ def GlobalSetGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the global being accessed by a `global.set` expression. """
-    return lib.BinaryenGlobalSetGetName(expr)
+    return _dec(lib.BinaryenGlobalSetGetName(expr))
 
 
 BinaryenGlobalSetGetName = GlobalSetGetName
@@ -6346,7 +6376,7 @@ def TableGetGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the table being accessed by a `table.get` expression. """
-    return lib.BinaryenTableGetGetTable(expr)
+    return _dec(lib.BinaryenTableGetGetTable(expr))
 
 
 BinaryenTableGetGetTable = TableGetGetTable
@@ -6388,7 +6418,7 @@ def TableSetGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the table being accessed by a `table.set` expression. """
-    return lib.BinaryenTableSetGetTable(expr)
+    return _dec(lib.BinaryenTableSetGetTable(expr))
 
 
 BinaryenTableSetGetTable = TableSetGetTable
@@ -6451,7 +6481,7 @@ def TableSizeGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the table being accessed by a `table.size` expression. """
-    return lib.BinaryenTableSizeGetTable(expr)
+    return _dec(lib.BinaryenTableSizeGetTable(expr))
 
 
 BinaryenTableSizeGetTable = TableSizeGetTable
@@ -6472,7 +6502,7 @@ def TableGrowGetTable(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the table being accessed by a `table.grow` expression. """
-    return lib.BinaryenTableGrowGetTable(expr)
+    return _dec(lib.BinaryenTableGrowGetTable(expr))
 
 
 BinaryenTableGrowGetTable = TableGrowGetTable
@@ -8500,7 +8530,7 @@ def RefFuncGetFunc(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the function being wrapped by a `ref.func` expression. """
-    return lib.BinaryenRefFuncGetFunc(expr)
+    return _dec(lib.BinaryenRefFuncGetFunc(expr))
 
 
 BinaryenRefFuncGetFunc = RefFuncGetFunc
@@ -8563,7 +8593,7 @@ def TryGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name (label) of a `try` expression. """
-    return lib.BinaryenTryGetName(expr)
+    return _dec(lib.BinaryenTryGetName(expr))
 
 
 BinaryenTryGetName = TryGetName
@@ -8629,7 +8659,7 @@ def TryGetCatchTagAt(
     index: BinaryenIndex,
 ) -> str:
     """ Gets the catch tag at the specified index of a `try` expression. """
-    return lib.BinaryenTryGetCatchTagAt(expr, index)
+    return _dec(lib.BinaryenTryGetCatchTagAt(expr, index))
 
 
 BinaryenTryGetCatchTagAt = TryGetCatchTagAt
@@ -8681,7 +8711,7 @@ def TryRemoveCatchTagAt(
     Removes the catch tag at the specified index of a `try` expression, moving
     all subsequent catch tags one index down. Returns the tag.
     """
-    return lib.BinaryenTryRemoveCatchTagAt(expr, index)
+    return _dec(lib.BinaryenTryRemoveCatchTagAt(expr, index))
 
 
 BinaryenTryRemoveCatchTagAt = TryRemoveCatchTagAt
@@ -8769,7 +8799,7 @@ def TryGetDelegateTarget(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the target label of a `delegate`. """
-    return lib.BinaryenTryGetDelegateTarget(expr)
+    return _dec(lib.BinaryenTryGetDelegateTarget(expr))
 
 
 BinaryenTryGetDelegateTarget = TryGetDelegateTarget
@@ -8800,7 +8830,7 @@ def ThrowGetTag(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the name of the tag being thrown by a `throw` expression. """
-    return lib.BinaryenThrowGetTag(expr)
+    return _dec(lib.BinaryenThrowGetTag(expr))
 
 
 BinaryenThrowGetTag = ThrowGetTag
@@ -8899,7 +8929,7 @@ def RethrowGetTarget(
     expr: BinaryenExpressionRef,
 ) -> str:
     """ Gets the target catch's corresponding try label of a `rethrow` expression. """
-    return lib.BinaryenRethrowGetTarget(expr)
+    return _dec(lib.BinaryenRethrowGetTarget(expr))
 
 
 BinaryenRethrowGetTarget = RethrowGetTarget
@@ -9296,7 +9326,7 @@ BinaryenBrOnSetOp = BrOnSetOp
 def BrOnGetName(
     expr: BinaryenExpressionRef,
 ) -> str:
-    return lib.BinaryenBrOnGetName(expr)
+    return _dec(lib.BinaryenBrOnGetName(expr))
 
 
 BinaryenBrOnGetName = BrOnGetName
@@ -9950,7 +9980,7 @@ BinaryenStringNewSetEnd = StringNewSetEnd
 def StringConstGetString(
     expr: BinaryenExpressionRef,
 ) -> str:
-    return lib.BinaryenStringConstGetString(expr)
+    return _dec(lib.BinaryenStringConstGetString(expr))
 
 
 BinaryenStringConstGetString = StringConstGetString
@@ -10484,8 +10514,7 @@ def AddFunction(
     name: str,
     params: BinaryenType,
     results: BinaryenType,
-    var_types: List[BinaryenType],
-    num_var_types: BinaryenIndex,
+    var_types: Optional[List[BinaryenType]],
     body: BinaryenExpressionRef,
 ) -> BinaryenFunctionRef:
     """
@@ -10498,7 +10527,7 @@ def AddFunction(
     0 (and written $0), and if you also have 2 vars they will be
     at indexes 1 and 2, etc., that is, they share an index space.
     """
-    return lib.BinaryenAddFunction(module, name.encode(), params, results, var_types, num_var_types, body)
+    return lib.BinaryenAddFunction(module, name.encode(), params, results, _opt_seq(var_types), _len(var_types), body)
 
 
 BinaryenAddFunction = AddFunction
@@ -10872,10 +10901,11 @@ def AddActiveElementSegment(
     table: str,
     name: str,
     func_names: List[str],
-    num_func_names: BinaryenIndex,
     offset: BinaryenExpressionRef,
 ) -> BinaryenElementSegmentRef:
-    return lib.BinaryenAddActiveElementSegment(module, table.encode(), name.encode(), [item.encode() for item in func_names], num_func_names, offset)
+    return lib.BinaryenAddActiveElementSegment(
+        module, table.encode(), name.encode(), _enc_seq(func_names), len(func_names), offset
+    )
 
 
 BinaryenAddActiveElementSegment = AddActiveElementSegment
@@ -10885,9 +10915,10 @@ def AddPassiveElementSegment(
     module: BinaryenModuleRef,
     name: str,
     func_names: List[str],
-    num_func_names: BinaryenIndex,
 ) -> BinaryenElementSegmentRef:
-    return lib.BinaryenAddPassiveElementSegment(module, name.encode(), [item.encode() for item in func_names], num_func_names)
+    return lib.BinaryenAddPassiveElementSegment(
+        module, name.encode(), _enc_seq(func_names), len(func_names)
+    )
 
 
 BinaryenAddPassiveElementSegment = AddPassiveElementSegment
@@ -10937,11 +10968,10 @@ def SetMemory(
     initial: BinaryenIndex,
     maximum: BinaryenIndex,
     export_name: Optional[str],
-    segments: List[str],
+    segments: List[bytes],
     segment_passive: List[bool],
     segment_offsets: List[BinaryenExpressionRef],
     segment_sizes: List[BinaryenIndex],
-    num_segments: BinaryenIndex,
     shared: bool,
     memory64: bool,
     name: str,
@@ -10951,7 +10981,10 @@ def SetMemory(
     Each memory has data in segments, a start offset in segmentOffsets, and a
     size in segmentSizes. exportName can be NULL
     """
-    lib.BinaryenSetMemory(module, initial, maximum, export_name.encode(), [item.encode() for item in segments], segment_passive, segment_offsets, segment_sizes, num_segments, shared, memory64, name.encode())
+    lib.BinaryenSetMemory(
+        module, initial, maximum, _enc(export_name), [ffi.from_buffer(item) for item in segments], segment_passive,
+        _opt_seq(segment_offsets), segment_sizes, len(segment_sizes), shared, memory64, name.encode()
+    )
 
 
 BinaryenSetMemory = SetMemory
@@ -11000,7 +11033,7 @@ def MemoryImportGetModule(
     module: BinaryenModuleRef,
     name: str,
 ) -> str:
-    return lib.BinaryenMemoryImportGetModule(module, name.encode())
+    return _dec(lib.BinaryenMemoryImportGetModule(module, name.encode()))
 
 
 BinaryenMemoryImportGetModule = MemoryImportGetModule
@@ -11010,7 +11043,7 @@ def MemoryImportGetBase(
     module: BinaryenModuleRef,
     name: str,
 ) -> str:
-    return lib.BinaryenMemoryImportGetBase(module, name.encode())
+    return _dec(lib.BinaryenMemoryImportGetBase(module, name.encode()))
 
 
 BinaryenMemoryImportGetBase = MemoryImportGetBase
@@ -11078,9 +11111,11 @@ BinaryenGetMemorySegmentPassive = GetMemorySegmentPassive
 def CopyMemorySegmentData(
     module: BinaryenModuleRef,
     _id: BinaryenIndex,
-    buffer: str,
-) -> None:
-    lib.BinaryenCopyMemorySegmentData(module, _id, buffer.encode())
+) -> bytes:
+    dim = lib.BinaryenGetMemorySegmentByteLength(module, _id)
+    _buffer = ffi.new(f'char[{dim}]')
+    lib.BinaryenCopyMemorySegmentData(module, _id, _buffer)
+    return bytes(ffi.buffer(_buffer))
 
 
 BinaryenCopyMemorySegmentData = CopyMemorySegmentData
@@ -11346,7 +11381,7 @@ def GetPassArgument(
     Gets the value of the specified arbitrary pass argument.
     Applies to all modules, globally.
     """
-    return lib.BinaryenGetPassArgument(name.encode())
+    return _dec(lib.BinaryenGetPassArgument(name.encode()))
 
 
 BinaryenGetPassArgument = GetPassArgument
@@ -11476,13 +11511,12 @@ BinaryenSetAllowInliningFunctionsWithLoops = SetAllowInliningFunctionsWithLoops
 def ModuleRunPasses(
     module: BinaryenModuleRef,
     passes: List[str],
-    num_passes: BinaryenIndex,
 ) -> None:
     """
     Runs the specified passes on the module. Uses the currently set global
     optimize and shrink level.
     """
-    lib.BinaryenModuleRunPasses(module, [item.encode() for item in passes], num_passes)
+    lib.BinaryenModuleRunPasses(module, [item.encode() for item in passes], len(passes))
 
 
 BinaryenModuleRunPasses = ModuleRunPasses
@@ -11504,16 +11538,17 @@ BinaryenModuleAutoDrop = ModuleAutoDrop
 
 def ModuleWrite(
     module: BinaryenModuleRef,
-    output: str,
     output_size: int,
-) -> int:
+) -> Tuple[bytes, int]:
     """
     Serialize a module into binary form. Uses the currently set global debugInfo
     option.
     @return how many bytes were written. This will be less than or equal to
     outputSize
     """
-    return lib.BinaryenModuleWrite(module, output.encode(), output_size)
+    _output = ffi.new(f'char[{output_size}]')
+    written = lib.BinaryenModuleWrite(module, _output, output_size)
+    return bytes(ffi.buffer(_output)), written
 
 
 BinaryenModuleWrite = ModuleWrite
@@ -11521,15 +11556,16 @@ BinaryenModuleWrite = ModuleWrite
 
 def ModuleWriteText(
     module: BinaryenModuleRef,
-    output: str,
     output_size: int,
-) -> int:
+) -> Tuple[str, int]:
     """
     Serialize a module in s-expression text format.
     @return how many bytes were written. This will be less than or equal to
     outputSize
     """
-    return lib.BinaryenModuleWriteText(module, output.encode(), output_size)
+    _output = ffi.new(f'char[{output_size}]')
+    written = lib.BinaryenModuleWriteText(module, _output, output_size)
+    return ffi.string(_output).decode(), written
 
 
 BinaryenModuleWriteText = ModuleWriteText
@@ -11597,7 +11633,7 @@ def ModuleAllocateAndWriteText(
     char* with malloc(), and expects the user to free() them manually
     once not needed anymore.
     """
-    return lib.BinaryenModuleAllocateAndWriteText(module)
+    return _dec(lib.BinaryenModuleAllocateAndWriteText(module))
 
 
 BinaryenModuleAllocateAndWriteText = ModuleAllocateAndWriteText
@@ -11612,18 +11648,18 @@ def ModuleAllocateAndWriteStackIR(
     char* with malloc(), and expects the user to free() them manually
     once not needed anymore.
     """
-    return lib.BinaryenModuleAllocateAndWriteStackIR(module, optimize)
+    return _dec(lib.BinaryenModuleAllocateAndWriteStackIR(module, optimize))
 
 
 BinaryenModuleAllocateAndWriteStackIR = ModuleAllocateAndWriteStackIR
 
 
 def ModuleRead(
-    _input: str,
+    _input: bytes,
     input_size: int,
 ) -> BinaryenModuleRef:
     """ Deserialize a module from binary form. """
-    return lib.BinaryenModuleRead(_input.encode(), input_size)
+    return lib.BinaryenModuleRead(_input, input_size)
 
 
 BinaryenModuleRead = ModuleRead
@@ -11662,7 +11698,7 @@ def ModuleGetDebugInfoFileName(
     Gets the name of the debug info file at the specified index. Returns `NULL`
     if it does not exist.
     """
-    return lib.BinaryenModuleGetDebugInfoFileName(module, index)
+    return _dec(lib.BinaryenModuleGetDebugInfoFileName(module, index))
 
 
 BinaryenModuleGetDebugInfoFileName = ModuleGetDebugInfoFileName
@@ -11672,7 +11708,7 @@ def FunctionGetName(
     func: BinaryenFunctionRef,
 ) -> str:
     """ Gets the name of the specified `Function`. """
-    return lib.BinaryenFunctionGetName(func)
+    return _dec(lib.BinaryenFunctionGetName(func))
 
 
 BinaryenFunctionGetName = FunctionGetName
@@ -11751,7 +11787,7 @@ def FunctionGetLocalName(
     index: BinaryenIndex,
 ) -> str:
     """ Gets the name of the local at the specified index. """
-    return lib.BinaryenFunctionGetLocalName(func, index)
+    return _dec(lib.BinaryenFunctionGetLocalName(func, index))
 
 
 BinaryenFunctionGetLocalName = FunctionGetLocalName
@@ -11808,13 +11844,12 @@ def FunctionRunPasses(
     func: BinaryenFunctionRef,
     module: BinaryenModuleRef,
     passes: List[str],
-    num_passes: BinaryenIndex,
 ) -> None:
     """
     Runs the specified passes on the function. Uses the currently set global
     optimize and shrink level.
     """
-    lib.BinaryenFunctionRunPasses(func, module, [item.encode() for item in passes], num_passes)
+    lib.BinaryenFunctionRunPasses(func, module, [item.encode() for item in passes], len(passes))
 
 
 BinaryenFunctionRunPasses = FunctionRunPasses
@@ -11841,7 +11876,7 @@ def TableGetName(
     table: BinaryenTableRef,
 ) -> str:
     """ Gets the name of the specified `Table`. """
-    return lib.BinaryenTableGetName(table)
+    return _dec(lib.BinaryenTableGetName(table))
 
 
 BinaryenTableGetName = TableGetName
@@ -11914,7 +11949,7 @@ def ElementSegmentGetName(
     elem: BinaryenElementSegmentRef,
 ) -> str:
     """ Gets the name of the specified `ElementSegment`. """
-    return lib.BinaryenElementSegmentGetName(elem)
+    return _dec(lib.BinaryenElementSegmentGetName(elem))
 
 
 BinaryenElementSegmentGetName = ElementSegmentGetName
@@ -11935,7 +11970,7 @@ def ElementSegmentGetTable(
     elem: BinaryenElementSegmentRef,
 ) -> str:
     """ Gets the table name of the specified `ElementSegment`. """
-    return lib.BinaryenElementSegmentGetTable(elem)
+    return _dec(lib.BinaryenElementSegmentGetTable(elem))
 
 
 BinaryenElementSegmentGetTable = ElementSegmentGetTable
@@ -11977,7 +12012,7 @@ def ElementSegmentGetData(
     data_id: BinaryenIndex,
 ) -> str:
     """ Gets the item at the specified index """
-    return lib.BinaryenElementSegmentGetData(elem, data_id)
+    return _dec(lib.BinaryenElementSegmentGetData(elem, data_id))
 
 
 BinaryenElementSegmentGetData = ElementSegmentGetData
@@ -11997,7 +12032,7 @@ def GlobalGetName(
     _global: BinaryenGlobalRef,
 ) -> str:
     """ Gets the name of the specified `Global`. """
-    return lib.BinaryenGlobalGetName(_global)
+    return _dec(lib.BinaryenGlobalGetName(_global))
 
 
 BinaryenGlobalGetName = GlobalGetName
@@ -12040,7 +12075,7 @@ def TagGetName(
     tag: BinaryenTagRef,
 ) -> str:
     """ Gets the name of the specified `Tag`. """
-    return lib.BinaryenTagGetName(tag)
+    return _dec(lib.BinaryenTagGetName(tag))
 
 
 BinaryenTagGetName = TagGetName
@@ -12070,7 +12105,7 @@ def FunctionImportGetModule(
     _import: BinaryenFunctionRef,
 ) -> str:
     """ Gets the external module name of the specified import. """
-    return lib.BinaryenFunctionImportGetModule(_import)
+    return _dec(lib.BinaryenFunctionImportGetModule(_import))
 
 
 BinaryenFunctionImportGetModule = FunctionImportGetModule
@@ -12079,7 +12114,7 @@ BinaryenFunctionImportGetModule = FunctionImportGetModule
 def TableImportGetModule(
     _import: BinaryenTableRef,
 ) -> str:
-    return lib.BinaryenTableImportGetModule(_import)
+    return _dec(lib.BinaryenTableImportGetModule(_import))
 
 
 BinaryenTableImportGetModule = TableImportGetModule
@@ -12088,7 +12123,7 @@ BinaryenTableImportGetModule = TableImportGetModule
 def GlobalImportGetModule(
     _import: BinaryenGlobalRef,
 ) -> str:
-    return lib.BinaryenGlobalImportGetModule(_import)
+    return _dec(lib.BinaryenGlobalImportGetModule(_import))
 
 
 BinaryenGlobalImportGetModule = GlobalImportGetModule
@@ -12097,7 +12132,7 @@ BinaryenGlobalImportGetModule = GlobalImportGetModule
 def TagImportGetModule(
     _import: BinaryenTagRef,
 ) -> str:
-    return lib.BinaryenTagImportGetModule(_import)
+    return _dec(lib.BinaryenTagImportGetModule(_import))
 
 
 BinaryenTagImportGetModule = TagImportGetModule
@@ -12107,7 +12142,7 @@ def FunctionImportGetBase(
     _import: BinaryenFunctionRef,
 ) -> str:
     """ Gets the external base name of the specified import. """
-    return lib.BinaryenFunctionImportGetBase(_import)
+    return _dec(lib.BinaryenFunctionImportGetBase(_import))
 
 
 BinaryenFunctionImportGetBase = FunctionImportGetBase
@@ -12116,7 +12151,7 @@ BinaryenFunctionImportGetBase = FunctionImportGetBase
 def TableImportGetBase(
     _import: BinaryenTableRef,
 ) -> str:
-    return lib.BinaryenTableImportGetBase(_import)
+    return _dec(lib.BinaryenTableImportGetBase(_import))
 
 
 BinaryenTableImportGetBase = TableImportGetBase
@@ -12125,7 +12160,7 @@ BinaryenTableImportGetBase = TableImportGetBase
 def GlobalImportGetBase(
     _import: BinaryenGlobalRef,
 ) -> str:
-    return lib.BinaryenGlobalImportGetBase(_import)
+    return _dec(lib.BinaryenGlobalImportGetBase(_import))
 
 
 BinaryenGlobalImportGetBase = GlobalImportGetBase
@@ -12134,7 +12169,7 @@ BinaryenGlobalImportGetBase = GlobalImportGetBase
 def TagImportGetBase(
     _import: BinaryenTagRef,
 ) -> str:
-    return lib.BinaryenTagImportGetBase(_import)
+    return _dec(lib.BinaryenTagImportGetBase(_import))
 
 
 BinaryenTagImportGetBase = TagImportGetBase
@@ -12154,7 +12189,7 @@ def ExportGetName(
     export_: BinaryenExportRef,
 ) -> str:
     """ Gets the external name of the specified export. """
-    return lib.BinaryenExportGetName(export_)
+    return _dec(lib.BinaryenExportGetName(export_))
 
 
 BinaryenExportGetName = ExportGetName
@@ -12164,7 +12199,7 @@ def ExportGetValue(
     export_: BinaryenExportRef,
 ) -> str:
     """ Gets the internal name of the specified export. """
-    return lib.BinaryenExportGetValue(export_)
+    return _dec(lib.BinaryenExportGetValue(export_))
 
 
 BinaryenExportGetValue = ExportGetValue
@@ -12329,7 +12364,7 @@ def RelooperAddBlock(
 def RelooperAddBranch(
     _from: RelooperBlockRef,
     to: RelooperBlockRef,
-    condition: BinaryenExpressionRef,
+    condition: Optional[BinaryenExpressionRef],
     code: Optional[BinaryenExpressionRef],
 ) -> None:
     """
@@ -12337,7 +12372,7 @@ def RelooperAddBranch(
     The branch can have code on it, that is executed as the branch happens. this
     is useful for phis. otherwise, code can be NULL
     """
-    lib.RelooperAddBranch(_from, to, condition, code)
+    lib.RelooperAddBranch(_from, to, _opt(condition), _opt(code))
 
 
 def RelooperAddBlockWithSwitch(
@@ -12352,15 +12387,14 @@ def RelooperAddBlockWithSwitch(
 def RelooperAddBranchForSwitch(
     _from: RelooperBlockRef,
     to: RelooperBlockRef,
-    indexes: List[BinaryenIndex],
-    num_indexes: BinaryenIndex,
-    code: BinaryenExpressionRef,
+    indexes: Optional[List[BinaryenIndex]],
+    code: Optional[BinaryenExpressionRef],
 ) -> None:
     """
     Create a switch-style branch to another basic block. The block's switch table
     will have these indexes going to that target
     """
-    lib.RelooperAddBranchForSwitch(_from, to, indexes, num_indexes, code)
+    lib.RelooperAddBranchForSwitch(_from, to, _opt_seq(indexes), _len(indexes), _opt(code))
 
 
 def RelooperRenderAndDispose(
@@ -12536,10 +12570,9 @@ def TypeBuilderSetStructType(
     field_types: List[BinaryenType],
     field_packed_types: List[BinaryenPackedType],
     field_mutables: List[bool],
-    num_fields: int,
 ) -> None:
     """ Sets the heap type at index `index` to a concrete struct type. """
-    lib.TypeBuilderSetStructType(builder, index, field_types, field_packed_types, field_mutables, num_fields)
+    lib.TypeBuilderSetStructType(builder, index, field_types, field_packed_types, field_mutables, len(field_mutables))
 
 
 def TypeBuilderSetArrayType(
@@ -12583,10 +12616,9 @@ def TypeBuilderGetTempHeapType(
 def TypeBuilderGetTempTupleType(
     builder: TypeBuilderRef,
     types: List[BinaryenType],
-    num_types: BinaryenIndex,
 ) -> BinaryenType:
     """ Gets a temporary tuple type for use with and owned by the type builder. """
-    return lib.TypeBuilderGetTempTupleType(builder, types, num_types)
+    return lib.TypeBuilderGetTempTupleType(builder, types, len(types))
 
 
 def TypeBuilderGetTempRefType(
@@ -12622,14 +12654,22 @@ def TypeBuilderCreateRecGroup(
 def TypeBuilderBuildAndDispose(
     builder: TypeBuilderRef,
     heap_types: List[BinaryenHeapType],
-    error_index: List[BinaryenIndex],
-    error_reason: List[TypeBuilderErrorReason],
-) -> bool:
+) -> Tuple[bool, BinaryenIndex, TypeBuilderErrorReason]:
     """
     Builds the heap type hierarchy and disposes the builder. Returns `false` and
     populates `errorIndex` and `errorReason` on failure.
     """
-    return lib.TypeBuilderBuildAndDispose(builder, heap_types, error_index, error_reason)
+    dim = lib.TypeBuilderGetSize(builder)
+    _error_index = ffi.new('BinaryenIndex*')
+    _error_reason = ffi.new('TypeBuilderErrorReason*')
+    _heap_types = ffi.new(f'BinaryenHeapType[{dim}]')
+    result = lib.TypeBuilderBuildAndDispose(builder, _heap_types, _error_index, _error_reason)
+    heap_types[:] = _heap_types
+    return (
+        result,
+        ffi.cast(ffi.typeof('uint32_t *'), _error_index)[0],
+        ffi.cast(ffi.typeof('uint32_t *'), _error_reason)[0]
+    )
 
 
 def ModuleSetTypeName(

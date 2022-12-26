@@ -7,7 +7,7 @@ from nxbinaryen.capi import *
 
 
 def printf(fmt: str, *values):
-    fmt = fmt.replace('%zd', '%d')
+    fmt = fmt.replace('%zd', '%d').replace('\n', '')
     print(fmt % values)
 
 
@@ -20,7 +20,7 @@ def abort():
 
 # -------- c-api-kitchen-sink.c --------
 
-v128_bytes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+v128_bytes = bytes([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
 
 
 def makeUnary(module: BinaryenModuleRef, op: BinaryenOp, inputType: BinaryenType) -> BinaryenExpressionRef:
@@ -139,7 +139,7 @@ def makeSIMDReplace(module: BinaryenModuleRef, op: BinaryenOp, type: BinaryenTyp
 def makeSIMDShuffle(module: BinaryenModuleRef) -> BinaryenExpressionRef:
     left = makeVec128(module, v128_bytes)
     right = makeVec128(module, v128_bytes)
-    return BinaryenSIMDShuffle(module, left, right, [])  # (uint8_t[16])
+    return BinaryenSIMDShuffle(module, left, right, bytes([0] * 16))  # (uint8_t[16])
 
 
 def makeSIMDTernary(module: BinaryenModuleRef, op: BinaryenOp) -> BinaryenExpressionRef:
@@ -187,151 +187,150 @@ def test_types():
     none: BinaryenType = BinaryenTypeNone()
     printf('BinaryenTypeNone: %zd\n', none)
     assert (BinaryenTypeArity(none) == 0)
-    # TODO: BinaryenTypeExpand(none, valueType)
-    # TODO: assert (valueType == 0xdeadbeef)
+    valueType = BinaryenTypeExpand(none)
+    assert (not valueType)
 
     unreachable: BinaryenType = BinaryenTypeUnreachable()
     printf('BinaryenTypeUnreachable: %zd\n', unreachable)
     assert (BinaryenTypeArity(unreachable) == 1)
-    # TODO: BinaryenTypeExpand(unreachable, valueType)
-    # TODO: assert (valueType == unreachable)
+    valueType = BinaryenTypeExpand(unreachable)
+    assert (valueType[0] == unreachable)
 
     i32: BinaryenType = BinaryenTypeInt32()
     printf('BinaryenTypeInt32: %zd\n', i32)
     assert (BinaryenTypeArity(i32) == 1)
-    # TODO: BinaryenTypeExpand(i32, valueType)
-    # TODO: assert (valueType == i32)
+    valueType = BinaryenTypeExpand(i32)
+    assert (valueType[0] == i32)
 
     i64: BinaryenType = BinaryenTypeInt64()
     printf('BinaryenTypeInt64: %zd\n', i64)
     assert (BinaryenTypeArity(i64) == 1)
-    # TODO: BinaryenTypeExpand(i64, valueType)
-    # TODO: assert (valueType == i64)
+    valueType = BinaryenTypeExpand(i64)
+    assert (valueType[0] == i64)
 
     f32: BinaryenType = BinaryenTypeFloat32()
     printf('BinaryenTypeFloat32: %zd\n', f32)
     assert (BinaryenTypeArity(f32) == 1)
-    # TODO: BinaryenTypeExpand(f32, valueType)
-    # TODO: assert (valueType == f32)
+    valueType = BinaryenTypeExpand(f32)
+    assert (valueType[0] == f32)
 
     f64 = BinaryenTypeFloat64()
     printf('BinaryenTypeFloat64: %zd\n', f64)
     assert (BinaryenTypeArity(f64) == 1)
-    # TODO: BinaryenTypeExpand(f64, valueType)
-    # TODO: assert (valueType == f64)
+    valueType = BinaryenTypeExpand(f64)
+    assert (valueType[0] == f64)
 
     v128 = BinaryenTypeVec128()
     printf('BinaryenTypeVec128: %zd\n', v128)
     assert (BinaryenTypeArity(v128) == 1)
-    # TODO: BinaryenTypeExpand(v128, valueType)
-    # TODO: assert (valueType == v128)
+    valueType = BinaryenTypeExpand(v128)
+    assert (valueType[0] == v128)
 
     funcref = BinaryenTypeFuncref()
     printf('BinaryenTypeFuncref: (ptr)\n')
     assert (funcref == BinaryenTypeFuncref())
     assert (BinaryenTypeArity(funcref) == 1)
-    # TODO: BinaryenTypeExpand(funcref, valueType)
-    # TODO: assert (valueType == funcref)
+    valueType = BinaryenTypeExpand(funcref)
+    assert (valueType[0] == funcref)
 
     externref = BinaryenTypeExternref()
     printf('BinaryenTypeExternref: (ptr)\n')
     assert (externref == BinaryenTypeExternref())
     assert (BinaryenTypeArity(externref) == 1)
-    # TODO: BinaryenTypeExpand(externref, valueType)
-    # TODO: assert (valueType == externref)
+    valueType = BinaryenTypeExpand(externref)
+    assert (valueType[0] == externref)
 
     anyref = BinaryenTypeAnyref()
     printf('BinaryenTypeAnyref: (ptr)\n')
     assert (anyref == BinaryenTypeAnyref())
     assert (BinaryenTypeArity(anyref) == 1)
-    # TODO: BinaryenTypeExpand(anyref, valueType)
-    # TODO: assert (valueType == anyref)
+    valueType = BinaryenTypeExpand(anyref)
+    assert (valueType[0] == anyref)
 
     eqref = BinaryenTypeEqref()
     printf('BinaryenTypeEqref: (ptr)\n')
     assert (eqref == BinaryenTypeEqref())
     assert (BinaryenTypeArity(eqref) == 1)
-    # TODO: BinaryenTypeExpand(eqref, valueType)
-    # TODO: assert (valueType == eqref)
+    valueType = BinaryenTypeExpand(eqref)
+    assert (valueType[0] == eqref)
 
     i31ref = BinaryenTypeI31ref()
     printf('BinaryenTypeI31ref: (ptr)\n')
     assert (i31ref == BinaryenTypeI31ref())
     assert (BinaryenTypeArity(i31ref) == 1)
-    # TODO: BinaryenTypeExpand(i31ref, valueType)
-    # TODO: assert (valueType == i31ref)
+    valueType = BinaryenTypeExpand(i31ref)
+    assert (valueType[0] == i31ref)
 
     dataref = BinaryenTypeDataref()
     printf('BinaryenTypeDataref: (ptr)\n')
     assert (dataref == BinaryenTypeDataref())
     assert (BinaryenTypeArity(dataref) == 1)
-    # TODO: BinaryenTypeExpand(dataref, valueType)
-    # TODO: assert (valueType == dataref)
+    valueType = BinaryenTypeExpand(dataref)
+    assert (valueType[0] == dataref)
 
     arrayref = BinaryenTypeArrayref()
     printf('BinaryenTypeArrayref: (ptr)\n')
     assert (arrayref == BinaryenTypeArrayref())
     assert (BinaryenTypeArity(arrayref) == 1)
-    # TODO: BinaryenTypeExpand(arrayref, valueType)
-    # TODO: assert (valueType == arrayref)
+    valueType = BinaryenTypeExpand(arrayref)
+    assert (valueType[0] == arrayref)
 
     stringref = BinaryenTypeStringref()
     printf('BinaryenTypeStringref: (ptr)\n')
     assert (BinaryenTypeArity(stringref) == 1)
-    # TODO: BinaryenTypeExpand(stringref, valueType)
-    # TODO: assert (valueType == stringref)
+    valueType = BinaryenTypeExpand(stringref)
+    assert (valueType[0] == stringref)
 
     stringview_wtf8_ = BinaryenTypeStringviewWTF8()
     printf('BinaryenTypeStringviewWTF8: (ptr)\n')
     assert (BinaryenTypeArity(stringview_wtf8_) == 1)
-    # TODO: BinaryenTypeExpand(stringview_wtf8_, valueType)
-    # TODO: assert (valueType == stringview_wtf8_)
+    valueType = BinaryenTypeExpand(stringview_wtf8_)
+    assert (valueType[0] == stringview_wtf8_)
 
     stringview_wtf16_ = BinaryenTypeStringviewWTF16()
     printf('BinaryenTypeStringviewWTF16: (ptr)\n')
     assert (BinaryenTypeArity(stringview_wtf16_) == 1)
-    # TODO: BinaryenTypeExpand(stringview_wtf16_, valueType)
-    # TODO: assert (valueType == stringview_wtf16_)
+    valueType = BinaryenTypeExpand(stringview_wtf16_)
+    assert (valueType[0] == stringview_wtf16_)
 
     stringview_iter_ = BinaryenTypeStringviewIter()
     printf('BinaryenTypeStringviewIter: (ptr)\n')
     assert (BinaryenTypeArity(stringview_iter_) == 1)
-    # TODO: BinaryenTypeExpand(stringview_iter_, valueType)
-    # TODO: assert (valueType == stringview_iter_)
+    valueType = BinaryenTypeExpand(stringview_iter_)
+    assert (valueType[0] == stringview_iter_)
 
     nullref = BinaryenTypeNullref()
     printf('BinaryenTypeNullref: (ptr)\n')
     assert (BinaryenTypeArity(nullref) == 1)
-    # TODO: BinaryenTypeExpand(nullref, valueType)
-    # TODO: assert (valueType == nullref)
+    valueType = BinaryenTypeExpand(nullref)
+    assert (valueType[0] == nullref)
 
     nullexternref = BinaryenTypeNullExternref()
     printf('BinaryenTypeNullExternref: (ptr)\n')
     assert (BinaryenTypeArity(nullexternref) == 1)
-    # TODO: BinaryenTypeExpand(nullexternref, valueType)
-    # TODO: assert (valueType == nullexternref)
+    valueType = BinaryenTypeExpand(nullexternref)
+    assert (valueType[0] == nullexternref)
 
     nullfuncref = BinaryenTypeNullFuncref()
     printf('BinaryenTypeNullFuncref: (ptr)\n')
     assert (BinaryenTypeArity(nullfuncref) == 1)
-    # TODO: BinaryenTypeExpand(nullfuncref, valueType)
-    # TODO: assert (valueType == nullfuncref)
+    valueType = BinaryenTypeExpand(nullfuncref)
+    assert (valueType[0] == nullfuncref)
 
     printf('BinaryenTypeAuto: %zd\n', BinaryenTypeAuto())
 
     pair = [i32, i32]
 
-    i32_pair = BinaryenTypeCreate(pair, 2)
+    i32_pair = BinaryenTypeCreate(pair)
     assert (BinaryenTypeArity(i32_pair) == 2)
-    # TODO: pair[0] = pair[1] = none
-    # TODO: BinaryenTypeExpand(i32_pair, pair)
-    # TODO: assert (pair[0] == i32 and pair[1] == i32)
+    pair = BinaryenTypeExpand(i32_pair)
+    assert (pair[0] == i32 and pair[1] == i32)
 
-    duplicate_pair = BinaryenTypeCreate(pair, 2)
+    duplicate_pair = BinaryenTypeCreate(pair)
     assert (duplicate_pair == i32_pair)
 
     pair[0] = pair[1] = f32
-    float_pair = BinaryenTypeCreate(pair, 2)
+    float_pair = BinaryenTypeCreate(pair)
     assert (float_pair != i32_pair)
 
     notPacked = BinaryenPackedTypeNotPacked()
@@ -408,9 +407,9 @@ def test_core():
     constI64 = BinaryenConst(module, BinaryenLiteralInt64(2))
     constF32 = BinaryenConst(module, BinaryenLiteralFloat32(3.14))
     constF64 = BinaryenConst(module, BinaryenLiteralFloat64(2.1828))
-    constF32Bits = BinaryenConst(module, BinaryenLiteralFloat32Bits(0xffff1234))
+    # TODO: constF32Bits = BinaryenConst(module, BinaryenLiteralFloat32Bits(0xffff1234))            # smth w/ overflow
     # TODO: constF64Bits = BinaryenConst(module, BinaryenLiteralFloat64Bits(0xffff12345678abcdLL))  # smth w/ overflow
-    # TODO: constV128 = BinaryenConst(module, BinaryenLiteralVec128(v128_bytes))                    # smth w/ overflow
+    constV128 = BinaryenConst(module, BinaryenLiteralVec128(v128_bytes))
 
     switchValueNames = ['the-value']
     switchBodyNames = ['the-nothing']
@@ -446,7 +445,7 @@ def test_core():
         BinaryenTypeFloat32(),
         BinaryenTypeFloat64()
     ]
-    iIfF = BinaryenTypeCreate(iIfF_, 4)
+    iIfF = BinaryenTypeCreate(iIfF_)
 
     temp1 = makeInt32(module, 1)
     temp2 = makeInt32(module, 2)
@@ -485,7 +484,7 @@ def test_core():
     #   (catch_all)
     # )
     tryBody = BinaryenThrow(
-        module, 'a-tag', [makeInt32(module, 0)], 1)
+        module, 'a-tag', [makeInt32(module, 0)])
     catchBody = BinaryenDrop(module, BinaryenPop(module, BinaryenTypeInt32()))
     catchAllBody = BinaryenNop(module)
     catchTags = ['a-tag']
@@ -513,18 +512,16 @@ def test_core():
         2,
         [BinaryenTypeInt32()],
         [BinaryenPackedTypeNotPacked()],
-        [True],
-        1)
+        [True])
 
-    builtHeapTypes = []  # BinaryenHeapType builtHeapTypes[3]
-    # TODO: TypeBuilderBuildAndDispose(tb, builtHeapTypes, 0, 0)  # (BinaryenHeapType*)
-    # TODO: i8Array = BinaryenTypeFromHeapType(builtHeapTypes[0], True)
-    # TODO: i16Array = BinaryenTypeFromHeapType(builtHeapTypes[1], True)
-    # TODO: i32Struct = BinaryenTypeFromHeapType(builtHeapTypes[2], True)
+    result, errorIndex, errorReason = TypeBuilderBuildAndDispose(tb, builtHeapTypes := [])
+    i8Array = BinaryenTypeFromHeapType(builtHeapTypes[0], True)
+    i16Array = BinaryenTypeFromHeapType(builtHeapTypes[1], True)
+    i32Struct = BinaryenTypeFromHeapType(builtHeapTypes[2], True)
 
     # Memory. Add it before creating any memory-using instructions.
 
-    segments = ['hello, world', 'I am passive']
+    segments = [b'hello, world', b'I am passive']
     segmentPassive = [False, True]
     segmentOffsets = [
         BinaryenConst(module, BinaryenLiteralInt32(10)), None
@@ -538,7 +535,6 @@ def test_core():
                       segmentPassive,
                       segmentOffsets,
                       segmentSizes,
-                      2,
                       True,
                       False,
                       '0')
@@ -934,7 +930,8 @@ def test_core():
         makeMemoryCopy(module),
         makeMemoryFill(module),
         # All the rest
-        BinaryenBlock(module, None, None, 0, -1),  # block with no name and no type
+        # TODO: The last arg was -1, Auto or None? Double check buffer overflow
+        BinaryenBlock(module, None, None, BinaryenTypeAuto()),  # block with no name and no type
         BinaryenIf(module, temp1, temp2, temp3),
         BinaryenIf(module, temp4, temp5, None),
         BinaryenLoop(module, 'in', makeInt32(module, 0)),
@@ -943,14 +940,14 @@ def test_core():
         BinaryenBreak(module, 'the-nothing', makeInt32(module, 2), None),
         BinaryenBreak(module, 'the-value', None, makeInt32(module, 3)),
         BinaryenBreak(module, 'the-nothing', None, None),
-        BinaryenSwitch(module, switchValueNames, 1, 'the-value', temp8, temp9),
+        BinaryenSwitch(module, switchValueNames, 'the-value', temp8, temp9),
         BinaryenSwitch(
-            module, switchBodyNames, 1, 'the-nothing', makeInt32(module, 2), None),
+            module, switchBodyNames, 'the-nothing', makeInt32(module, 2), None),
         BinaryenUnary(
             module,
             BinaryenEqZInt32(),  # check the output type of the call node
             BinaryenCall(
-                module, 'kitchen()sinker', callOperands4, 4, BinaryenTypeInt32())),
+                module, 'kitchen()sinker', callOperands4, BinaryenTypeInt32())),
         BinaryenUnary(module,
                       BinaryenEqZInt32(),  # check the output type of the call node
                       BinaryenUnary(module,
@@ -958,7 +955,6 @@ def test_core():
                                     BinaryenCall(module,
                                                  'an-imported',
                                                  callOperands2,
-                                                 2,
                                                  BinaryenTypeFloat32()))),
         BinaryenUnary(module,
                       BinaryenEqZInt32(),  # check the output type of the call node
@@ -966,7 +962,6 @@ def test_core():
                                            'tab',
                                            makeInt32(module, 2449),
                                            callOperands4b,
-                                           4,
                                            iIfF,
                                            BinaryenTypeInt32())),
         BinaryenDrop(module, BinaryenLocalGet(module, 0, BinaryenTypeInt32())),
@@ -988,12 +983,11 @@ def test_core():
         BinaryenReturn(module, makeInt32(module, 1337)),
         # Tail call
         BinaryenReturnCall(
-            module, 'kitchen()sinker', callOperands4, 4, BinaryenTypeInt32()),
+            module, 'kitchen()sinker', callOperands4, BinaryenTypeInt32()),
         BinaryenReturnCallIndirect(module,
                                    'tab',
                                    makeInt32(module, 2449),
                                    callOperands4b,
-                                   4,
                                    iIfF,
                                    BinaryenTypeInt32()),
         # Reference types
@@ -1037,7 +1031,7 @@ def test_core():
                       BinaryenRefAsExternExternalize(),
                       BinaryenRefNull(module, BinaryenTypeNullref())),
         # Exception handling
-        BinaryenTry(module, None, tryBody, catchTags, 1, catchBodies, 2, None),
+        BinaryenTry(module, None, tryBody, catchTags, catchBodies, None),
         # (try $try_outer
         #   (do
         #     (try
@@ -1055,14 +1049,10 @@ def test_core():
                                 None,
                                 tryBody,
                                 emptyCatchTags,
-                                0,
                                 emptyCatchBodies,
-                                0,
                                 'try_outer'),
                     emptyCatchTags,
-                    0,
                     nopCatchBody,
-                    1,
                     None),
         # Atomics
         BinaryenAtomicStore(
@@ -1079,9 +1069,9 @@ def test_core():
         BinaryenDrop(module, BinaryenAtomicNotify(module, temp6, temp6, '0')),
         BinaryenAtomicFence(module),
         # Tuples
-        BinaryenTupleMake(module, tupleElements4a, 4),
+        BinaryenTupleMake(module, tupleElements4a),
         BinaryenTupleExtract(
-            module, BinaryenTupleMake(module, tupleElements4b, 4), 2),
+            module, BinaryenTupleMake(module, tupleElements4b), 2),
         # Pop
         BinaryenPop(module, BinaryenTypeInt32()),
         BinaryenPop(module, BinaryenTypeInt64()),
@@ -1103,10 +1093,9 @@ def test_core():
         BinaryenRefCast(module,
                         BinaryenGlobalGet(module, 'i8Array-global', i8Array),
                         BinaryenTypeGetHeapType(i8Array)),
-        BinaryenStructNew(module, 0, 0, BinaryenTypeGetHeapType(i32Struct)),
+        BinaryenStructNew(module, None, BinaryenTypeGetHeapType(i32Struct)),
         BinaryenStructNew(module,
                           [makeInt32(module, 0)],
-                          1,
                           BinaryenTypeGetHeapType(i32Struct)),
         BinaryenStructGet(module,
                           0,
@@ -1118,7 +1107,7 @@ def test_core():
                           BinaryenGlobalGet(module, 'i32Struct-global', i32Struct),
                           makeInt32(module, 0)),
         BinaryenArrayNew(
-            module, BinaryenTypeGetHeapType(i8Array), makeInt32(module, 3), 0),
+            module, BinaryenTypeGetHeapType(i8Array), makeInt32(module, 3), None),
         BinaryenArrayNew(module,
                          BinaryenTypeGetHeapType(i8Array),
                          makeInt32(module, 3),
@@ -1129,8 +1118,7 @@ def test_core():
                               makeInt32(module, 1),
                               makeInt32(module, 2),
                               makeInt32(module, 3),
-                          ],
-                          3),
+                          ]),
         BinaryenArrayGet(module,
                          BinaryenGlobalGet(module, 'i8Array-global', i8Array),
                          makeInt32(module, 0),
@@ -1153,48 +1141,48 @@ def test_core():
                           BinaryenStringNewUTF8(),
                           makeInt32(module, 0),
                           makeInt32(module, 0),
-                          0,
-                          0),
+                          None,
+                          None),
         BinaryenStringNew(module,
                           BinaryenStringNewWTF8(),
                           makeInt32(module, 0),
                           makeInt32(module, 0),
-                          0,
-                          0),
+                          None,
+                          None),
         BinaryenStringNew(module,
                           BinaryenStringNewReplace(),
                           makeInt32(module, 0),
                           makeInt32(module, 0),
-                          0,
-                          0),
+                          None,
+                          None),
         BinaryenStringNew(module,
                           BinaryenStringNewWTF16(),
                           makeInt32(module, 0),
                           makeInt32(module, 0),
-                          0,
-                          0),
+                          None,
+                          None),
         BinaryenStringNew(module,
                           BinaryenStringNewUTF8Array(),
                           BinaryenGlobalGet(module, 'i8Array-global', i8Array),
-                          0,
+                          None,
                           makeInt32(module, 0),
                           makeInt32(module, 0)),
         BinaryenStringNew(module,
                           BinaryenStringNewWTF8Array(),
                           BinaryenGlobalGet(module, 'i8Array-global', i8Array),
-                          0,
+                          None,
                           makeInt32(module, 0),
                           makeInt32(module, 0)),
         BinaryenStringNew(module,
                           BinaryenStringNewReplaceArray(),
                           BinaryenGlobalGet(module, 'i8Array-global', i8Array),
-                          0,
+                          None,
                           makeInt32(module, 0),
                           makeInt32(module, 0)),
         BinaryenStringNew(module,
                           BinaryenStringNewWTF16Array(),
                           BinaryenGlobalGet(module, 'i16Array-global', i8Array),
-                          0,
+                          None,
                           makeInt32(module, 0),
                           makeInt32(module, 0)),
         BinaryenStringConst(module, 'hello world'),
@@ -1226,19 +1214,19 @@ def test_core():
             BinaryenStringEncodeUTF8(),
             BinaryenGlobalGet(module, 'string-global', BinaryenTypeStringref()),
             makeInt32(module, 0),
-            0),
+            None),
         BinaryenStringEncode(
             module,
             BinaryenStringEncodeWTF8(),
             BinaryenGlobalGet(module, 'string-global', BinaryenTypeStringref()),
             makeInt32(module, 0),
-            0),
+            None),
         BinaryenStringEncode(
             module,
             BinaryenStringEncodeWTF16(),
             BinaryenGlobalGet(module, 'string-global', BinaryenTypeStringref()),
             makeInt32(module, 0),
-            0),
+            None),
         BinaryenStringEncode(
             module,
             BinaryenStringEncodeUTF8Array(),
@@ -1352,17 +1340,17 @@ def test_core():
     value = BinaryenBlock(module,
                           'the-value',
                           valueList,
-                          len(valueList),
                           BinaryenTypeAuto())
     droppedValue = BinaryenDrop(module, value)
-    nothing = BinaryenBlock(module, 'the-nothing', droppedValue, 1, -1)
+    # TODO: The last arg was -1, Auto or None? Double check buffer overflow
+    nothing = BinaryenBlock(module, 'the-nothing', droppedValue, BinaryenTypeAuto())
     bodyList = [nothing, makeInt32(module, 42)]
-    body = BinaryenBlock(module, 'the-body', bodyList, 2, BinaryenTypeAuto())
+    body = BinaryenBlock(module, 'the-body', bodyList, BinaryenTypeAuto())
 
     # Create the function
     localTypes = [BinaryenTypeInt32(), BinaryenTypeExternref()]
     sinker = BinaryenAddFunction(
-        module, 'kitchen()sinker', iIfF, BinaryenTypeInt32(), localTypes, 2, body)
+        module, 'kitchen()sinker', iIfF, BinaryenTypeInt32(), localTypes, body)
 
     # Globals
 
@@ -1379,20 +1367,20 @@ def test_core():
         i8Array,
         True,
         BinaryenArrayNew(
-            module, BinaryenTypeGetHeapType(i8Array), makeInt32(module, 0), 0))
+            module, BinaryenTypeGetHeapType(i8Array), makeInt32(module, 0), None))
     BinaryenAddGlobal(
         module,
         'i16Array-global',
         i16Array,
         True,
         BinaryenArrayNew(
-            module, BinaryenTypeGetHeapType(i16Array), makeInt32(module, 0), 0))
+            module, BinaryenTypeGetHeapType(i16Array), makeInt32(module, 0), None))
     BinaryenAddGlobal(
         module,
         'i32Struct-global',
         i32Struct,
         True,
-        BinaryenStructNew(module, 0, 0, BinaryenTypeGetHeapType(i32Struct)))
+        BinaryenStructNew(module, None, BinaryenTypeGetHeapType(i32Struct)))
     BinaryenAddGlobal(module,
                       'string-global',
                       BinaryenTypeStringref(),
@@ -1402,7 +1390,7 @@ def test_core():
     # Imports
 
     iF_ = [BinaryenTypeInt32(), BinaryenTypeFloat64()]
-    iF = BinaryenTypeCreate(iF_, 2)
+    iF = BinaryenTypeCreate(iF_)
     BinaryenAddFunctionImport(
         module, 'an-imported', 'module', 'base', iF, BinaryenTypeFloat32())
 
@@ -1418,10 +1406,9 @@ def test_core():
         '0',
         '0',
         funcNames,
-        1,
         BinaryenConst(module, BinaryenLiteralInt32(0)))
-    BinaryenAddPassiveElementSegment(module, 'passive', funcNames, 1)
-    BinaryenAddPassiveElementSegment(module, 'p2', funcNames, 1)
+    BinaryenAddPassiveElementSegment(module, 'passive', funcNames)
+    BinaryenAddPassiveElementSegment(module, 'p2', funcNames)
     BinaryenRemoveElementSegment(module, 'p2')
 
     funcrefExpr1 = BinaryenRefFunc(module, 'kitchen()sinker', BinaryenTypeFuncref())
@@ -1454,7 +1441,6 @@ def test_core():
                                   BinaryenTypeNone(),
                                   BinaryenTypeNone(),
                                   None,
-                                  0,
                                   BinaryenNop(module))
     BinaryenSetStart(module, starter)
 
@@ -1481,7 +1467,6 @@ def test_unreachable():
                                 'invalid-table',
                                 BinaryenUnreachable(module),
                                 None,
-                                0,
                                 BinaryenTypeNone(),
                                 BinaryenTypeInt64())
     fn = BinaryenAddFunction(module,
@@ -1489,7 +1474,6 @@ def test_unreachable():
                              BinaryenTypeNone(),
                              BinaryenTypeInt32(),
                              None,
-                             0,
                              body)
 
     assert (BinaryenModuleValidate(module))
@@ -1499,7 +1483,7 @@ def test_unreachable():
 
 def makeCallCheck(module: BinaryenModuleRef, x: int) -> BinaryenExpressionRef:
     callOperands = [makeInt32(module, x)]
-    return BinaryenCall(module, 'check', callOperands, 1, BinaryenTypeNone())
+    return BinaryenCall(module, 'check', callOperands, BinaryenTypeNone())
 
 
 def test_relooper():
@@ -1522,7 +1506,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # two blocks
@@ -1537,7 +1520,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # two blocks with code between them
@@ -1552,7 +1534,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # two blocks in a loop
@@ -1567,7 +1548,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # two blocks in a loop with codes
@@ -1582,7 +1562,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # split
@@ -1598,7 +1577,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # split + code
@@ -1615,7 +1593,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # if
@@ -1632,7 +1609,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # if + code
@@ -1650,7 +1626,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # if-else
@@ -1669,7 +1644,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # loop+tail
@@ -1686,7 +1660,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # nontrivial loop + phi to head
@@ -1713,7 +1686,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # switch
@@ -1729,18 +1701,17 @@ def test_relooper():
     block2 = RelooperAddBlock(relooper, makeCallCheck(module, 2))
     block3 = RelooperAddBlock(relooper, makeCallCheck(module, 3))
     to_block1 = [2, 5]
-    RelooperAddBranchForSwitch(block0, block1, to_block1, 2, None)
+    RelooperAddBranchForSwitch(block0, block1, to_block1, None)
     to_block2 = [4]
     RelooperAddBranchForSwitch(
-        block0, block2, to_block2, 1, makeDroppedInt32(module, 55))
-    RelooperAddBranchForSwitch(block0, block3, None, 0, None)
+        block0, block2, to_block2, makeDroppedInt32(module, 55))
+    RelooperAddBranchForSwitch(block0, block3, None, None)
     body = RelooperRenderAndDispose(relooper, block0, 0)
     sinker = BinaryenAddFunction(module,
                                  'switch',
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 1,
                                  body)
 
     # duff's device
@@ -1767,7 +1738,6 @@ def test_relooper():
                                  BinaryenTypeNone(),
                                  BinaryenTypeNone(),
                                  localTypes,
-                                 len(localTypes),
                                  body)
 
     # return in a block
@@ -1776,15 +1746,15 @@ def test_relooper():
         makeCallCheck(module, 42),
         BinaryenReturn(module, makeInt32(module, 1337))
     ]
-    list = BinaryenBlock(module, 'the-list', listList, 2, -1)
+    # TODO: The last arg was -1, Auto or None? Double check buffer overflow
+    list = BinaryenBlock(module, 'the-list', listList, BinaryenTypeAuto())
     block = RelooperAddBlock(relooper, list)
     body = RelooperRenderAndDispose(relooper, block, 0)
     sinker = BinaryenAddFunction(module,
                                  'return',
                                  BinaryenTypeNone(),
                                  BinaryenTypeInt32(),
-                                 localTypes,
-                                 1,
+                                 localTypes[0:1],  # TODO: Manual fix due to size=1 in the original test
                                  body)
 
     printf('raw:\n')
@@ -1803,20 +1773,20 @@ def test_relooper():
 
 
 def test_binaries():
-    buffer = []  # char buffer[1024]
+    # char buffer[1024]
     # size_t size
 
     # create a module and write it to binary
     module = BinaryenModuleCreate()
     ii_ = [BinaryenTypeInt32(), BinaryenTypeInt32()]
-    ii = BinaryenTypeCreate(ii_, 2)
+    ii = BinaryenTypeCreate(ii_)
     x = BinaryenLocalGet(module, 0, BinaryenTypeInt32())
     y = BinaryenLocalGet(module, 1, BinaryenTypeInt32())
     add = BinaryenBinary(module, BinaryenAddInt32(), x, y)
     adder = BinaryenAddFunction(
-        module, 'adder', ii, BinaryenTypeInt32(), None, 0, add)
+        module, 'adder', ii, BinaryenTypeInt32(), None, add)
     BinaryenSetDebugInfo(True)  # include names section
-    size = BinaryenModuleWrite(module, buffer, 1024)  # write out the module
+    buffer, size = BinaryenModuleWrite(module, 1024)  # write out the module
     BinaryenSetDebugInfo(False)
     BinaryenModuleDispose(module)
 
@@ -1832,7 +1802,7 @@ def test_binaries():
     BinaryenModulePrint(module)
 
     # write the s-expr representation of the module.
-    BinaryenModuleWriteText(module, buffer, 1024)
+    buffer, _ = BinaryenModuleWriteText(module, 1024)
     printf('module s-expr printed (in memory):\n%s\n', buffer)
 
     # writ the s-expr representation to a pointer which is managed by the
@@ -1858,9 +1828,9 @@ def test_interpret():
                               BinaryenTypeNone())
 
     callOperands = [makeInt32(module, 1234)]
-    call = BinaryenCall(module, 'print-i32', callOperands, 1, BinaryenTypeNone())
+    call = BinaryenCall(module, 'print-i32', callOperands, BinaryenTypeNone())
     starter = BinaryenAddFunction(
-        module, 'starter', BinaryenTypeNone(), BinaryenTypeNone(), None, 0, call)
+        module, 'starter', BinaryenTypeNone(), BinaryenTypeNone(), None, call)
     BinaryenSetStart(module, starter)
 
     BinaryenModulePrint(module)
@@ -1880,7 +1850,6 @@ def test_nonvalid():
         BinaryenTypeNone(),
         BinaryenTypeNone(),
         localTypes,
-        1,
         BinaryenLocalSet(module, 0, makeInt64(module, 1234))  # wrong type!
     )
 
@@ -1910,21 +1879,18 @@ def test_for_each():
                             BinaryenTypeNone(),
                             BinaryenTypeNone(),
                             None,
-                            0,
                             BinaryenNop(module)),
         BinaryenAddFunction(module,
                             'fn1',
                             BinaryenTypeNone(),
                             BinaryenTypeNone(),
                             None,
-                            0,
                             BinaryenNop(module)),
         BinaryenAddFunction(module,
                             'fn2',
                             BinaryenTypeNone(),
                             BinaryenTypeNone(),
                             None,
-                            0,
                             BinaryenNop(module)),
     ]
     for idx in range(BinaryenGetNumFunctions(module)):
@@ -1938,7 +1904,7 @@ def test_for_each():
     for idx in range(BinaryenGetNumExports(module)):
         assert (BinaryenGetExportByIndex(module, idx) == exps[idx])
 
-    segments = ['hello, world', 'segment data 2']
+    segments = [b'hello, world', b'segment data 2']
     expected_offsets = [10, 125]
     segmentPassive = [False, False]
     segmentSizes = [12, 14]
@@ -1955,7 +1921,6 @@ def test_for_each():
                       segmentPassive,
                       segmentOffsets,
                       segmentSizes,
-                      2,
                       False,
                       False,
                       '0')
@@ -1966,10 +1931,9 @@ def test_for_each():
                       makeInt32(module, expected_offsets[1]))
 
     for idx in range(BinaryenGetNumMemorySegments(module)):
-        out = ''
         assert (BinaryenGetMemorySegmentByteOffset(module, idx) == expected_offsets[idx])
         assert (BinaryenGetMemorySegmentByteLength(module, idx) == segmentSizes[idx])
-        BinaryenCopyMemorySegmentData(module, idx, out)
+        out = BinaryenCopyMemorySegmentData(module, idx)
         assert (segments[idx] == out)
 
     funcNames = [
@@ -1981,7 +1945,7 @@ def test_for_each():
     constExprRef = BinaryenConst(module, BinaryenLiteralInt32(0))
     BinaryenAddTable(module, '0', 1, 1, BinaryenTypeFuncref())
     BinaryenAddActiveElementSegment(
-        module, '0', '0', funcNames, 3, constExprRef)
+        module, '0', '0', funcNames, constExprRef)
     assert (1 == BinaryenGetNumElementSegments(module))
     segment = BinaryenGetElementSegmentByIndex(module, 0)
     assert (constExprRef == BinaryenElementSegmentGetOffset(segment))
@@ -1997,12 +1961,12 @@ def test_for_each():
 def test_func_opt():
     module = BinaryenModuleCreate()
     ii_ = [BinaryenTypeInt32(), BinaryenTypeInt32()]
-    ii = BinaryenTypeCreate(ii_, 2)
+    ii = BinaryenTypeCreate(ii_)
     x = BinaryenConst(module, BinaryenLiteralInt32(1))
     y = BinaryenConst(module, BinaryenLiteralInt32(3))
     add = BinaryenBinary(module, BinaryenAddInt32(), x, y)
     adder = BinaryenAddFunction(
-        module, 'adder', BinaryenTypeNone(), BinaryenTypeInt32(), None, 0, add)
+        module, 'adder', BinaryenTypeNone(), BinaryenTypeInt32(), None, add)
 
     puts('module with a function to optimize:')
     BinaryenModulePrint(module)
@@ -2071,7 +2035,7 @@ def test_typebuilder():
     fieldPackedTypes = [BinaryenPackedTypeNotPacked()]
     fieldMutables = [True]
     TypeBuilderSetStructType(
-        builder, tempStructIndex, fieldTypes, fieldPackedTypes, fieldMutables, 1)
+        builder, tempStructIndex, fieldTypes, fieldPackedTypes, fieldMutables)
 
     # Create a recursive signature with parameter and result including its own
     # type
@@ -2083,7 +2047,7 @@ def test_typebuilder():
     TypeBuilderSetSignatureType(
         builder,
         tempSignatureIndex,
-        TypeBuilderGetTempTupleType(builder, paramTypes, 2),  # (BinaryenType*)
+        TypeBuilderGetTempTupleType(builder, paramTypes),  # (BinaryenType*)
         tempSignatureType)
 
     # Create a basic heap type
@@ -2109,19 +2073,17 @@ def test_typebuilder():
                              tempSubStructIndex,
                              fieldTypes,
                              fieldPackedTypes,
-                             fieldMutables,
-                             2)
+                             fieldMutables)
 
     TypeBuilderSetSubType(builder, tempSubStructIndex, tempStructHeapType)
 
     # TODO: Rtts (post-MVP?)
 
     # Build the type hierarchy and dispose the builder
-    heapTypes = []  # BinaryenHeapType heapTypes[5]
-    errorIndex = None  # BinaryenIndex errorIndex
-    errorReason = None  # TypeBuilderErrorReason errorReason
-    didBuildAndDispose = TypeBuilderBuildAndDispose(
-        builder, heapTypes, errorIndex, errorReason)  # (BinaryenHeapType*)
+    # BinaryenHeapType heapTypes[5]
+    # BinaryenIndex errorIndex
+    # TypeBuilderErrorReason errorReason
+    didBuildAndDispose, errorIndex, errorReason = TypeBuilderBuildAndDispose(builder, heapTypes := [])
     assert didBuildAndDispose
 
     arrayHeapType = heapTypes[tempArrayIndex]
@@ -2161,8 +2123,8 @@ def test_typebuilder():
     signatureType = BinaryenTypeFromHeapType(signatureHeapType, True)
     signatureParams = BinaryenSignatureTypeGetParams(signatureHeapType)
     assert (BinaryenTypeArity(signatureParams) == 2)
-    expandedSignatureParams = []  # expandedSignatureParams[2]
-    BinaryenTypeExpand(signatureParams, expandedSignatureParams)  # (BinaryenType*)
+    # expandedSignatureParams[2]
+    expandedSignatureParams = BinaryenTypeExpand(signatureParams)
     assert (expandedSignatureParams[0] == signatureType)
     assert (expandedSignatureParams[1] == arrayType)
     signatureResults = BinaryenSignatureTypeGetResults(signatureHeapType)
@@ -2217,7 +2179,6 @@ def test_typebuilder():
                         BinaryenTypeNone(),
                         BinaryenTypeNone(),
                         varTypes,
-                        5,
                         BinaryenNop(module))
 
     didValidate = BinaryenModuleValidate(module)
