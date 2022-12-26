@@ -11,6 +11,7 @@ setup(
     license_files=('LICENSE',),
     zip_safe=False,
     include_package_data=True,
+    packages=['nxbinaryen'],
     setup_requires=['cffi>=1.13.2'],
     install_requires=['cffi>=1.13.2'],
     cffi_modules=['scripts/build_ffi.py:ffi'],
