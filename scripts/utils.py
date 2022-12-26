@@ -1,4 +1,5 @@
 import re
+import json
 import keyword
 import subprocess
 
@@ -6,7 +7,7 @@ from pathlib import Path
 from typing import Optional, List
 
 __all__ = [
-    'preprocess_header', 'remove_comments', 'pythonize',
+    'preprocess_header', 'remove_comments', 'pythonize', 'load_config',
     'PY_LIBRARY_PATH', 'BINARYEN_ROOT', 'BINARYEN_C_HEADER_PATH',
 ]
 
@@ -17,10 +18,16 @@ BINARYEN_SRC_PATH = BINARYEN_ROOT / 'src'
 BINARYEN_C_HEADER_PATH = BINARYEN_SRC_PATH / 'binaryen-c.h'
 
 PY_LIBRARY_PATH = SCRIPTS_ROOT.parent / 'nxbinaryen'
+DEFAULT_CONFIG_PATH = SCRIPTS_ROOT / 'capi.config.json'
 
 DEPRECATION_PREFIX = '__attribute__((deprecated))'
 
 SHADOW_NAMES = {'type', 'bytes', 'id', 'max', 'input', 'tuple'}
+
+
+def load_config(config_path: Path = DEFAULT_CONFIG_PATH) -> dict:
+    with open(config_path) as json_file:
+        return json.load(json_file)
 
 
 def to_snake_case(name: str) -> str:
@@ -31,6 +38,7 @@ def to_snake_case(name: str) -> str:
 
 
 def pythonize(name: str) -> str:
+    name = name.replace(' ', '_').replace('/', '').replace('__', '_')
     if keyword.iskeyword(name) or keyword.issoftkeyword(name) or name in SHADOW_NAMES:
         return f'_{name}'
     return to_snake_case(name)

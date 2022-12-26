@@ -6,6 +6,8 @@ import sys
 from nxbinaryen.capi import *
 
 
+# TODO: Redirect all prints (including stdout from libbinaryen) to kitchen_sink.txt,
+#  so we can compare it w/ original c-kitchen-sink.txt from the same release (critical)
 def printf(fmt: str, *values):
     fmt = fmt.replace('%zd', '%d').replace('\n', '')
     print(fmt % values)
@@ -1088,11 +1090,9 @@ def test_core():
         BinaryenI31Get(module, i31refExpr, True),
         BinaryenI31Get(module, BinaryenI31New(module, makeInt32(module, 2)), False),
         BinaryenRefTest(module,
-                        BinaryenGlobalGet(module, 'i8Array-global', i8Array),
-                        BinaryenTypeGetHeapType(i8Array)),
+            BinaryenGlobalGet(module, 'i8Array-global', i8Array), i8Array),
         BinaryenRefCast(module,
-                        BinaryenGlobalGet(module, 'i8Array-global', i8Array),
-                        BinaryenTypeGetHeapType(i8Array)),
+            BinaryenGlobalGet(module, 'i8Array-global', i8Array), i8Array),
         BinaryenStructNew(module, None, BinaryenTypeGetHeapType(i32Struct)),
         BinaryenStructNew(module,
                           [makeInt32(module, 0)],
@@ -1985,9 +1985,9 @@ def test_func_opt():
 
 def test_typesystem():
     defaultTypeSystem = BinaryenGetTypeSystem()
-    assert (defaultTypeSystem == BinaryenTypeSystemEquirecursive())
-    printf('BinaryenTypeSystemEquirecursive: %d\n',
-           BinaryenTypeSystemEquirecursive())
+    assert (defaultTypeSystem == BinaryenTypeSystemIsorecursive())
+    # printf('BinaryenTypeSystemEquirecursive: %d\n',
+    #        BinaryenTypeSystemEquirecursive())
     BinaryenSetTypeSystem(BinaryenTypeSystemNominal())
     assert (BinaryenGetTypeSystem() == BinaryenTypeSystemNominal())
     printf('BinaryenTypeSystemNominal: %d\n', BinaryenTypeSystemNominal())

@@ -1,15 +1,11 @@
 import re
-import json
 import inspect
 import keyword
 
 from pathlib import Path
 from importlib.machinery import SourceFileLoader
 
-
-def load_config(config_path: Path) -> dict:
-    with open(config_path) as json_file:
-        return json.load(json_file)
+from scripts.utils import load_config
 
 
 def _lookup_enum_funcs(module, b_type):
@@ -73,5 +69,5 @@ if __name__ == '__main__':
     generate_enums(
         capi_path=Path('../nxbinaryen/capi.py').resolve(),
         output_path=Path('../nxbinaryen/enums').resolve(),
-        enums=load_config(Path('./capi.config.json').resolve())['enums']
+        enums=load_config()['enums']
     )

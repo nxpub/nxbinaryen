@@ -1,44 +1,9 @@
 # *** DO NOT EDIT ***
 # Auto-generated from binaryen-c.h
 from typing import List, Any, Optional, Tuple
+
 from nxbinaryen.binaryen import ffi, lib
-
-
-def _enc(value: Optional[str]) -> bytes | ffi.CData:
-    if value is None:
-        return ffi.NULL
-    return value.encode()
-
-    
-def _enc_seq(values: List[str]) -> Any:
-    return [ffi.from_buffer(item.encode()) for item in values]
-
-
-def _opt(value: Optional[Any]) -> Any | ffi.CData:
-    return ffi.NULL if value is None else value
-
-
-def _opt_seq(value: Optional[List[Any]]) -> List[Any] | ffi.CData:
-    if value is None:
-        return ffi.NULL
-    if not isinstance(value, list):
-        return [value]
-    # TODO: Should we avoid list recreate? Seems doable
-    # TODO: What's the best type to wrap? Can be a tuple?
-    return [ffi.NULL if item is None else item for item in value]
-
-
-def _len(value: Optional[List[Any]]) -> int:
-    if value is None:
-        return 0
-    if isinstance(value, list):
-        return len(value)
-    return 1
-
-
-def _dec(value: ffi.CData) -> str:
-    return ffi.string(value).decode()
-
+from nxbinaryen.capi.utils import *
 
 BinaryenIndex = int
 BinaryenType = int
@@ -554,11 +519,11 @@ def TypeFromHeapType(
 BinaryenTypeFromHeapType = TypeFromHeapType
 
 
-def TypeSystemEquirecursive() -> BinaryenTypeSystem:
-    return lib.BinaryenTypeSystemEquirecursive()
-
-
-BinaryenTypeSystemEquirecursive = TypeSystemEquirecursive
+# def TypeSystemEquirecursive() -> BinaryenTypeSystem:
+#     return lib.BinaryenTypeSystemEquirecursive()
+#
+#
+# BinaryenTypeSystemEquirecursive = TypeSystemEquirecursive
 
 
 def TypeSystemNominal() -> BinaryenTypeSystem:
@@ -5155,9 +5120,9 @@ BinaryenCallRef = CallRef
 def RefTest(
     module: BinaryenModuleRef,
     ref: BinaryenExpressionRef,
-    intended_type: BinaryenHeapType,
+    cast_type: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenRefTest(module, ref, intended_type)
+    return lib.BinaryenRefTest(module, ref, cast_type)
 
 
 BinaryenRefTest = RefTest
@@ -5166,9 +5131,9 @@ BinaryenRefTest = RefTest
 def RefCast(
     module: BinaryenModuleRef,
     ref: BinaryenExpressionRef,
-    intended_type: BinaryenHeapType,
+    _type: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenRefCast(module, ref, intended_type)
+    return lib.BinaryenRefCast(module, ref, _type)
 
 
 BinaryenRefCast = RefCast
@@ -9247,23 +9212,23 @@ def RefTestSetRef(
 BinaryenRefTestSetRef = RefTestSetRef
 
 
-def RefTestGetIntendedType(
+def RefTestGetCastType(
     expr: BinaryenExpressionRef,
 ) -> BinaryenHeapType:
-    return lib.BinaryenRefTestGetIntendedType(expr)
+    return lib.BinaryenRefTestGetCastType(expr)
 
 
-BinaryenRefTestGetIntendedType = RefTestGetIntendedType
+BinaryenRefTestGetCastType = RefTestGetCastType
 
 
-def RefTestSetIntendedType(
+def RefTestSetCastType(
     expr: BinaryenExpressionRef,
     intended_type: BinaryenHeapType,
 ) -> None:
-    lib.BinaryenRefTestSetIntendedType(expr, intended_type)
+    lib.BinaryenRefTestSetCastType(expr, intended_type)
 
 
-BinaryenRefTestSetIntendedType = RefTestSetIntendedType
+BinaryenRefTestSetCastType = RefTestSetCastType
 
 
 def RefCastGetRef(

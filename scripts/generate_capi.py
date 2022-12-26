@@ -8,7 +8,7 @@ from typing import Tuple, List, Optional
 from pycparser import c_ast, CParser
 
 from scripts.utils import (
-    preprocess_header, remove_comments, pythonize,
+    preprocess_header, remove_comments, pythonize, load_config,
     PY_LIBRARY_PATH, BINARYEN_C_HEADER_PATH
 )
 
@@ -28,6 +28,7 @@ class ParamFlag(IntFlag):
     List = auto()
     Pointer = auto()
     Struct = auto()
+    CalcLen = auto()
 
 
 TYPES_MAP = {
@@ -69,7 +70,7 @@ def to_python_type(c_type, ptr_as_list: bool) -> Tuple[Optional[str], Optional[P
 
 class PyWriter(c_ast.NodeVisitor):
 
-    def __init__(self, source_lines):
+    def __init__(self, source_lines: list[str]):
         self.lines = []
         self._source_lines = source_lines
 
@@ -78,6 +79,10 @@ class PyWriter(c_ast.NodeVisitor):
 
 
 class PyFunctionsWriter(PyWriter):
+
+    def __init__(self, source_lines: list[str], params_config: dict):
+        super().__init__(source_lines)
+        self._params_config = params_config
 
     @staticmethod
     def _get_start_line(func_node) -> int:
@@ -94,15 +99,12 @@ class PyFunctionsWriter(PyWriter):
             node = node.type
         return return_type, func_name
 
-    def _render_params(self, params) -> str:
+    def _render_call_params(self, params) -> str:
         str_builder = []
         for idx, (param_name, param_flag) in enumerate(params):
-            if param_name.startswith('num') and len(param_name) > 3 and param_name[3].isupper():
-                if ParamFlag.List in params[idx - 1][1]:
-                    str_builder.append(f'len({params[idx - 1][0]})')
-                    continue
-            # TODO: Refactor, simplify
-            if param_flag == ParamFlag.Ok:
+            if param_flag == ParamFlag.CalcLen:
+                str_builder.append(f'len({params[idx - 1][0]})')
+            elif param_flag == ParamFlag.Ok:
                 str_builder.append(param_name)
             elif ParamFlag.String in param_flag:
                 if ParamFlag.List in param_flag:
@@ -131,6 +133,14 @@ class PyFunctionsWriter(PyWriter):
             result.append(match.groupdict()['param'])
         return result
 
+    @staticmethod
+    def _is_num_param(param):
+        return (
+            param.name.startswith('num') and
+            len(param.name) > 3 and
+            param.name[3].isupper()
+        )
+
     def visit_FuncDecl(self, node):
         return_type, func_name = self._parse_proto(node)
         if (
@@ -151,13 +161,23 @@ class PyFunctionsWriter(PyWriter):
             if node.args and node.args.params and node.args.params[0].name:
                 self.emit(f'def {py_func_name}(')
                 for idx, param in enumerate(node.args.params):
-                    param_name, (param_type, flag) = None, to_python_type(param.type, ptr_as_list=True)
-                    if param_type:
-                        param_name = pythonize(param.name)
-                        if param.name in optional_params:
-                            param_type = f'Optional[{param_type}]'
+                    # TODO: Remove, we decided to use manual curation
+                    # param_path = f'{func_name}.{param.name}'
+                    # param_meta = self._params_config.get(param_path) or {}
+                    # out_param = param_meta.get('out_param', False)
+                    # Process the param
+                    param_name = pythonize(param.name)
+                    param_type, flag = to_python_type(param.type, ptr_as_list=True)
+                    if param.name in optional_params:
+                        param_type = f'Optional[{param_type}]'
+                    # Let's reduce num* params and calculated them in _render_call_params later
+                    calculated_param = (
+                        self._is_num_param(param) and
+                        ParamFlag.List in params[idx - 1][1]
+                    )
+                    if not calculated_param:
                         self.emit(f'    {param_name}: {param_type},')
-                    params.append((param_name, flag))  # TODO: Add param_type also, wrap as dataclass
+                    params.append((param_name, flag if not calculated_param else ParamFlag.CalcLen))
                 # TODO: Some _render_proto here?
                 self.emit(f') -> {return_type}:')
             else:
@@ -175,7 +195,7 @@ class PyFunctionsWriter(PyWriter):
 
             # TODO: Looks like we should do return lib.xxx anyway, no?
             return_prefix = '' if return_type == 'None' else 'return '
-            self.emit(f'    {return_prefix}lib.{func_name}({self._render_params(params)})')
+            self.emit(f'    {return_prefix}lib.{func_name}({self._render_call_params(params)})')
 
             if remove_prefix:
                 self.emit('\n')
@@ -209,7 +229,7 @@ class PyTypesWriter(PyWriter):
                 self.emit(f'{node.name} = {py_type}')
 
 
-def enforce_empty_lines(header_path: Path, fp) -> None:
+def enforce_empty_lines(fp, header_path: Path) -> None:
     with open(header_path) as h_file:
         for idx, line in enumerate(h_file):
             if not line.strip():
@@ -219,19 +239,45 @@ def enforce_empty_lines(header_path: Path, fp) -> None:
     fp.flush()
 
 
+# TODO: Probably remove, deprecated due to abnormal region size distribution (1st region >3k lines)
+# RE_REGION_NAME = re.compile(r'// =+\s(?P<name>.*?)\s=+')
+#
+#
+# def markup_regions(cdef: str, region_config: dict) -> dict:
+#     region_map, pattern_start, region_name, region_start_pos = {}, False, None, 0
+#     for idx, line in enumerate(map(lambda x: x.strip(), cdef.splitlines())):
+#         if line == '//':
+#             pattern_start = True
+#         elif pattern_start and line.startswith('// ==='):
+#             # Previous region ends
+#             if region_name:
+#                 region_map[region_name] = (region_start_pos, idx - 2)
+#             # New region starts
+#             region_start_pos = idx + 2
+#             region_name = RE_REGION_NAME.search(line).groupdict()['name']
+#             region_name = region_config.get(region_name, pythonize(region_name))
+#             print('->', region_name)
+#         elif pattern_start and line == '//':
+#             pattern_start = False
+#     region_map[region_name] = (region_start_pos, idx)
+#     return region_map
+
+
 def generate_capi(header_path: Path, output_path: Path) -> None:
     parser = CParser()
+    config = load_config()
     # TODO: Revisit?
     with tempfile.NamedTemporaryFile('w+', dir=header_path.parent) as temp_file:
-        enforce_empty_lines(header_path, temp_file)
+        enforce_empty_lines(temp_file, header_path)
         processed_header = preprocess_header(
             Path(temp_file.name),
             strip_deprecated=True, cpp_args=['-Ifake_libc_include', '-CC']
         )
+        # region_map = markup_regions(processed_header, region_config=config['regions'])
     ast = parser.parse(remove_comments(processed_header))
     type_writer = PyTypesWriter(processed_header.splitlines())
     type_writer.visit(ast)
-    func_writer = PyFunctionsWriter(processed_header.splitlines())
+    func_writer = PyFunctionsWriter(processed_header.splitlines(), params_config=config['params'])
     func_writer.visit(ast)
     with open(output_path, 'w') as py_file:
         py_file.write('\n'.join(
