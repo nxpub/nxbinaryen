@@ -15,10 +15,11 @@ from scripts.utils import (
 PY_PROLOGUE = [
     '# *** DO NOT EDIT ***',
     '# Auto-generated from binaryen-c.h',  # TODO: Versioning?
-    'from typing import List, Any, Optional',
-    ''
+    'from typing import List, Any, Optional, Tuple',
+    '',
     'from nxbinaryen.binaryen import ffi, lib',
-    '\n',
+    'from nxbinaryen.capi.utils import *',
+    '',
 ]
 
 
@@ -29,6 +30,7 @@ class ParamFlag(IntFlag):
     Pointer = auto()
     Struct = auto()
     CalcLen = auto()
+    Optional = auto()
 
 
 TYPES_MAP = {
@@ -80,9 +82,11 @@ class PyWriter(c_ast.NodeVisitor):
 
 class PyFunctionsWriter(PyWriter):
 
-    def __init__(self, source_lines: list[str], params_config: dict):
+    def __init__(self, source_lines: list[str], config: dict):
         super().__init__(source_lines)
-        self._params_config = params_config
+        self._optional_params = set(config['optional_params'])
+        self._overriden_types = config['overriden_types']
+        self._params_config = config['params']
 
     @staticmethod
     def _get_start_line(func_node) -> int:
@@ -103,15 +107,20 @@ class PyFunctionsWriter(PyWriter):
         str_builder = []
         for idx, (param_name, param_flag) in enumerate(params):
             if param_flag == ParamFlag.CalcLen:
-                str_builder.append(f'len({params[idx - 1][0]})')
+                str_builder.append(f'_len({params[idx - 1][0]})')
             elif param_flag == ParamFlag.Ok:
                 str_builder.append(param_name)
             elif ParamFlag.String in param_flag:
                 if ParamFlag.List in param_flag:
-                    str_builder.append(f'[item.encode() for item in {param_name}]')
+                    str_builder.append(f'_enc_seq({param_name})')
                 else:
                     # TODO: Use some utils.str_encode(param_name) instead to handle None as ffi.NULL
-                    str_builder.append(f'{param_name}.encode()')
+                    str_builder.append(f'_enc({param_name})')
+            elif ParamFlag.Optional in param_flag:
+                if ParamFlag.List in param_flag:
+                    str_builder.append(f'_opt_seq({param_name})')
+                else:
+                    str_builder.append(f'_opt({param_name})')
             elif ParamFlag.List in param_flag or ParamFlag.Struct in param_flag:
                 str_builder.append(param_name)
             else:
@@ -125,13 +134,18 @@ class PyFunctionsWriter(PyWriter):
             line_idx -= 1
         return result
 
-    RE_POSSIBLE_NULL = re.compile(r'\b(?P<param>[a-zA-Z0-9]+)\s+(can|should)\s+be\s+NULL', re.MULTILINE)
+    RE_POSSIBLE_NULL = re.compile(r'\b(?P<param>[a-zA-Z0-9]+)\s+(can|should)\s+be\s+NULL', re.MULTILINE | re.IGNORECASE)
 
     def _get_optional_params(self, doc_strings: list[str]) -> list[str]:
         result = []
         for match in self.RE_POSSIBLE_NULL.finditer(' '.join(doc_strings)):
             result.append(match.groupdict()['param'])
         return result
+
+    RE_RETURNS_NULL = re.compile(r'returns\sNULL', re.MULTILINE | re.IGNORECASE)
+
+    def _is_optional_return(self, doc_strings: list[str]) -> bool:
+        return bool(self.RE_RETURNS_NULL.search(' '.join(doc_strings)))
 
     @staticmethod
     def _is_num_param(param):
@@ -140,6 +154,8 @@ class PyFunctionsWriter(PyWriter):
             len(param.name) > 3 and
             param.name[3].isupper()
         )
+
+    # TODO: Wrap out params properly
 
     def visit_FuncDecl(self, node):
         return_type, func_name = self._parse_proto(node)
@@ -150,10 +166,11 @@ class PyFunctionsWriter(PyWriter):
             or func_name.startswith('TypeBuilder')
         ):
             # Let's recover some docstrings and extract some info
-            optional_params = []  # TODO: Get some from capi.config.json
+            optional_params, optional_return = [], False
             start_line = self._get_start_line(node)
             if doc_strings := self._get_doc_strings(start_line - 1):
                 optional_params.extend(self._get_optional_params(doc_strings))
+                optional_return = self._is_optional_return(doc_strings)
 
             self.emit('\n')
             params, py_func_name = [], func_name[8:] if remove_prefix else func_name
@@ -161,14 +178,17 @@ class PyFunctionsWriter(PyWriter):
             if node.args and node.args.params and node.args.params[0].name:
                 self.emit(f'def {py_func_name}(')
                 for idx, param in enumerate(node.args.params):
-                    # TODO: Remove, we decided to use manual curation
-                    # param_path = f'{func_name}.{param.name}'
-                    # param_meta = self._params_config.get(param_path) or {}
-                    # out_param = param_meta.get('out_param', False)
+                    param_path = f'{func_name}.{param.name}'
+                    param_meta = self._params_config.get(param_path) or {}
+                    # TODO: out_param = param_meta.get('out_param', False)?
                     # Process the param
                     param_name = pythonize(param.name)
                     param_type, flag = to_python_type(param.type, ptr_as_list=True)
-                    if param.name in optional_params:
+                    if overriden_type := self._overriden_types.get(param_path):
+                        param_type, flag = overriden_type, ParamFlag.Ok
+                    param_type = param_meta.get('type', param_type)  # TODO: Keep only this way to override!
+                    if param.name in optional_params or param_path in self._optional_params:
+                        flag |= ParamFlag.Optional
                         param_type = f'Optional[{param_type}]'
                     # Let's reduce num* params and calculated them in _render_call_params later
                     calculated_param = (
@@ -179,7 +199,10 @@ class PyFunctionsWriter(PyWriter):
                         self.emit(f'    {param_name}: {param_type},')
                     params.append((param_name, flag if not calculated_param else ParamFlag.CalcLen))
                 # TODO: Some _render_proto here?
-                self.emit(f') -> {return_type}:')
+                if optional_return:
+                    self.emit(f') -> Optional[{return_type}]:')
+                else:
+                    self.emit(f') -> {return_type}:')
             else:
                 self.emit(f'def {py_func_name}() -> {return_type}:')
 
@@ -193,9 +216,12 @@ class PyFunctionsWriter(PyWriter):
                         self.emit(f'    {line}')
                     self.emit('    """')
 
-            # TODO: Looks like we should do return lib.xxx anyway, no?
-            return_prefix = '' if return_type == 'None' else 'return '
-            self.emit(f'    {return_prefix}lib.{func_name}({self._render_call_params(params)})')
+            if return_type == 'str':
+                self.emit(f'    return _dec(lib.{func_name}({self._render_call_params(params)}))')
+            else:
+                # TODO: Looks like we should do return lib.xxx anyway, no?
+                return_prefix = '' if return_type == 'None' else 'return '
+                self.emit(f'    {return_prefix}lib.{func_name}({self._render_call_params(params)})')
 
             if remove_prefix:
                 self.emit('\n')
@@ -277,7 +303,7 @@ def generate_capi(header_path: Path, output_path: Path) -> None:
     ast = parser.parse(remove_comments(processed_header))
     type_writer = PyTypesWriter(processed_header.splitlines())
     type_writer.visit(ast)
-    func_writer = PyFunctionsWriter(processed_header.splitlines(), params_config=config['params'])
+    func_writer = PyFunctionsWriter(processed_header.splitlines(), config=config['api'])
     func_writer.visit(ast)
     with open(output_path, 'w') as py_file:
         py_file.write('\n'.join(

@@ -10,11 +10,13 @@ __all__ = [
 def _enc(value: Optional[str]) -> bytes | ffi.CData:
     if value is None:
         return ffi.NULL
+    if isinstance(value, bytes):
+        return value
     return value.encode()
 
 
-def _enc_seq(values: List[str]) -> Any:
-    return [ffi.from_buffer(item.encode()) for item in values]
+def _enc_seq(values: List[str | bytes]) -> Any:
+    return [ffi.from_buffer(_enc(item)) for item in values]
 
 
 def _opt(value: Optional[Any]) -> Any | ffi.CData:
@@ -28,7 +30,7 @@ def _opt_seq(value: Optional[List[Any]]) -> List[Any] | ffi.CData:
         return [value]
     # TODO: Should we avoid list recreate? Seems doable
     # TODO: What's the best type to wrap? Can be a tuple?
-    return [ffi.NULL if item is None else item for item in value]
+    return [_opt(item) for item in value]
 
 
 def _len(value: Optional[List[Any]]) -> int:

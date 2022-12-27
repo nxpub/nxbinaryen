@@ -1,4 +1,36 @@
 {
+  "api": {
+    "optional_params": [
+      "BinaryenBlock.children",
+      "BinaryenIf.in",
+      "BinaryenLoop.in",
+      "BinaryenBreak.value",
+      "BinaryenCallIndirect.operands",
+      "BinaryenStructNew.operands",
+      "BinaryenArrayNew.init",
+      "BinaryenStringNew.length",
+      "BinaryenStringNew.start",
+      "BinaryenStringNew.end",
+      "BinaryenStringEncode.start",
+      "BinaryenAddFunction.varTypes",
+      "RelooperAddBranch.condition",
+      "RelooperAddBranchForSwitch.indexes",
+      "RelooperAddBranchForSwitch.code"
+    ],
+    "union_types": {
+      "BinaryenBlock.children": ["BinaryenExpressionRef"],
+      "BinaryenSetMemory.segmentOffsets": ["None"]
+    },
+    "overriden_types": {
+      "BinaryenSIMDShuffle.mask": "bytes",
+      "BinaryenModuleRead.input": "bytes"
+    },
+    "params": {
+      "BinaryenSetMemory.segments": {
+        "type": "List[bytes]"
+      }
+    }
+  },
   "enums": [
     {
       "module": "typings",
