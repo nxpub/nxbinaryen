@@ -1,8 +1,7 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='nxbinaryen',
-    version='1.111.0',
     url='https://github.com/nxpub/nxbinaryen',
     author='NX Maintainer',
     author_email='support@nx.pub',
@@ -11,8 +10,16 @@ setup(
     license_files=('LICENSE',),
     zip_safe=False,
     include_package_data=True,
-    packages=['nxbinaryen'],
-    setup_requires=['cffi>=1.13.2'],
+    packages=find_packages('nxbinaryen', '*'),
+    use_scm_version={
+        'root': './binaryen',
+        'tag_regex': r'^version_(?P<version>\d{3})$',
+        'relative_to': __file__,
+        'write_to': '../nxbinaryen/__init__.py',
+        'write_to_template': '__version__ = \'{version}\'\n',
+        'local_scheme': 'node-and-date',
+    },
+    setup_requires=['cffi>=1.13.2', 'setuptools_scm'],
     install_requires=['cffi>=1.13.2'],
     cffi_modules=['scripts/build_ffi.py:ffi'],
     classifiers=[
