@@ -1,39 +1,45 @@
 # *** DO NOT EDIT ***
 # Auto-generated from binaryen-c.h
-from typing import List, Any, Optional, Tuple
+from dataclasses import dataclass
+from typing import List, Any, Optional, Tuple, NewType
 
 from nxbinaryen.binaryen import ffi, lib
 from nxbinaryen.capi.utils import *
 
 BinaryenIndex = int
-BinaryenType = int
-BinaryenPackedType = int
-BinaryenHeapType = int
-BinaryenTypeSystem = int
-BinaryenExpressionId = int
-BinaryenExternalKind = int
-BinaryenFeatures = int
-BinaryenModuleRef = int
+BinaryenType = NewType('BinaryenType', int)
+BinaryenPackedType = NewType('BinaryenPackedType', int)
+BinaryenHeapType = NewType('BinaryenHeapType', int)
+BinaryenTypeSystem = NewType('BinaryenTypeSystem', int)
+BinaryenExpressionId = NewType('BinaryenExpressionId', int)
+BinaryenExternalKind = NewType('BinaryenExternalKind', int)
+BinaryenFeatures = NewType('BinaryenFeatures', int)
+BinaryenModuleRef = NewType('BinaryenModuleRef', int)
 BinaryenLiteral = Any  # struct
-BinaryenOp = int
-BinaryenExpressionRef = int
-BinaryenFunctionRef = int
-BinaryenMemoryRef = int
-BinaryenExportRef = int
-BinaryenGlobalRef = int
-BinaryenTagRef = int
-BinaryenTableRef = int
-BinaryenElementSegmentRef = int
+BinaryenOp = NewType('BinaryenOp', int)
+BinaryenExpressionRef = NewType('BinaryenExpressionRef', int)
+BinaryenFunctionRef = NewType('BinaryenFunctionRef', int)
+BinaryenMemoryRef = NewType('BinaryenMemoryRef', int)
+BinaryenExportRef = NewType('BinaryenExportRef', int)
+BinaryenGlobalRef = NewType('BinaryenGlobalRef', int)
+BinaryenTagRef = NewType('BinaryenTagRef', int)
+BinaryenTableRef = NewType('BinaryenTableRef', int)
+BinaryenElementSegmentRef = NewType('BinaryenElementSegmentRef', int)
 BinaryenBufferSizes = Any  # struct
-BinaryenModuleAllocateAndWriteResult = Any  # struct
-BinaryenSideEffects = int
-RelooperRef = int
-RelooperBlockRef = int
-ExpressionRunnerRef = int
-ExpressionRunnerFlags = int
-TypeBuilderRef = int
-TypeBuilderErrorReason = int
-BinaryenBasicHeapType = int
+BinaryenSideEffects = NewType('BinaryenSideEffects', int)
+RelooperRef = NewType('RelooperRef', int)
+RelooperBlockRef = NewType('RelooperBlockRef', int)
+ExpressionRunnerRef = NewType('ExpressionRunnerRef', int)
+ExpressionRunnerFlags = NewType('ExpressionRunnerFlags', int)
+TypeBuilderRef = NewType('TypeBuilderRef', int)
+TypeBuilderErrorReason = NewType('TypeBuilderErrorReason', int)
+BinaryenBasicHeapType = NewType('BinaryenBasicHeapType', int)
+
+
+@dataclass
+class BinaryenModuleAllocateAndWriteResult:
+    binary: bytes
+    source_map: str
 
 
 def TypeNone() -> BinaryenType:
@@ -10939,7 +10945,7 @@ def SetMemory(
     segment_sizes: List[BinaryenIndex],
     shared: bool,
     memory64: bool,
-    name: str,
+    name: Optional[str],
 ) -> None:
     """
     This will create a memory, overwriting any existing memory
@@ -11584,7 +11590,11 @@ def ModuleAllocateAndWrite(
     appropriate buffers using malloc(), and expects the user to free() them
     manually once not needed anymore.
     """
-    return lib.BinaryenModuleAllocateAndWrite(module, _enc(source_map_url))
+    ret = lib.BinaryenModuleAllocateAndWrite(module, _enc(source_map_url))
+    return BinaryenModuleAllocateAndWriteResult(
+        binary=ffi.buffer(ret.binary, ret.binaryBytes),
+        source_map=_dec(ret.sourceMap),
+    )
 
 
 BinaryenModuleAllocateAndWrite = ModuleAllocateAndWrite
