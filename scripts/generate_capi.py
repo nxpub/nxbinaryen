@@ -252,7 +252,7 @@ class PyTypesWriter(PyWriter):
             if ParamFlag.Struct in flag:
                 self._render_struct(node.type)
             else:
-                self.emit(f'{node.name} = {py_type}')
+                self.emit(f'{node.name} = NewType(\'{node.name}\', {py_type})')
 
 
 def enforce_empty_lines(fp, header_path: Path) -> None:
