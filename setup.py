@@ -10,7 +10,12 @@ setup(
     license_files=('LICENSE',),
     zip_safe=False,
     include_package_data=True,
-    packages=find_packages('nxbinaryen', '*'),
+    packages=[
+        'nxbinaryen',
+        'nxbinaryen.capi',
+        'nxbinaryen.enums',
+        'tests'
+    ],
     use_scm_version={
         'root': './binaryen',
         'tag_regex': r'^version_(?P<version>\d{3})$',

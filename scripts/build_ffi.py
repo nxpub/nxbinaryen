@@ -14,7 +14,7 @@ ffi.set_source(
     libraries=['binaryen', 'stdc++'],
     # To make a static library libbinaryen.a
     # cmake . -DBUILD_STATIC_LIB=1 -DBUILD_TESTS=0 -DBUILD_TOOLS=0
-    # cmake --build . -j XX
+    # cmake --build . -j`nproc`
     library_dirs=[str(BINARYEN_ROOT / 'lib')],
     include_dirs=[str(BINARYEN_ROOT), str(BINARYEN_ROOT / 'src')],
 )
