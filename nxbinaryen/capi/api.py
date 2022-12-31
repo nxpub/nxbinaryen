@@ -1364,7 +1364,7 @@ BinaryenLiteralFloat64 = LiteralFloat64
 
 
 def LiteralVec128(
-    x: List[int],
+    x: bytes,
 ) -> BinaryenLiteral:
     return lib.BinaryenLiteralVec128(x)
 
