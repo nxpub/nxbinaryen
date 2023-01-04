@@ -21,3 +21,10 @@ def free(*args, **kwargs):
 
 def sizeof(*args, **kwargs):
     raise NotImplementedError
+
+
+def strcmp(str1: str, str2: str) -> int:
+    if str1 == str2:
+        return 0
+    # TODO: Do we want to emulate this?
+    return -1
