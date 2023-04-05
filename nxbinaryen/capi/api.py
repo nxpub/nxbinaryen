@@ -119,11 +119,11 @@ def TypeI31ref() -> BinaryenType:
 BinaryenTypeI31ref = TypeI31ref
 
 
-def TypeDataref() -> BinaryenType:
-    return lib.BinaryenTypeDataref()
+def TypeStructref() -> BinaryenType:
+    return lib.BinaryenTypeStructref()
 
 
-BinaryenTypeDataref = TypeDataref
+BinaryenTypeStructref = TypeStructref
 
 
 def TypeArrayref() -> BinaryenType:
@@ -286,11 +286,11 @@ def HeapTypeI31() -> BinaryenHeapType:
 BinaryenHeapTypeI31 = HeapTypeI31
 
 
-def HeapTypeData() -> BinaryenHeapType:
-    return lib.BinaryenHeapTypeData()
+def HeapTypeStruct() -> BinaryenHeapType:
+    return lib.BinaryenHeapTypeStruct()
 
 
-BinaryenHeapTypeData = HeapTypeData
+BinaryenHeapTypeStruct = HeapTypeStruct
 
 
 def HeapTypeArray() -> BinaryenHeapType:
@@ -523,13 +523,6 @@ def TypeFromHeapType(
 
 
 BinaryenTypeFromHeapType = TypeFromHeapType
-
-
-# def TypeSystemEquirecursive() -> BinaryenTypeSystem:
-#     return lib.BinaryenTypeSystemEquirecursive()
-#
-#
-# BinaryenTypeSystemEquirecursive = TypeSystemEquirecursive
 
 
 def TypeSystemNominal() -> BinaryenTypeSystem:
@@ -856,11 +849,11 @@ def RefNullId() -> BinaryenExpressionId:
 BinaryenRefNullId = RefNullId
 
 
-def RefIsId() -> BinaryenExpressionId:
-    return lib.BinaryenRefIsId()
+def RefIsNullId() -> BinaryenExpressionId:
+    return lib.BinaryenRefIsNullId()
 
 
-BinaryenRefIsId = RefIsId
+BinaryenRefIsNullId = RefIsNullId
 
 
 def RefFuncId() -> BinaryenExpressionId:
@@ -1017,11 +1010,11 @@ def ArrayNewSegId() -> BinaryenExpressionId:
 BinaryenArrayNewSegId = ArrayNewSegId
 
 
-def ArrayInitId() -> BinaryenExpressionId:
-    return lib.BinaryenArrayInitId()
+def ArrayNewFixedId() -> BinaryenExpressionId:
+    return lib.BinaryenArrayNewFixedId()
 
 
-BinaryenArrayInitId = ArrayInitId
+BinaryenArrayNewFixedId = ArrayNewFixedId
 
 
 def ArrayGetId() -> BinaryenExpressionId:
@@ -2902,6 +2895,69 @@ def BitselectVec128() -> BinaryenOp:
 BinaryenBitselectVec128 = BitselectVec128
 
 
+def RelaxedFmaVecF32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedFmaVecF32x4()
+
+
+BinaryenRelaxedFmaVecF32x4 = RelaxedFmaVecF32x4
+
+
+def RelaxedFmsVecF32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedFmsVecF32x4()
+
+
+BinaryenRelaxedFmsVecF32x4 = RelaxedFmsVecF32x4
+
+
+def RelaxedFmaVecF64x2() -> BinaryenOp:
+    return lib.BinaryenRelaxedFmaVecF64x2()
+
+
+BinaryenRelaxedFmaVecF64x2 = RelaxedFmaVecF64x2
+
+
+def RelaxedFmsVecF64x2() -> BinaryenOp:
+    return lib.BinaryenRelaxedFmsVecF64x2()
+
+
+BinaryenRelaxedFmsVecF64x2 = RelaxedFmsVecF64x2
+
+
+def LaneselectI8x16() -> BinaryenOp:
+    return lib.BinaryenLaneselectI8x16()
+
+
+BinaryenLaneselectI8x16 = LaneselectI8x16
+
+
+def LaneselectI16x8() -> BinaryenOp:
+    return lib.BinaryenLaneselectI16x8()
+
+
+BinaryenLaneselectI16x8 = LaneselectI16x8
+
+
+def LaneselectI32x4() -> BinaryenOp:
+    return lib.BinaryenLaneselectI32x4()
+
+
+BinaryenLaneselectI32x4 = LaneselectI32x4
+
+
+def LaneselectI64x2() -> BinaryenOp:
+    return lib.BinaryenLaneselectI64x2()
+
+
+BinaryenLaneselectI64x2 = LaneselectI64x2
+
+
+def DotI8x16I7x16AddSToVecI32x4() -> BinaryenOp:
+    return lib.BinaryenDotI8x16I7x16AddSToVecI32x4()
+
+
+BinaryenDotI8x16I7x16AddSToVecI32x4 = DotI8x16I7x16AddSToVecI32x4
+
+
 def AnyTrueVec128() -> BinaryenOp:
     return lib.BinaryenAnyTrueVec128()
 
@@ -4001,6 +4057,34 @@ def PromoteLowVecF32x4ToVecF64x2() -> BinaryenOp:
 BinaryenPromoteLowVecF32x4ToVecF64x2 = PromoteLowVecF32x4ToVecF64x2
 
 
+def RelaxedTruncSVecF32x4ToVecI32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedTruncSVecF32x4ToVecI32x4()
+
+
+BinaryenRelaxedTruncSVecF32x4ToVecI32x4 = RelaxedTruncSVecF32x4ToVecI32x4
+
+
+def RelaxedTruncUVecF32x4ToVecI32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedTruncUVecF32x4ToVecI32x4()
+
+
+BinaryenRelaxedTruncUVecF32x4ToVecI32x4 = RelaxedTruncUVecF32x4ToVecI32x4
+
+
+def RelaxedTruncZeroSVecF64x2ToVecI32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedTruncZeroSVecF64x2ToVecI32x4()
+
+
+BinaryenRelaxedTruncZeroSVecF64x2ToVecI32x4 = RelaxedTruncZeroSVecF64x2ToVecI32x4
+
+
+def RelaxedTruncZeroUVecF64x2ToVecI32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedTruncZeroUVecF64x2ToVecI32x4()
+
+
+BinaryenRelaxedTruncZeroUVecF64x2ToVecI32x4 = RelaxedTruncZeroUVecF64x2ToVecI32x4
+
+
 def SwizzleVecI8x16() -> BinaryenOp:
     return lib.BinaryenSwizzleVecI8x16()
 
@@ -4008,32 +4092,53 @@ def SwizzleVecI8x16() -> BinaryenOp:
 BinaryenSwizzleVecI8x16 = SwizzleVecI8x16
 
 
-def RefIsNull() -> BinaryenOp:
-    return lib.BinaryenRefIsNull()
+def RelaxedSwizzleVecI8x16() -> BinaryenOp:
+    return lib.BinaryenRelaxedSwizzleVecI8x16()
 
 
-BinaryenRefIsNull = RefIsNull
+BinaryenRelaxedSwizzleVecI8x16 = RelaxedSwizzleVecI8x16
 
 
-def RefIsFunc() -> BinaryenOp:
-    return lib.BinaryenRefIsFunc()
+def RelaxedMinVecF32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedMinVecF32x4()
 
 
-BinaryenRefIsFunc = RefIsFunc
+BinaryenRelaxedMinVecF32x4 = RelaxedMinVecF32x4
 
 
-def RefIsData() -> BinaryenOp:
-    return lib.BinaryenRefIsData()
+def RelaxedMaxVecF32x4() -> BinaryenOp:
+    return lib.BinaryenRelaxedMaxVecF32x4()
 
 
-BinaryenRefIsData = RefIsData
+BinaryenRelaxedMaxVecF32x4 = RelaxedMaxVecF32x4
 
 
-def RefIsI31() -> BinaryenOp:
-    return lib.BinaryenRefIsI31()
+def RelaxedMinVecF64x2() -> BinaryenOp:
+    return lib.BinaryenRelaxedMinVecF64x2()
 
 
-BinaryenRefIsI31 = RefIsI31
+BinaryenRelaxedMinVecF64x2 = RelaxedMinVecF64x2
+
+
+def RelaxedMaxVecF64x2() -> BinaryenOp:
+    return lib.BinaryenRelaxedMaxVecF64x2()
+
+
+BinaryenRelaxedMaxVecF64x2 = RelaxedMaxVecF64x2
+
+
+def RelaxedQ15MulrSVecI16x8() -> BinaryenOp:
+    return lib.BinaryenRelaxedQ15MulrSVecI16x8()
+
+
+BinaryenRelaxedQ15MulrSVecI16x8 = RelaxedQ15MulrSVecI16x8
+
+
+def DotI8x16I7x16SToVecI16x8() -> BinaryenOp:
+    return lib.BinaryenDotI8x16I7x16SToVecI16x8()
+
+
+BinaryenDotI8x16I7x16SToVecI16x8 = DotI8x16I7x16SToVecI16x8
 
 
 def RefAsNonNull() -> BinaryenOp:
@@ -4041,27 +4146,6 @@ def RefAsNonNull() -> BinaryenOp:
 
 
 BinaryenRefAsNonNull = RefAsNonNull
-
-
-def RefAsFunc() -> BinaryenOp:
-    return lib.BinaryenRefAsFunc()
-
-
-BinaryenRefAsFunc = RefAsFunc
-
-
-def RefAsData() -> BinaryenOp:
-    return lib.BinaryenRefAsData()
-
-
-BinaryenRefAsData = RefAsData
-
-
-def RefAsI31() -> BinaryenOp:
-    return lib.BinaryenRefAsI31()
-
-
-BinaryenRefAsI31 = RefAsI31
 
 
 def RefAsExternInternalize() -> BinaryenOp:
@@ -4104,48 +4188,6 @@ def BrOnCastFail() -> BinaryenOp:
 
 
 BinaryenBrOnCastFail = BrOnCastFail
-
-
-def BrOnFunc() -> BinaryenOp:
-    return lib.BinaryenBrOnFunc()
-
-
-BinaryenBrOnFunc = BrOnFunc
-
-
-def BrOnNonFunc() -> BinaryenOp:
-    return lib.BinaryenBrOnNonFunc()
-
-
-BinaryenBrOnNonFunc = BrOnNonFunc
-
-
-def BrOnData() -> BinaryenOp:
-    return lib.BinaryenBrOnData()
-
-
-BinaryenBrOnData = BrOnData
-
-
-def BrOnNonData() -> BinaryenOp:
-    return lib.BinaryenBrOnNonData()
-
-
-BinaryenBrOnNonData = BrOnNonData
-
-
-def BrOnI31() -> BinaryenOp:
-    return lib.BinaryenBrOnI31()
-
-
-BinaryenBrOnI31 = BrOnI31
-
-
-def BrOnNonI31() -> BinaryenOp:
-    return lib.BinaryenBrOnNonI31()
-
-
-BinaryenBrOnNonI31 = BrOnNonI31
 
 
 def StringNewUTF8() -> BinaryenOp:
@@ -4202,6 +4244,13 @@ def StringNewWTF16Array() -> BinaryenOp:
 
 
 BinaryenStringNewWTF16Array = StringNewWTF16Array
+
+
+def StringNewFromCodePoint() -> BinaryenOp:
+    return lib.BinaryenStringNewFromCodePoint()
+
+
+BinaryenStringNewFromCodePoint = StringNewFromCodePoint
 
 
 def StringMeasureUTF8() -> BinaryenOp:
@@ -4330,6 +4379,20 @@ def StringSliceWTF16() -> BinaryenOp:
 BinaryenStringSliceWTF16 = StringSliceWTF16
 
 
+def StringEqEqual() -> BinaryenOp:
+    return lib.BinaryenStringEqEqual()
+
+
+BinaryenStringEqEqual = StringEqEqual
+
+
+def StringEqCompare() -> BinaryenOp:
+    return lib.BinaryenStringEqCompare()
+
+
+BinaryenStringEqCompare = StringEqCompare
+
+
 def Block(
     module: BinaryenModuleRef,
     name: Optional[str],
@@ -4425,9 +4488,7 @@ def CallIndirect(
     params: BinaryenType,
     results: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenCallIndirect(
-        module, _enc(table), target, _opt_seq(operands), _len(operands), params, results
-    )
+    return lib.BinaryenCallIndirect(module, _enc(table), target, _opt_seq(operands), _len(operands), params, results)
 
 
 BinaryenCallIndirect = CallIndirect
@@ -4870,13 +4931,13 @@ BinaryenSIMDLoadStoreLane = SIMDLoadStoreLane
 
 def MemoryInit(
     module: BinaryenModuleRef,
-    segment: int,
+    segment: str,
     dest: BinaryenExpressionRef,
     offset: BinaryenExpressionRef,
     size: BinaryenExpressionRef,
     memory_name: str,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenMemoryInit(module, segment, dest, offset, size, _enc(memory_name))
+    return lib.BinaryenMemoryInit(module, _enc(segment), dest, offset, size, _enc(memory_name))
 
 
 BinaryenMemoryInit = MemoryInit
@@ -4884,9 +4945,9 @@ BinaryenMemoryInit = MemoryInit
 
 def DataDrop(
     module: BinaryenModuleRef,
-    segment: int,
+    segment: str,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenDataDrop(module, segment)
+    return lib.BinaryenDataDrop(module, _enc(segment))
 
 
 BinaryenDataDrop = DataDrop
@@ -4929,15 +4990,14 @@ def RefNull(
 BinaryenRefNull = RefNull
 
 
-def RefIs(
+def RefIsNull(
     module: BinaryenModuleRef,
-    op: BinaryenOp,
     value: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenRefIs(module, op, value)
+    return lib.BinaryenRefIsNull(module, value)
 
 
-BinaryenRefIs = RefIs
+BinaryenRefIsNull = RefIsNull
 
 
 def RefAs(
@@ -5028,10 +5088,7 @@ def Try(
     delegate_target: Optional[str],
 ) -> BinaryenExpressionRef:
     """ Try: name can be NULL. delegateTarget should be NULL in try-catch. """
-    return lib.BinaryenTry(
-        module, _enc(name), body, _enc_seq(catch_tags), _len(catch_tags),
-        catch_bodies, _len(catch_bodies), _enc(delegate_target)
-    )
+    return lib.BinaryenTry(module, _enc(name), body, _enc_seq(catch_tags), _len(catch_tags), catch_bodies, _len(catch_bodies), _enc(delegate_target))
 
 
 BinaryenTry = Try
@@ -5150,9 +5207,9 @@ def BrOn(
     op: BinaryenOp,
     name: str,
     ref: BinaryenExpressionRef,
-    intended_type: BinaryenHeapType,
+    cast_type: BinaryenType,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenBrOn(module, op, _enc(name), ref, intended_type)
+    return lib.BinaryenBrOn(module, op, _enc(name), ref, cast_type)
 
 
 BinaryenBrOn = BrOn
@@ -5206,15 +5263,15 @@ def ArrayNew(
 BinaryenArrayNew = ArrayNew
 
 
-def ArrayInit(
+def ArrayNewFixed(
     module: BinaryenModuleRef,
     _type: BinaryenHeapType,
     values: List[BinaryenExpressionRef],
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenArrayInit(module, _type, values, _len(values))
+    return lib.BinaryenArrayNewFixed(module, _type, values, _len(values))
 
 
-BinaryenArrayInit = ArrayInit
+BinaryenArrayNewFixed = ArrayNewFixed
 
 
 def ArrayGet(
@@ -5273,8 +5330,9 @@ def StringNew(
     length: Optional[BinaryenExpressionRef],
     start: Optional[BinaryenExpressionRef],
     end: Optional[BinaryenExpressionRef],
+    try_: bool,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenStringNew(module, op, ptr, _opt(length), _opt(start), _opt(end))
+    return lib.BinaryenStringNew(module, op, ptr, _opt(length), _opt(start), _opt(end), try_)
 
 
 BinaryenStringNew = StringNew
@@ -5327,10 +5385,11 @@ BinaryenStringConcat = StringConcat
 
 def StringEq(
     module: BinaryenModuleRef,
+    op: BinaryenOp,
     left: BinaryenExpressionRef,
     right: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenStringEq(module, left, right)
+    return lib.BinaryenStringEq(module, op, left, right)
 
 
 BinaryenStringEq = StringEq
@@ -8166,12 +8225,12 @@ BinaryenSIMDLoadStoreLaneIsStore = SIMDLoadStoreLaneIsStore
 
 def MemoryInitGetSegment(
     expr: BinaryenExpressionRef,
-) -> int:
+) -> str:
     """
     Gets the index of the segment being initialized by a `memory.init`
     expression.
     """
-    return lib.BinaryenMemoryInitGetSegment(expr)
+    return _dec(lib.BinaryenMemoryInitGetSegment(expr))
 
 
 BinaryenMemoryInitGetSegment = MemoryInitGetSegment
@@ -8179,13 +8238,13 @@ BinaryenMemoryInitGetSegment = MemoryInitGetSegment
 
 def MemoryInitSetSegment(
     expr: BinaryenExpressionRef,
-    segment_index: int,
+    segment: str,
 ) -> None:
     """
     Sets the index of the segment being initialized by a `memory.init`
     expression.
     """
-    lib.BinaryenMemoryInitSetSegment(expr, segment_index)
+    lib.BinaryenMemoryInitSetSegment(expr, _enc(segment))
 
 
 BinaryenMemoryInitSetSegment = MemoryInitSetSegment
@@ -8256,9 +8315,9 @@ BinaryenMemoryInitSetSize = MemoryInitSetSize
 
 def DataDropGetSegment(
     expr: BinaryenExpressionRef,
-) -> int:
+) -> str:
     """ Gets the index of the segment being dropped by a `data.drop` expression. """
-    return lib.BinaryenDataDropGetSegment(expr)
+    return _dec(lib.BinaryenDataDropGetSegment(expr))
 
 
 BinaryenDataDropGetSegment = DataDropGetSegment
@@ -8266,10 +8325,10 @@ BinaryenDataDropGetSegment = DataDropGetSegment
 
 def DataDropSetSegment(
     expr: BinaryenExpressionRef,
-    segment_index: int,
+    segment: str,
 ) -> None:
     """ Sets the index of the segment being dropped by a `data.drop` expression. """
-    lib.BinaryenDataDropSetSegment(expr, segment_index)
+    lib.BinaryenDataDropSetSegment(expr, _enc(segment))
 
 
 BinaryenDataDropSetSegment = DataDropSetSegment
@@ -8413,46 +8472,24 @@ def MemoryFillSetSize(
 BinaryenMemoryFillSetSize = MemoryFillSetSize
 
 
-def RefIsGetOp(
-    expr: BinaryenExpressionRef,
-) -> BinaryenOp:
-    """ Gets the operation performed by a `ref.is_*` expression. """
-    return lib.BinaryenRefIsGetOp(expr)
-
-
-BinaryenRefIsGetOp = RefIsGetOp
-
-
-def RefIsSetOp(
-    expr: BinaryenExpressionRef,
-    op: BinaryenOp,
-) -> None:
-    """ Sets the operation performed by a `ref.is_*` expression. """
-    lib.BinaryenRefIsSetOp(expr, op)
-
-
-BinaryenRefIsSetOp = RefIsSetOp
-
-
-def RefIsGetValue(
+def RefIsNullGetValue(
     expr: BinaryenExpressionRef,
 ) -> BinaryenExpressionRef:
-    """ Gets the value expression tested by a `ref.is_*` expression. """
-    return lib.BinaryenRefIsGetValue(expr)
+    return lib.BinaryenRefIsNullGetValue(expr)
 
 
-BinaryenRefIsGetValue = RefIsGetValue
+BinaryenRefIsNullGetValue = RefIsNullGetValue
 
 
-def RefIsSetValue(
+def RefIsNullSetValue(
     expr: BinaryenExpressionRef,
     value_expr: BinaryenExpressionRef,
 ) -> None:
-    """ Sets the value expression tested by a `ref.is_*` expression. """
-    lib.BinaryenRefIsSetValue(expr, value_expr)
+    """ Sets the value expression tested by a `ref.is_null` expression. """
+    lib.BinaryenRefIsNullSetValue(expr, value_expr)
 
 
-BinaryenRefIsSetValue = RefIsSetValue
+BinaryenRefIsNullSetValue = RefIsNullSetValue
 
 
 def RefAsGetOp(
@@ -9220,7 +9257,7 @@ BinaryenRefTestSetRef = RefTestSetRef
 
 def RefTestGetCastType(
     expr: BinaryenExpressionRef,
-) -> BinaryenHeapType:
+) -> BinaryenType:
     return lib.BinaryenRefTestGetCastType(expr)
 
 
@@ -9229,7 +9266,7 @@ BinaryenRefTestGetCastType = RefTestGetCastType
 
 def RefTestSetCastType(
     expr: BinaryenExpressionRef,
-    intended_type: BinaryenHeapType,
+    intended_type: BinaryenType,
 ) -> None:
     lib.BinaryenRefTestSetCastType(expr, intended_type)
 
@@ -9254,25 +9291,6 @@ def RefCastSetRef(
 
 
 BinaryenRefCastSetRef = RefCastSetRef
-
-
-def RefCastGetIntendedType(
-    expr: BinaryenExpressionRef,
-) -> BinaryenHeapType:
-    return lib.BinaryenRefCastGetIntendedType(expr)
-
-
-BinaryenRefCastGetIntendedType = RefCastGetIntendedType
-
-
-def RefCastSetIntendedType(
-    expr: BinaryenExpressionRef,
-    intended_type: BinaryenHeapType,
-) -> None:
-    lib.BinaryenRefCastSetIntendedType(expr, intended_type)
-
-
-BinaryenRefCastSetIntendedType = RefCastSetIntendedType
 
 
 def BrOnGetOp(
@@ -9332,23 +9350,23 @@ def BrOnSetRef(
 BinaryenBrOnSetRef = BrOnSetRef
 
 
-def BrOnGetIntendedType(
+def BrOnGetCastType(
     expr: BinaryenExpressionRef,
-) -> BinaryenHeapType:
-    return lib.BinaryenBrOnGetIntendedType(expr)
+) -> BinaryenType:
+    return lib.BinaryenBrOnGetCastType(expr)
 
 
-BinaryenBrOnGetIntendedType = BrOnGetIntendedType
+BinaryenBrOnGetCastType = BrOnGetCastType
 
 
-def BrOnSetIntendedType(
+def BrOnSetCastType(
     expr: BinaryenExpressionRef,
-    intended_type: BinaryenHeapType,
+    cast_type: BinaryenType,
 ) -> None:
-    lib.BinaryenBrOnSetIntendedType(expr, intended_type)
+    lib.BinaryenBrOnSetCastType(expr, cast_type)
 
 
-BinaryenBrOnSetIntendedType = BrOnSetIntendedType
+BinaryenBrOnSetCastType = BrOnSetCastType
 
 
 def StructNewGetNumOperands(
@@ -9564,65 +9582,65 @@ def ArrayNewSetSize(
 BinaryenArrayNewSetSize = ArrayNewSetSize
 
 
-def ArrayInitGetNumValues(
+def ArrayNewFixedGetNumValues(
     expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    return lib.BinaryenArrayInitGetNumValues(expr)
+    return lib.BinaryenArrayNewFixedGetNumValues(expr)
 
 
-BinaryenArrayInitGetNumValues = ArrayInitGetNumValues
+BinaryenArrayNewFixedGetNumValues = ArrayNewFixedGetNumValues
 
 
-def ArrayInitGetValueAt(
+def ArrayNewFixedGetValueAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenArrayInitGetValueAt(expr, index)
+    return lib.BinaryenArrayNewFixedGetValueAt(expr, index)
 
 
-BinaryenArrayInitGetValueAt = ArrayInitGetValueAt
+BinaryenArrayNewFixedGetValueAt = ArrayNewFixedGetValueAt
 
 
-def ArrayInitSetValueAt(
+def ArrayNewFixedSetValueAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
     value_expr: BinaryenExpressionRef,
 ) -> None:
-    lib.BinaryenArrayInitSetValueAt(expr, index, value_expr)
+    lib.BinaryenArrayNewFixedSetValueAt(expr, index, value_expr)
 
 
-BinaryenArrayInitSetValueAt = ArrayInitSetValueAt
+BinaryenArrayNewFixedSetValueAt = ArrayNewFixedSetValueAt
 
 
-def ArrayInitAppendValue(
+def ArrayNewFixedAppendValue(
     expr: BinaryenExpressionRef,
     value_expr: BinaryenExpressionRef,
 ) -> BinaryenIndex:
-    return lib.BinaryenArrayInitAppendValue(expr, value_expr)
+    return lib.BinaryenArrayNewFixedAppendValue(expr, value_expr)
 
 
-BinaryenArrayInitAppendValue = ArrayInitAppendValue
+BinaryenArrayNewFixedAppendValue = ArrayNewFixedAppendValue
 
 
-def ArrayInitInsertValueAt(
+def ArrayNewFixedInsertValueAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
     value_expr: BinaryenExpressionRef,
 ) -> None:
-    lib.BinaryenArrayInitInsertValueAt(expr, index, value_expr)
+    lib.BinaryenArrayNewFixedInsertValueAt(expr, index, value_expr)
 
 
-BinaryenArrayInitInsertValueAt = ArrayInitInsertValueAt
+BinaryenArrayNewFixedInsertValueAt = ArrayNewFixedInsertValueAt
 
 
-def ArrayInitRemoveValueAt(
+def ArrayNewFixedRemoveValueAt(
     expr: BinaryenExpressionRef,
     index: BinaryenIndex,
 ) -> BinaryenExpressionRef:
-    return lib.BinaryenArrayInitRemoveValueAt(expr, index)
+    return lib.BinaryenArrayNewFixedRemoveValueAt(expr, index)
 
 
-BinaryenArrayInitRemoveValueAt = ArrayInitRemoveValueAt
+BinaryenArrayNewFixedRemoveValueAt = ArrayNewFixedRemoveValueAt
 
 
 def ArrayGetGetRef(
@@ -9948,6 +9966,25 @@ def StringNewSetEnd(
 BinaryenStringNewSetEnd = StringNewSetEnd
 
 
+def StringNewSetTry(
+    expr: BinaryenExpressionRef,
+    try_: bool,
+) -> None:
+    lib.BinaryenStringNewSetTry(expr, try_)
+
+
+BinaryenStringNewSetTry = StringNewSetTry
+
+
+def StringNewIsTry(
+    expr: BinaryenExpressionRef,
+) -> bool:
+    return lib.BinaryenStringNewIsTry(expr)
+
+
+BinaryenStringNewIsTry = StringNewIsTry
+
+
 def StringConstGetString(
     expr: BinaryenExpressionRef,
 ) -> str:
@@ -10117,6 +10154,25 @@ def StringConcatSetRight(
 
 
 BinaryenStringConcatSetRight = StringConcatSetRight
+
+
+def StringEqGetOp(
+    expr: BinaryenExpressionRef,
+) -> BinaryenOp:
+    return lib.BinaryenStringEqGetOp(expr)
+
+
+BinaryenStringEqGetOp = StringEqGetOp
+
+
+def StringEqSetOp(
+    expr: BinaryenExpressionRef,
+    op: BinaryenOp,
+) -> None:
+    lib.BinaryenStringEqSetOp(expr, op)
+
+
+BinaryenStringEqSetOp = StringEqSetOp
 
 
 def StringEqGetLeft(
@@ -10874,9 +10930,7 @@ def AddActiveElementSegment(
     func_names: List[str],
     offset: BinaryenExpressionRef,
 ) -> BinaryenElementSegmentRef:
-    return lib.BinaryenAddActiveElementSegment(
-        module, _enc(table), _enc(name), _enc_seq(func_names), _len(func_names), offset
-    )
+    return lib.BinaryenAddActiveElementSegment(module, _enc(table), _enc(name), _enc_seq(func_names), _len(func_names), offset)
 
 
 BinaryenAddActiveElementSegment = AddActiveElementSegment
@@ -10887,9 +10941,7 @@ def AddPassiveElementSegment(
     name: str,
     func_names: List[str],
 ) -> BinaryenElementSegmentRef:
-    return lib.BinaryenAddPassiveElementSegment(
-        module, _enc(name), _enc_seq(func_names), _len(func_names)
-    )
+    return lib.BinaryenAddPassiveElementSegment(module, _enc(name), _enc_seq(func_names), _len(func_names))
 
 
 BinaryenAddPassiveElementSegment = AddPassiveElementSegment
@@ -10941,7 +10993,7 @@ def SetMemory(
     export_name: Optional[str],
     segments: List[bytes],
     segment_passive: List[bool],
-    segment_offsets: List[BinaryenExpressionRef],
+    segment_offsets: List[Optional[BinaryenExpressionRef]],
     segment_sizes: List[BinaryenIndex],
     shared: bool,
     memory64: bool,
@@ -10952,10 +11004,7 @@ def SetMemory(
     Each memory has data in segments, a start offset in segmentOffsets, and a
     size in segmentSizes. exportName can be NULL
     """
-    lib.BinaryenSetMemory(
-        module, initial, maximum, _enc(export_name), _enc_seq(segments), segment_passive,
-        _opt_seq(segment_offsets), segment_sizes, _len(segment_sizes), shared, memory64, _enc(name)
-    )
+    lib.BinaryenSetMemory(module, initial, maximum, _enc(export_name), _enc_seq(segments), segment_passive, _opt_seq(segment_offsets), segment_sizes, _len(segment_sizes), shared, memory64, _enc(name))
 
 
 BinaryenSetMemory = SetMemory
@@ -12555,7 +12604,7 @@ def TypeBuilderSetArrayType(
     index: BinaryenIndex,
     element_type: BinaryenType,
     element_packed_type: BinaryenPackedType,
-    element_mutable: int,
+    element_mutable: bool,
 ) -> None:
     """ Sets the heap type at index `index` to a concrete array type. """
     lib.TypeBuilderSetArrayType(builder, index, element_type, element_packed_type, element_mutable)

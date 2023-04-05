@@ -13,8 +13,8 @@ __all__ = [
 class ExpressionId(IntEnum):
     ArrayCopy = lib.BinaryenArrayCopyId()
     ArrayGet = lib.BinaryenArrayGetId()
-    ArrayInit = lib.BinaryenArrayInitId()
     ArrayLen = lib.BinaryenArrayLenId()
+    ArrayNewFixed = lib.BinaryenArrayNewFixedId()
     ArrayNew = lib.BinaryenArrayNewId()
     ArrayNewSeg = lib.BinaryenArrayNewSegId()
     ArraySet = lib.BinaryenArraySetId()
@@ -54,7 +54,7 @@ class ExpressionId(IntEnum):
     RefCast = lib.BinaryenRefCastId()
     RefEq = lib.BinaryenRefEqId()
     RefFunc = lib.BinaryenRefFuncId()
-    RefIs = lib.BinaryenRefIsId()
+    RefIsNull = lib.BinaryenRefIsNullId()
     RefNull = lib.BinaryenRefNullId()
     RefTest = lib.BinaryenRefTestId()
     Rethrow = lib.BinaryenRethrowId()
