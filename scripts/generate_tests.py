@@ -81,6 +81,16 @@ class PythonConverter:
         # return source[begin_match.span()[1]:end_match.span()[0]]
         return source
 
+    RE_ECL_CAST = re.compile(r'\(\w+?\[(?P<dim>\d+)\]\)\{\}')
+
+    # https://github.com/eliben/pycparser/issues/503
+    def _fix_empty_compound_literal_cast(self, line: str) -> str:
+        for match in self.RE_ECL_CAST.finditer(line):
+            dim = int(match.groupdict()['dim'])
+            _, e_pos = match.span()
+            line = line[:e_pos - 1] + ', '.join('0' * dim) + line[e_pos - 1:]
+        return line
+
     def apply_fixes(self, fp, header_path: Path) -> None:
         for macro_src, macro_dst in {
             # https://github.com/eliben/pycparser/wiki/FAQ#what-do-i-do-about-__attribute__
@@ -104,6 +114,8 @@ class PythonConverter:
                     # https://github.com/eliben/pycparser/issues/484
                     if clean.endswith(':') and lines[idx + 1].strip() == '}':
                         line = f'{line};'
+                    # https://github.com/eliben/pycparser/issues/503
+                    line = self._fix_empty_compound_literal_cast(line)
                     fp.write(line + '\n')
         fp.flush()
 
@@ -159,11 +171,24 @@ class PythonConverter:
         tree = ast.parse(content)
 
         def fix_type(obj, t_type) -> [bool, typing.Any]:
-            if typing.get_origin(t_type) is typing.Union:
-                for sub_type in typing.get_args(t_type):
+            if (origin := typing.get_origin(t_type)) is typing.Union:
+                t_args = typing.get_args(t_type)
+                if obj == 0 and type(None) in t_args:
+                    return True, None
+                for sub_type in t_args:
                     fixed, new_v = fix_type(obj, sub_type)
                     if fixed:
                         return fixed, new_v
+            elif origin is list:  # typing.List
+                if isinstance(obj, list):
+                    sub_type = typing.get_args(t_type)[0]
+                    new_obj = []
+                    for item in obj:
+                        fixed, new_v = fix_type(item, sub_type)
+                        if fixed:
+                            new_obj.append(new_v)
+                        else:
+                            new_obj.append(item)
             elif isinstance(t_type, typing.NewType):
                 return fix_type(obj, t_type.__supertype__)
             else:
@@ -178,7 +203,7 @@ class PythonConverter:
                         return True, False
                 try:
                     if isinstance(obj, t_type):
-                        return False, None
+                        return True, obj
                     print(f'Unknown case {obj} [{t_type}]')
                 except TypeError:
                     # This is the case for typing.List[...], for example, we just ignore
@@ -191,8 +216,10 @@ class PythonConverter:
                     # TODO: Check prefix just in case? Not necessary now
                     # First of all, we want to remove calculated params entirely
                     if params := c_params.get(func_name, None):
-                        for param_name, param_id in params.items():
-                            node.args.pop(param_id)
+                        offset = 0
+                        for param_id in sorted(params.values()):
+                            node.args.pop(param_id - offset)
+                            offset += 1
                     # Now we can do types test
                     for idx, (arg_name, arg_type) in enumerate(api_func.__annotations__.items()):
                         if arg_name == 'return':
@@ -202,7 +229,8 @@ class PythonConverter:
                             if fixed:
                                 # print(f'Mismatch({func_name}) {arg_name}={pair.value} [{arg_type}] -> {new_value}')
                                 pair.value = new_value
-                return node
+                    # TODO: We can try to support pair as ast.List to convert [1] -> [True] or [0, ...] to bytes([0, ...])
+                return self.generic_visit(node)
 
         tree = Transformer().visit(tree)
         return ast.unparse(tree)

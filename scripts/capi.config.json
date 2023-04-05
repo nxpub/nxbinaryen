@@ -12,26 +12,24 @@
       "BinaryenStringNew.start",
       "BinaryenStringNew.end",
       "BinaryenStringEncode.start",
+      "BinaryenSetMemory.name",
       "BinaryenAddFunction.varTypes",
       "RelooperAddBranch.condition",
       "RelooperAddBranchForSwitch.indexes",
       "RelooperAddBranchForSwitch.code"
     ],
-    "union_types": {
-      "BinaryenBlock.children": [
-        "BinaryenExpressionRef"
-      ],
-      "BinaryenSetMemory.segmentOffsets": [
-        "None"
-      ]
-    },
     "overriden_types": {
       "BinaryenSIMDShuffle.mask": "bytes",
-      "BinaryenModuleRead.input": "bytes"
+      "BinaryenModuleRead.input": "bytes",
+      "TypeBuilderSetArrayType.elementMutable": "bool"
     },
     "params": {
       "BinaryenSetMemory.segments": {
         "type": "List[bytes]"
+      },
+      "BinaryenSetMemory.segmentOffsets": {
+        "type": "List[Optional[BinaryenExpressionRef]]",
+        "flag": "Optional"
       }
     },
     "calculated_params": {
@@ -72,7 +70,7 @@
       "BinaryenStructNew": {
         "num_operands": 2
       },
-      "BinaryenArrayInit": {
+      "BinaryenArrayNewFixed": {
         "num_values": 3
       },
       "BinaryenAddFunction": {

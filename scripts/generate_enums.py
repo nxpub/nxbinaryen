@@ -1,11 +1,11 @@
 import re
+import importlib
 import inspect
 import keyword
 
 from pathlib import Path
-from importlib.machinery import SourceFileLoader
 
-from scripts.utils import load_config
+from scripts.utils import load_config, temp_sys_path
 
 
 def _lookup_enum_funcs(module, b_type):
@@ -40,7 +40,8 @@ def _make_item_name(b_name, name, b_type, rule) -> str:
 
 
 def generate_enums(capi_path: Path, output_path: Path, enums: list[dict]):
-    capi_module = SourceFileLoader('nxbinaryen.capi', str(capi_path)).load_module()
+    with temp_sys_path(capi_path.parent.parent):
+        capi_module = importlib.import_module('nxbinaryen.capi')
     init_source = []
     for enum in enums:
         module, name, base, b_type = enum['module'], enum['py_enum_name'], enum['base'], enum['binaryen_type']
@@ -67,7 +68,7 @@ def generate_enums(capi_path: Path, output_path: Path, enums: list[dict]):
 
 if __name__ == '__main__':
     generate_enums(
-        capi_path=Path('../nxbinaryen/capi.py').resolve(),
+        capi_path=Path('../nxbinaryen/capi/api.py').resolve(),
         output_path=Path('../nxbinaryen/enums').resolve(),
         enums=load_config()['enums']
     )

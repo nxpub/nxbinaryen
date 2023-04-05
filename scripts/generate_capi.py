@@ -188,7 +188,11 @@ class PyFunctionsWriter(PyWriter):
                     param_type, flag = to_python_type(param.type, ptr_as_list=True)
                     if overriden_type := self._overriden_types.get(param_path):
                         param_type, flag = overriden_type, ParamFlag.Ok
-                    param_type = param_meta.get('type', param_type)  # TODO: Keep only this way to override!
+                    # TODO: Keep only this way to override!
+                    param_type = param_meta.get('type', param_type)
+                    param_flag = param_meta.get('flag', None)
+                    if param_flag is not None:
+                        flag |= ParamFlag[param_flag]
                     if param.name in optional_params or param_path in self._optional_params:
                         flag |= ParamFlag.Optional
                         param_type = f'Optional[{param_type}]'

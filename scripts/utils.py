@@ -1,19 +1,22 @@
+import os
 import re
+import sys
 import json
 import keyword
 import subprocess
 
 from pathlib import Path
 from typing import Optional, List
+from contextlib import contextmanager
 
 __all__ = [
-    'preprocess_header', 'remove_comments', 'pythonize', 'load_config', 'save_config',
+    'preprocess_header', 'remove_comments', 'pythonize', 'load_config', 'save_config', 'temp_sys_path',
     'PY_LIBRARY_PATH', 'BINARYEN_ROOT', 'BINARYEN_C_HEADER_PATH',
 ]
 
 SCRIPTS_ROOT = Path(__file__).parent
 
-BINARYEN_ROOT = SCRIPTS_ROOT.parent / 'binaryen'
+BINARYEN_ROOT = Path(os.environ.get('BINARYEN_ROOT', SCRIPTS_ROOT.parent / 'binaryen'))
 BINARYEN_SRC_PATH = BINARYEN_ROOT / 'src'
 BINARYEN_C_HEADER_PATH = BINARYEN_SRC_PATH / 'binaryen-c.h'
 
@@ -84,3 +87,12 @@ def remove_comments(cdef: str) -> str:
             lines.append(line)
     assert len(cdef_lines) == len(lines)
     return '\n'.join(lines)
+
+
+@contextmanager
+def temp_sys_path(path: Path):
+    sys.path.append(s_path := str(path))
+    try:
+        yield
+    finally:
+        sys.path.remove(s_path)
