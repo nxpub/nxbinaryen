@@ -18,8 +18,12 @@
       "RelooperAddBranchForSwitch.code"
     ],
     "union_types": {
-      "BinaryenBlock.children": ["BinaryenExpressionRef"],
-      "BinaryenSetMemory.segmentOffsets": ["None"]
+      "BinaryenBlock.children": [
+        "BinaryenExpressionRef"
+      ],
+      "BinaryenSetMemory.segmentOffsets": [
+        "None"
+      ]
     },
     "overriden_types": {
       "BinaryenSIMDShuffle.mask": "bytes",
@@ -28,6 +32,75 @@
     "params": {
       "BinaryenSetMemory.segments": {
         "type": "List[bytes]"
+      }
+    },
+    "calculated_params": {
+      "BinaryenTypeCreate": {
+        "num_types": 1
+      },
+      "BinaryenBlock": {
+        "num_children": 3
+      },
+      "BinaryenSwitch": {
+        "num_names": 2
+      },
+      "BinaryenCall": {
+        "num_operands": 3
+      },
+      "BinaryenCallIndirect": {
+        "num_operands": 4
+      },
+      "BinaryenReturnCall": {
+        "num_operands": 3
+      },
+      "BinaryenReturnCallIndirect": {
+        "num_operands": 4
+      },
+      "BinaryenTry": {
+        "num_catch_tags": 4,
+        "num_catch_bodies": 6
+      },
+      "BinaryenThrow": {
+        "num_operands": 3
+      },
+      "BinaryenTupleMake": {
+        "num_operands": 2
+      },
+      "BinaryenCallRef": {
+        "num_operands": 3
+      },
+      "BinaryenStructNew": {
+        "num_operands": 2
+      },
+      "BinaryenArrayInit": {
+        "num_values": 3
+      },
+      "BinaryenAddFunction": {
+        "num_var_types": 5
+      },
+      "BinaryenAddActiveElementSegment": {
+        "num_func_names": 4
+      },
+      "BinaryenAddPassiveElementSegment": {
+        "num_func_names": 3
+      },
+      "BinaryenSetMemory": {
+        "num_segments": 8
+      },
+      "BinaryenModuleRunPasses": {
+        "num_passes": 2
+      },
+      "BinaryenFunctionRunPasses": {
+        "num_passes": 3
+      },
+      "RelooperAddBranchForSwitch": {
+        "num_indexes": 3
+      },
+      "TypeBuilderSetStructType": {
+        "num_fields": 5
+      },
+      "TypeBuilderGetTempTupleType": {
+        "num_types": 2
       }
     }
   },

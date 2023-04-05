@@ -8,14 +8,15 @@ from typing import Tuple, List, Optional
 from pycparser import c_ast, CParser
 
 from scripts.utils import (
-    preprocess_header, remove_comments, pythonize, load_config,
+    preprocess_header, remove_comments, pythonize, load_config, save_config,
     PY_LIBRARY_PATH, BINARYEN_C_HEADER_PATH
 )
 
 PY_PROLOGUE = [
     '# *** DO NOT EDIT ***',
     '# Auto-generated from binaryen-c.h',  # TODO: Versioning?
-    'from typing import List, Any, Optional, Tuple',
+    'from dataclasses import dataclass',
+    'from typing import List, Any, Optional, Tuple, NewType',
     '',
     'from nxbinaryen.binaryen import ffi, lib',
     'from nxbinaryen.capi.utils import *',
@@ -87,6 +88,7 @@ class PyFunctionsWriter(PyWriter):
         self._optional_params = set(config['optional_params'])
         self._overriden_types = config['overriden_types']
         self._params_config = config['params']
+        self._calculated_params = {}
 
     @staticmethod
     def _get_start_line(func_node) -> int:
@@ -197,6 +199,8 @@ class PyFunctionsWriter(PyWriter):
                     )
                     if not calculated_param:
                         self.emit(f'    {param_name}: {param_type},')
+                    else:
+                        self._calculated_params.setdefault(func_name, {})[param_name] = idx
                     params.append((param_name, flag if not calculated_param else ParamFlag.CalcLen))
                 # TODO: Some _render_proto here?
                 if optional_return:
@@ -309,7 +313,9 @@ def generate_capi(header_path: Path, output_path: Path) -> None:
         py_file.write('\n'.join(
             PY_PROLOGUE + type_writer.lines + func_writer.lines + ['']
         ))
+    config['api']['calculated_params'] = func_writer._calculated_params
+    save_config(config)
 
 
 if __name__ == '__main__':
-    generate_capi(BINARYEN_C_HEADER_PATH, PY_LIBRARY_PATH / 'capi.py')
+    generate_capi(BINARYEN_C_HEADER_PATH, PY_LIBRARY_PATH / 'capi/api.gen.py')
