@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Optional, List
 
 __all__ = [
-    'preprocess_header', 'remove_comments', 'pythonize', 'load_config',
+    'preprocess_header', 'remove_comments', 'pythonize', 'load_config', 'save_config',
     'PY_LIBRARY_PATH', 'BINARYEN_ROOT', 'BINARYEN_C_HEADER_PATH',
 ]
 
@@ -28,6 +28,11 @@ SHADOW_NAMES = {'type', 'bytes', 'id', 'max', 'input', 'tuple'}
 def load_config(config_path: Path = DEFAULT_CONFIG_PATH) -> dict:
     with open(config_path) as json_file:
         return json.load(json_file)
+
+
+def save_config(config_obj: dict, config_path: Path = DEFAULT_CONFIG_PATH) -> None:
+    with open(config_path, 'w') as json_file:
+        json.dump(config_obj, json_file)
 
 
 def to_snake_case(name: str) -> str:
