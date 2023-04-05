@@ -1,0 +1,5 @@
+pycparser
+pytest
+pytest-cov
+black
+nxbindgen
