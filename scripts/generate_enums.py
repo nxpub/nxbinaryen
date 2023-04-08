@@ -35,7 +35,7 @@ def _make_item_name(b_name, name, b_type, rule) -> str:
     elif b_name.startswith(name):
         item_name = b_name[len(name):]
     else:
-        raise NotImplementedError
+        item_name = b_name
     return _validate_item_name(item_name)
 
 
@@ -44,6 +44,7 @@ def generate_enums(capi_path: Path, output_path: Path, enums: list[dict]):
         capi_module = importlib.import_module('nxbinaryen.capi')
     init_source = []
     for enum in enums:
+        prefixed = enum.get('prefixed', True)
         module, name, base, b_type = enum['module'], enum['py_enum_name'], enum['base'], enum['binaryen_type']
         py_source = []
         init_source.append(f'from .{module} import {name}')
@@ -60,7 +61,7 @@ def generate_enums(capi_path: Path, output_path: Path, enums: list[dict]):
             py_source.append(f'class {name}({base}):')
             for func_name in _lookup_enum_funcs(capi_module, b_type):
                 item_name = _make_item_name(func_name, name, b_type, name_rule)
-                py_source.append(f'    {item_name} = lib.Binaryen{func_name}()')
+                py_source.append(f'    {item_name} = lib.{"Binaryen" if prefixed else ""}{func_name}()')
             py_file.write('\n'.join(py_source + ['']))
     with open(output_path / '__init__.py', 'w') as py_file:
         py_file.write('\n'.join(init_source + ['']))

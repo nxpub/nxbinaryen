@@ -134,6 +134,19 @@
       "binaryen_type": "BinaryenSideEffects",
       "py_enum_name": "SideEffect",
       "base": "IntFlag"
+    },
+    {
+      "module": "expression_runner_flags",
+      "binaryen_type": "ExpressionRunnerFlags",
+      "py_enum_name": "ExpressionRunnerFlag",
+      "base": "IntFlag",
+      "prefixed": false
+    },
+    {
+      "module": "operations",
+      "binaryen_type": "BinaryenOp",
+      "py_enum_name": "Operation",
+      "base": "IntEnum"
     }
   ]
 }
