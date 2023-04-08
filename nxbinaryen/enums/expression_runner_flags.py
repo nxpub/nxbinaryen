@@ -2,6 +2,7 @@
 # Auto-generated from binaryen-c.h
 from enum import IntFlag, unique
 
+from nxbinaryen.capi import ExpressionRunnerFlags
 from nxbinaryen.binaryen import lib
 
 __all__ = [
@@ -11,6 +12,6 @@ __all__ = [
 
 @unique
 class ExpressionRunnerFlag(IntFlag):
-    Default = lib.ExpressionRunnerFlagsDefault()
-    PreserveSideeffects = lib.ExpressionRunnerFlagsPreserveSideeffects()
-    TraverseCalls = lib.ExpressionRunnerFlagsTraverseCalls()
+    Default: ExpressionRunnerFlags = lib.ExpressionRunnerFlagsDefault()
+    PreserveSideeffects: ExpressionRunnerFlags = lib.ExpressionRunnerFlagsPreserveSideeffects()
+    TraverseCalls: ExpressionRunnerFlags = lib.ExpressionRunnerFlagsTraverseCalls()

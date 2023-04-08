@@ -1,4 +1,4 @@
-from .typings import Type
+from .basic_types import Type
 from .packed_types import PackedType
 from .expressions import ExpressionId
 from .external_kinds import ExternalKind
@@ -25,3 +25,4 @@ from .operations import (
     StringSliceWTFOp,
     UnaryOp,
 )
+from .heap_types import HeapType

@@ -2,6 +2,7 @@
 # Auto-generated from binaryen-c.h
 from enum import IntEnum, unique
 
+from nxbinaryen.capi import BinaryenTypeSystem
 from nxbinaryen.binaryen import lib
 
 __all__ = [
@@ -11,5 +12,5 @@ __all__ = [
 
 @unique
 class TypeSystem(IntEnum):
-    Isorecursive = lib.BinaryenTypeSystemIsorecursive()
-    Nominal = lib.BinaryenTypeSystemNominal()
+    Isorecursive: BinaryenTypeSystem = lib.BinaryenTypeSystemIsorecursive()
+    Nominal: BinaryenTypeSystem = lib.BinaryenTypeSystemNominal()

@@ -86,6 +86,7 @@ def generate_enums(capi_path: Path, output_path: Path, enums: list[dict]):
             py_source.append(f'# *** DO NOT EDIT ***')
             py_source.append(f'# Auto-generated from binaryen-c.h')  # TODO: Versioning?
             py_source.append(f'from enum import {base}, unique\n')
+            py_source.append(f'from nxbinaryen.capi import {b_type}')
             py_source.append(f'from nxbinaryen.binaryen import lib\n')
             py_source.append(f'__all__ = [')
             for enum_name in enum_names:
@@ -103,7 +104,7 @@ def generate_enums(capi_path: Path, output_path: Path, enums: list[dict]):
                     else:
                         item_name = _make_item_name(func_name, enum_name, b_type, name_rule)
                     if item_name:
-                        py_source.append(f'    {item_name} = lib.{"Binaryen" if prefixed else ""}{func_name}()')
+                        py_source.append(f'    {item_name}: {b_type} = lib.{"Binaryen" if prefixed else ""}{func_name}()')
                     else:
                         print(f'Ignored: {enum_name}.{func_name}')
             py_file.write('\n'.join(py_source + ['']))

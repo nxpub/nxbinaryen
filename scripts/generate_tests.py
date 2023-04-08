@@ -235,14 +235,16 @@ class PythonConverter:
         tree = Transformer().visit(tree)
         return ast.unparse(tree)
 
-    def render_py(self, path: Path, *, autoformat: bool = False) -> None:
+    def render_py(self, path: Path, *, autoformat: bool = False, fix_calls: bool = False) -> None:
         generator = CPyGenerator(keep_empty_declarations=False, type_hint_declarations=False, use_type_hints=True)
         with open(path, 'w') as py_file:
             if self._imports:
                 for imp in self._imports:
                     py_file.write(imp + '\n')
                 py_file.write('\n\n')
-            content = self._fix_calls(generator.visit(self._ast, parent=None))
+            content = generator.visit(self._ast, parent=None)
+            if fix_calls:
+                content = self._fix_calls(content)
             if autoformat:
                 content = black.format_file_contents(content, fast=False, mode=black.FileMode(
                     line_length=120,
@@ -280,4 +282,4 @@ if __name__ == '__main__':
         ]
     )
     # bc.render_c(OUTPUT_PATH / 'test_kitchen_sink.gen.c')
-    bc.render_py(OUTPUT_PATH / 'test_kitchen_sink.gen.py', autoformat=True)
+    bc.render_py(OUTPUT_PATH / 'test_kitchen_sink.gen.py', autoformat=True, fix_calls=True)

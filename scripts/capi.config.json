@@ -104,7 +104,7 @@
   },
   "enums": [
     {
-      "module": "typings",
+      "module": "basic_types",
       "binaryen_type": "BinaryenType",
       "py_enum_name": "Type",
       "base": "IntEnum"
@@ -157,6 +157,12 @@
       "module": "operations",
       "binaryen_type": "BinaryenOp",
       "py_enum_name": "src/wasm.h",
+      "base": "IntEnum"
+    },
+    {
+      "module": "heap_types",
+      "binaryen_type": "BinaryenHeapType",
+      "py_enum_name": "HeapType",
       "base": "IntEnum"
     }
   ]
