@@ -145,13 +145,18 @@
       "module": "expression_runner_flags",
       "binaryen_type": "ExpressionRunnerFlags",
       "py_enum_name": "ExpressionRunnerFlag",
-      "base": "IntFlag",
-      "prefixed": false
+      "base": "IntFlag"
+    },
+    {
+      "module": "type_system",
+      "binaryen_type": "BinaryenTypeSystem",
+      "py_enum_name": "TypeSystem",
+      "base": "IntEnum"
     },
     {
       "module": "operations",
       "binaryen_type": "BinaryenOp",
-      "py_enum_name": "Operation",
+      "py_enum_name": "src/wasm.h",
       "base": "IntEnum"
     }
   ]
