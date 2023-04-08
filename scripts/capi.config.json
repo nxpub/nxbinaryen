@@ -110,6 +110,12 @@
       "base": "IntEnum"
     },
     {
+      "module": "packed_types",
+      "binaryen_type": "BinaryenPackedType",
+      "py_enum_name": "PackedType",
+      "base": "IntEnum"
+    },
+    {
       "module": "expressions",
       "binaryen_type": "BinaryenExpressionId",
       "py_enum_name": "ExpressionId",

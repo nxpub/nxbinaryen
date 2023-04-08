@@ -1,4 +1,5 @@
 from .typings import Type
+from .packed_types import PackedType
 from .expressions import ExpressionId
 from .external_kinds import ExternalKind
 from .features import Feature
